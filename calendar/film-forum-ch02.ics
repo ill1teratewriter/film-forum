@@ -7,16 +7,16 @@ X-WR-CALNAME:Film Forum · Chapter 2
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch2@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T190800Z
+DTSTAMP:20260923T203700Z
 DTSTART:20260928T010000Z
 DTEND:20260928T020000Z
 SUMMARY:Film Forum · Chapter 2 · Ticking Clock
-LOCATION:https://illiterate-film-forum.netlify.app/chapter-2/
+LOCATION:https://meet.google.com/caw-wosy-mvn
 URL:https://illiterate-film-forum.netlify.app/chapter-2/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 2\, Ticking Clo
  ck. We watch\, then we talk it through. The field guide\, both roads and
   the paper editions are at https://illiterate-film-forum.netlify.app/cha
- pter-2/\nThe room link goes out by email before the call.
+ pter-2/\nJoin: https://meet.google.com/caw-wosy-mvn
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY

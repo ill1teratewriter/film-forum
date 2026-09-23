@@ -122,3 +122,7 @@ writeFileSync(join(out, 'film-forum-season.ics'),
 
 console.log(`calendar: ${chapters.length} chapters + the season file`);
 console.log(`room link: ${forumUrl || '(none yet — invitations point at the chapter page)'}`);
+
+/* The ballot table is built here too, so one build command does both jobs and
+   the two can never be deployed out of step with each other. */
+await import('./build-ballots.mjs');

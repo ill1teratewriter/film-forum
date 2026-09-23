@@ -7,16 +7,16 @@ X-WR-CALNAME:Film Forum · Chapter 8
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch8@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T190800Z
+DTSTAMP:20260923T203700Z
 DTSTART:20261221T020000Z
 DTEND:20261221T030000Z
 SUMMARY:Film Forum · Chapter 8 · Real Tears
-LOCATION:https://illiterate-film-forum.netlify.app/chapter-8/
+LOCATION:https://meet.google.com/caw-wosy-mvn
 URL:https://illiterate-film-forum.netlify.app/chapter-8/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 8\, Real Tears.
   We watch\, then we talk it through. The field guide\, both roads and th
  e paper editions are at https://illiterate-film-forum.netlify.app/chapte
- r-8/\nThe room link goes out by email before the call.
+ r-8/\nJoin: https://meet.google.com/caw-wosy-mvn
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY

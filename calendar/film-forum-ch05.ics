@@ -7,16 +7,16 @@ X-WR-CALNAME:Film Forum · Chapter 5
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch5@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T190800Z
+DTSTAMP:20260923T203700Z
 DTSTART:20261109T020000Z
 DTEND:20261109T030000Z
 SUMMARY:Film Forum · Chapter 5 · Witchcraft
-LOCATION:https://illiterate-film-forum.netlify.app/chapter-5/
+LOCATION:https://meet.google.com/caw-wosy-mvn
 URL:https://illiterate-film-forum.netlify.app/chapter-5/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 5\, Witchcraft.
   We watch\, then we talk it through. The field guide\, both roads and th
  e paper editions are at https://illiterate-film-forum.netlify.app/chapte
- r-5/\nThe room link goes out by email before the call.
+ r-5/\nJoin: https://meet.google.com/caw-wosy-mvn
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY

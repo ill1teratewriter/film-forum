@@ -7,16 +7,16 @@ X-WR-CALNAME:Film Forum · Chapter 7
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch7@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T190800Z
+DTSTAMP:20260923T203700Z
 DTSTART:20261207T020000Z
 DTEND:20261207T030000Z
 SUMMARY:Film Forum · Chapter 7 · Family Business
-LOCATION:https://illiterate-film-forum.netlify.app/chapter-7/
+LOCATION:https://meet.google.com/caw-wosy-mvn
 URL:https://illiterate-film-forum.netlify.app/chapter-7/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 7\, Family Busi
  ness. We watch\, then we talk it through. The field guide\, both roads a
  nd the paper editions are at https://illiterate-film-forum.netlify.app/c
- hapter-7/\nThe room link goes out by email before the call.
+ hapter-7/\nJoin: https://meet.google.com/caw-wosy-mvn
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY

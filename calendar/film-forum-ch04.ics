@@ -7,16 +7,16 @@ X-WR-CALNAME:Film Forum · Chapter 4
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch4@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T190800Z
+DTSTAMP:20260923T203700Z
 DTSTART:20261026T010000Z
 DTEND:20261026T020000Z
 SUMMARY:Film Forum · Chapter 4 · Frame Game
-LOCATION:https://illiterate-film-forum.netlify.app/chapter-4/
+LOCATION:https://meet.google.com/caw-wosy-mvn
 URL:https://illiterate-film-forum.netlify.app/chapter-4/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 4\, Frame Game.
   We watch\, then we talk it through. The field guide\, both roads and th
  e paper editions are at https://illiterate-film-forum.netlify.app/chapte
- r-4/\nThe room link goes out by email before the call.
+ r-4/\nJoin: https://meet.google.com/caw-wosy-mvn
 BEGIN:VALARM
 TRIGGER:-PT30M
 ACTION:DISPLAY
