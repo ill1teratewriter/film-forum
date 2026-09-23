@@ -195,7 +195,7 @@
      — it is also how long the calendar invitations block out. */
   var FORUM = {
     place: 'Google Meet',
-    url: '',
+    url: 'https://meet.google.com/caw-wosy-mvn',
     minutes: 60
   };
   function forumUrl() { return (FORUM.url || '').trim(); }
