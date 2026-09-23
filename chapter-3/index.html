@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
+<meta property="og:title" content="Who's Watching &middot; Film Forum Chapter 3">
+<meta property="og:description" content="Chapter 3 of The Elements of Film. Whose eyes the story lends you, and what it costs to borrow them.">
+<meta property="og:image" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta property="og:image:secure_url" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="Film Forum &middot; The Illiterate Writer">
+<meta property="og:url" content="https://illiterate-film-forum.netlify.app/chapter-2/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Who's Watching &middot; Film Forum Chapter 3">
+<meta name="twitter:description" content="Chapter 3 of The Elements of Film. Whose eyes the story lends you, and what it costs to borrow them.">
+<meta name="twitter:image" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta name="description" content="Chapter 3 of The Elements of Film. Whose eyes the story lends you, and what it costs to borrow them.">
+<title>Who's Watching &middot; Film Forum Chapter 3</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<meta name="theme-color" content="#0c0a12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Film Forum">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+  --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
+  /* the chosen film's own colour, from its poster */
+  --film:#7fb3de;--film-deep:#2b5f8c}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ink);color:var(--text);font-family:'Inter',-apple-system,sans-serif;
+  font-size:16.5px;line-height:1.62;-webkit-font-smoothing:antialiased;min-height:100vh}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.5;
+  background:radial-gradient(900px 500px at 12% -8%,rgba(255,92,122,.16),transparent 62%),
+             radial-gradient(800px 460px at 92% 4%,rgba(255,157,46,.12),transparent 62%),
+             radial-gradient(700px 700px at 50% 120%,rgba(120,80,200,.10),transparent 60%)}
+.wrap{position:relative;max-width:900px;margin:0 auto;padding:0 22px}
+h1,h2,h3{font-family:'Oswald',sans-serif;font-weight:600;margin:0;line-height:1.05}
+
+/* masthead */
+.masthead{border-bottom:1px solid var(--line);padding:16px 0;position:sticky;top:0;
+  background:rgba(12,10,18,.9);backdrop-filter:blur(14px);z-index:50}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--text-dim);text-decoration:none;white-space:nowrap;transition:.2s}
+.brand:hover{color:var(--text)}
+.brand b{color:var(--text);font-weight:600}
+.brand .bk{margin-right:9px;color:var(--text-faint)}
+.brand:hover .bk{color:var(--hb)}
+.mast-btn{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  border:1px solid var(--line-2);border-radius:999px;padding:8px 16px;text-decoration:none;color:var(--text);
+  white-space:nowrap;transition:.2s}
+.mast-btn:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
+.brand .dot{padding:0 .3em}
+.brand .shrt{display:none}
+.mast-r{display:flex;gap:9px;align-items:center}
+.mast-btn.ghost{color:var(--text-dim);border-color:var(--line)}
+.mast-btn.ghost:hover{color:var(--ink)}
+@media(max-width:700px){.brand span.long{display:none}.brand .shrt{display:inline}}
+@media(max-width:560px){.brand .shrt,.brand .dot{display:none}.mast-btn.ghost{display:none}}
+
+/* chapter tabs */
+.tabs{border-bottom:1px solid var(--line);background:rgba(12,10,18,.6)}
+.tabs .wrap{display:flex;gap:0;overflow-x:auto;scrollbar-width:none}
+.tabs .wrap::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;text-decoration:none;color:var(--text-faint);padding:14px 22px 12px;
+  border-bottom:2px solid transparent;transition:.2s;white-space:nowrap}
+.tab:first-child{padding-left:0}
+.tab .ti{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;display:block}
+.tab .tn{font-family:'Oswald',sans-serif;font-size:14.5px;text-transform:uppercase;color:var(--text-dim);
+  display:block;margin-top:3px;transition:.2s}
+.tab:hover{color:var(--text-dim)}
+.tab:hover .tn{color:var(--text)}
+.tab.on{border-bottom-color:var(--hb);color:var(--hb)}
+.tab.on .tn{color:var(--text)}
+.tab.future{opacity:.45;cursor:default}
+.tab .live{display:inline-block;font-size:9.5px;letter-spacing:.16em;border:1px solid var(--hb);
+  color:var(--hb);border-radius:999px;padding:1px 7px;margin-left:8px;vertical-align:2px}
+
+/* hero */
+.hero{padding:56px 0 34px;text-align:center;border-bottom:1px solid var(--line)}
+.hero .vol{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--text-faint);margin-bottom:16px}
+.hero h1{font-size:clamp(40px,8.4vw,80px);font-weight:700;text-transform:uppercase;line-height:.96;
+  background:linear-gradient(175deg,#fff 8%,#cfc3e6 55%,#8d7fae 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .hq{font-family:'Playfair Display',Georgia,serif;font-style:italic;max-width:38ch;margin:26px auto 0;
+  color:#d8cfe6;font-size:clamp(18px,2.9vw,24px);line-height:1.42}
+.hero .hq cite{display:block;font-family:'Oswald',sans-serif;font-style:normal;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint);margin-top:16px}
+.deadline{display:inline-block;margin-top:20px;font-family:'Oswald',sans-serif;font-size:12.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--hb);border:1px solid rgba(255,92,122,.45);
+  border-radius:999px;padding:8px 18px;background:rgba(255,92,122,.08)}
+
+/* ballot */
+section{padding:40px 0}
+.sec-head{text-align:center;margin-bottom:8px}
+.eyebrow{font-family:'Oswald',sans-serif;font-weight:500;font-size:12px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--text-faint)}
+.sec-head h2{font-size:clamp(26px,5vw,42px);text-transform:uppercase;margin:10px 0 0}
+.sec-head p{max-width:54ch;margin:12px auto 0;color:var(--text-dim);font-size:16px}
+
+#ballot{scroll-margin-top:80px}
+.ballot{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+.card{position:relative;border:1px solid var(--line-2);border-radius:16px;padding:26px 24px;
+  background:var(--ink-2);overflow:hidden;display:flex;flex-direction:column}
+.card::after{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none}
+.card.hb::after{background:radial-gradient(560px 240px at 20% 0%,var(--hb),transparent 70%)}
+.card.sb::after{background:radial-gradient(560px 240px at 20% 0%,var(--sb),transparent 70%)}
+.card>*{position:relative}
+.rname{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.24em;text-transform:uppercase}
+.card.hb .rname{color:var(--hb)}
+.card.sb .rname{color:var(--sb)}
+.rfilm{font-family:'Oswald',sans-serif;font-size:clamp(26px,4.6vw,38px);font-weight:600;
+  text-transform:uppercase;color:var(--text);margin:8px 0 4px;line-height:1.02}
+.rmeta{font-size:13px;color:var(--text-faint);margin-bottom:14px}
+.rthesis{font-size:15px;color:#c6bcd8;margin:0 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.rfor{font-size:14.5px;color:var(--text-dim);margin:0 0 14px}
+.rfor b{color:var(--text);font-weight:600}
+.fact{font-size:13.5px;color:var(--text-faint);font-style:italic;margin:auto 0 0;padding-top:12px}
+
+/* form */
+.vote-form{max-width:720px;margin:34px auto 0;text-align:center}
+.hp{position:absolute;left:-9999px}
+.pickrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pick{position:relative;border:1px solid var(--line-2);border-radius:13px;padding:16px 14px;cursor:pointer;
+  display:block;transition:.2s;background:rgba(255,255,255,.02)}
+.pick:hover{border-color:rgba(255,255,255,.4)}
+.pick input{position:absolute;opacity:0;pointer-events:none}
+.pick .pn{display:block;font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-faint)}
+.pick .pf{display:block;font-family:'Oswald',sans-serif;font-size:19px;text-transform:uppercase;
+  color:var(--text);margin-top:4px}
+.pick.p-hb.on{box-shadow:0 0 0 1px var(--hb) inset;border-color:var(--hb);background:rgba(255,92,122,.1)}
+.pick.p-sb.on{box-shadow:0 0 0 1px var(--sb) inset;border-color:var(--sb);background:rgba(255,157,46,.1)}
+.pick.p-hb.on .pn{color:var(--hb)} .pick.p-sb.on .pn{color:var(--sb)}
+.namein{display:block;width:100%;max-width:360px;margin:14px auto 0;background:rgba(255,255,255,.04);
+  border:1px solid var(--line-2);border-radius:999px;padding:14px 22px;color:var(--text);
+  font-family:'Inter',sans-serif;font-size:15.5px;text-align:center}
+.namein::placeholder{color:var(--text-faint)}
+.namein:focus{outline:none;border-color:var(--hb)}
+.btn{display:block;margin:16px auto 0;background:#fff;color:var(--ink);border:0;cursor:pointer;
+  font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  padding:16px 40px;border-radius:999px;transition:.2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 16px 40px -14px rgba(255,255,255,.5)}
+.btn[disabled]{opacity:.55;cursor:default;transform:none;box-shadow:none}
+.warn{margin:16px auto 0;max-width:44ch;font-size:14px;color:#ffb4c4;
+  border:1px solid rgba(255,92,122,.4);border-radius:10px;padding:10px 14px}
+.fine{font-size:13.5px;color:var(--text-faint);margin-top:16px}
+.done{max-width:520px;margin:0 auto;text-align:center}
+.done .tick{width:56px;height:56px;border-radius:50%;border:2px solid var(--hb);color:var(--hb);
+  display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 16px}
+.done h3{font-size:30px;text-transform:uppercase;margin-bottom:10px}
+.done p{color:var(--text-dim)}
+
+/* how it works */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.step{border:1px solid var(--line);border-radius:13px;padding:18px 16px;background:rgba(255,255,255,.02)}
+.step .k{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--hb)}
+.step .v{font-family:'Oswald',sans-serif;font-size:17px;color:var(--text);margin:7px 0 6px;line-height:1.15}
+.step small{display:block;font-size:12.5px;color:var(--text-faint);line-height:1.5}
+.note{max-width:60ch;margin:26px auto 0;text-align:center;font-size:15px;color:var(--text-faint)}
+
+/* ---------- the lesson ---------- */
+.lesson{border-top:1px solid var(--line);padding-top:8px}
+.lesson h3{font-family:'Oswald',sans-serif;font-size:clamp(20px,3.2vw,27px);text-transform:uppercase;
+  margin:38px 0 10px;color:var(--text)}
+.lesson p{color:#c6bcd8;font-size:16px;max-width:68ch}
+.lesson p.wide{max-width:none}
+.lesson em{color:var(--text)}
+.pq{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(18px,2.7vw,23px);
+  color:var(--text);line-height:1.45;border-left:2px solid var(--hb);padding:4px 0 4px 20px;margin:22px 0;max-width:60ch}
+.pq cite{display:block;font-family:'Oswald',sans-serif;font-style:normal;font-size:11.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint);margin-top:12px}
+.kinds{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:26px 0 8px}
+@media(max-width:980px){.kinds{grid-template-columns:1fr 1fr}}
+.kind{border:1px solid var(--line-2);border-radius:14px;padding:20px 20px 22px;background:var(--ink-2)}
+.kind .n{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--hb)}
+.kind h4{font-family:'Oswald',sans-serif;font-size:19px;text-transform:uppercase;margin:8px 0 8px;color:var(--text);font-weight:600}
+.kind p{font-size:14.5px;color:var(--text-dim);margin:0 0 10px;max-width:none}
+.kind .eg{font-size:13px;color:var(--text-faint);border-top:1px solid var(--line);padding-top:10px}
+.kind .eg b{color:var(--text-dim);font-weight:500}
+.diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
+  background:rgba(255,255,255,.02);overflow-x:auto}
+.diagram svg{display:block;min-width:620px;width:100%;height:auto}
+.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
+  padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
+.pull p{margin:0;color:#d8cfe6;max-width:none}
+.backup{display:inline-block;font-family:'Oswald',sans-serif;font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--text);text-decoration:none;border:1px solid var(--line-2);
+  border-radius:999px;padding:11px 24px;transition:.2s}
+.backup:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
+.pull b{color:#fff}
+@media(max-width:720px){.kinds{grid-template-columns:1fr}}
+
+/* ---------- winner card ---------- */
+.winner{position:relative;border:1px solid rgba(255,92,122,.4);border-radius:18px;padding:34px 34px 30px;
+  margin-top:30px;background:var(--ink-2);overflow:hidden;
+  box-shadow:0 30px 80px -46px rgba(255,92,122,.85)}
+.winner::after{content:"";position:absolute;inset:0;opacity:.2;pointer-events:none;
+  background:radial-gradient(760px 320px at 12% 0%,var(--hb),transparent 66%),
+             radial-gradient(520px 260px at 96% 112%,var(--sb),transparent 70%)}
+.winner>*{position:relative}
+.wtag{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--hb)}
+.winner h3{font-family:'Oswald',sans-serif;font-size:clamp(38px,8vw,68px);font-weight:700;text-transform:uppercase;
+  color:#fff;margin:10px 0 6px;line-height:.98}
+.wmeta{font-size:14px;color:var(--text-faint);margin-bottom:16px}
+.wthesis{font-size:16.5px;color:#cdc3de;margin:0 0 22px;max-width:62ch}
+.wrun{display:flex;flex-wrap:wrap;gap:14px;border-top:1px solid var(--line);padding-top:20px}
+.wrun>div{flex:1 1 170px}
+.wrun .k{display:block;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--text-faint)}
+.wrun .v{display:block;font-family:'Oswald',sans-serif;font-size:19px;color:var(--text);margin-top:5px}
+
+/* ---------- facts ---------- */
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+.fct{border:1px solid var(--line-2);border-radius:14px;padding:22px 22px 24px;background:rgba(255,255,255,.02)}
+.fct h4{font-family:'Oswald',sans-serif;font-size:18px;text-transform:uppercase;color:var(--text);
+  margin:0 0 10px;font-weight:600;line-height:1.15}
+.fct p{font-size:14.8px;color:var(--text-dim);margin:0}
+
+/* ---------- spoiler gates ---------- */
+.gate{border:1px solid var(--line-2);border-radius:14px;margin-top:14px;background:var(--ink-2);overflow:hidden}
+.gate summary{list-style:none;cursor:pointer;padding:20px 22px;display:flex;align-items:center;gap:14px;
+  font-family:'Oswald',sans-serif;font-size:clamp(16px,2.6vw,20px);color:var(--text);transition:.2s}
+.gate summary::-webkit-details-marker{display:none}
+.gate summary:hover{background:rgba(255,255,255,.03)}
+.gate .gt{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--hb);
+  border:1px solid rgba(255,92,122,.4);border-radius:999px;padding:5px 12px;white-space:nowrap;flex:0 0 auto}
+.gate .op{margin-left:auto;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint);
+  border-bottom:1px solid var(--line-2);padding-bottom:2px;flex:0 0 auto}
+.gate[open] .op{opacity:0}
+.gbody{padding:0 22px 24px;border-top:1px solid var(--line)}
+.gbody p{font-size:15.5px;color:#c6bcd8;margin:16px 0 0;max-width:68ch}
+.gbody p.why{color:var(--text-faint);font-size:14.5px;border-left:2px solid var(--sb);padding-left:14px}
+.gbody b{color:#fff}
+
+/* ---------- facts, three across ---------- */
+.facts.three{grid-template-columns:repeat(3,1fr);gap:14px}
+.facts.three .fct{padding:20px 20px 22px}
+.facts.three .fct h4{font-size:16.5px}
+.facts.three .fct p{font-size:14.2px}
+@media(max-width:860px){.facts.three{grid-template-columns:1fr}}
+
+/* ---------- the paper edition ---------- */
+.pdfrow{margin:26px 0 2px}
+.pdfbtn{display:inline-flex;align-items:center;gap:11px;text-decoration:none;
+  font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--text);border:1px solid var(--line-2);border-radius:999px;padding:13px 24px;
+  background:rgba(255,255,255,.03);transition:.2s}
+.pdfbtn::before{content:"\2193";font-size:15px;letter-spacing:0;color:var(--film)}
+.pdfbtn:hover{border-color:var(--film);color:#fff;background:rgba(255,255,255,.07)}
+
+/* the after-you-watch gates are notes, not warnings, so they carry the film colour */
+.gate.wide .gt{color:var(--film);border-color:rgba(127,179,222,.42)}
+.gate.wide .gbody p.why{border-left-color:var(--film)}
+.gate.wide .gbody p{max-width:72ch}
+
+/* ---------- questions for the room ---------- */
+.qs{margin-top:26px;border-top:1px solid var(--line)}
+.q{display:flex;gap:20px;align-items:flex-start;padding:21px 2px 22px;border-bottom:1px solid var(--line)}
+.qn{font-family:'Oswald',sans-serif;font-size:12px;letter-spacing:.2em;color:var(--film);
+  flex:0 0 auto;padding-top:6px}
+.q p{margin:0;font-size:16.5px;color:#cdc3de;max-width:64ch}
+@media(max-width:520px){.q{gap:14px}.q p{font-size:15.5px}}
+
+@media(max-width:720px){.facts{grid-template-columns:1fr}.gate summary{flex-wrap:wrap;gap:10px}.gate .op{display:none}}
+
+/* ---------- the other road ---------- */
+.other{border-top:1px solid var(--line);margin-top:10px;padding-top:34px}
+.other .oh{text-align:center;margin-bottom:18px}
+.other .oh .lbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-faint)}
+.other .oh h3{font-family:'Oswald',sans-serif;font-size:clamp(19px,3vw,25px);text-transform:uppercase;
+  color:var(--text-dim);margin:9px 0 8px}
+.other .oh p{font-size:14.5px;color:var(--text-faint);max-width:56ch;margin:0 auto}
+details.road{border:1px dashed var(--line-2);border-radius:14px;background:rgba(255,255,255,.015);
+  overflow:hidden;opacity:.72;transition:.25s}
+details.road:hover,details.road[open]{opacity:1}
+details.road summary{list-style:none;cursor:pointer;padding:20px 24px;display:flex;align-items:center;
+  gap:14px;flex-wrap:wrap;transition:.2s}
+details.road summary::-webkit-details-marker{display:none}
+details.road summary:hover{background:rgba(255,255,255,.03)}
+.road .sbl{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--sb);border:1px solid rgba(255,157,46,.4);border-radius:999px;padding:5px 12px;flex:0 0 auto}
+.road .sfilm{font-family:'Oswald',sans-serif;font-size:clamp(20px,3.4vw,27px);text-transform:uppercase;
+  color:var(--text);line-height:1.05}
+.road .smeta{font-size:13px;color:var(--text-faint);width:100%;margin-top:-4px}
+.road .sop{margin-left:auto;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-faint);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+details.road[open] .sop{opacity:0}
+.rbody{padding:4px 24px 28px;border-top:1px solid var(--line)}
+.rbody>h4{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sb);margin:22px 0 10px}
+.rbody>p{font-size:15.5px;color:#c6bcd8;margin:0 0 12px;max-width:68ch}
+.rbody>ul{margin:0 0 4px;padding-left:20px}
+.rbody>ul>li{font-size:15px;color:var(--text-dim);margin-bottom:9px}
+.rbody>ul>li b{color:var(--text)}
+
+/* ---------- the two roads ---------- */
+.roads{padding-bottom:26px}
+.road-tag{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.24em;text-transform:uppercase;
+  border-radius:999px;padding:6px 14px;flex:0 0 auto}
+.road-tag.hb{color:var(--hb);border:1px solid rgba(255,92,122,.5);background:rgba(255,92,122,.1)}
+.road-tag.sb{color:var(--sb);border:1px solid rgba(255,157,46,.32);background:rgba(255,157,46,.06)}
+
+.won{position:relative;border:1px solid var(--film);border-radius:20px;padding:32px 34px 34px;margin-top:30px;
+  background:var(--ink-2);overflow:hidden;
+  box-shadow:0 34px 90px -50px var(--film), 0 0 0 1px rgba(255,255,255,.04) inset}
+.won::after{content:"";position:absolute;inset:0;opacity:.24;pointer-events:none;
+  background:radial-gradient(820px 340px at 14% 0%,var(--film),transparent 64%),
+             radial-gradient(560px 300px at 96% 108%,var(--film-deep),transparent 70%)}
+.won>*{position:relative}
+.wtop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.voted{font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--ink);background:var(--hb);border-radius:999px;padding:6px 13px;font-weight:600}
+.film-title{font-family:'Oswald',sans-serif;font-size:clamp(46px,10vw,96px);font-weight:700;
+  text-transform:uppercase;line-height:.9;letter-spacing:.005em;margin:0 0 12px;
+  background:linear-gradient(168deg,#ffffff 4%,var(--film) 58%,var(--film-deep) 108%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.wmeta{font-size:14px;color:var(--text-faint);margin-bottom:18px}
+.wthesis{font-size:16.5px;color:#cdc3de;margin:0;max-width:64ch}
+
+details.road{border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.012);
+  overflow:hidden;margin-top:14px;transition:.25s}
+details.road:hover{border-color:var(--line-2);background:rgba(255,255,255,.028)}
+details.road[open]{border-color:var(--line-2);background:rgba(255,255,255,.028)}
+details.road summary{list-style:none;cursor:pointer;padding:20px 26px;display:flex;align-items:center;
+  gap:14px;flex-wrap:wrap}
+details.road summary::-webkit-details-marker{display:none}
+.road .sfilm{font-family:'Oswald',sans-serif;font-size:clamp(20px,3.4vw,28px);text-transform:uppercase;
+  color:var(--text-dim);line-height:1.05;transition:.2s}
+details.road:hover .sfilm,details.road[open] .sfilm{color:var(--text)}
+.road .smeta{font-size:13px;color:var(--text-faint);width:100%;margin-top:-2px}
+.road .sop{margin-left:auto;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-faint);border-bottom:1px solid var(--line-2);padding-bottom:2px}
+details.road[open] .sop{opacity:0}
+.rbody{padding:4px 26px 30px;border-top:1px solid var(--line)}
+
+/* ---------- the road the room took, highlighted, holding its own guide ---------- */
+details.road.took{border:1px solid var(--film);border-radius:20px;background:var(--ink-2);
+  box-shadow:0 34px 90px -50px var(--film),0 0 0 1px rgba(255,255,255,.04) inset;
+  position:relative;overflow:hidden;margin-top:26px}
+details.road.took::after{content:"";position:absolute;inset:0;opacity:.2;pointer-events:none;
+  background:radial-gradient(820px 340px at 14% 0%,var(--film),transparent 64%),
+             radial-gradient(560px 300px at 96% 108%,var(--film-deep),transparent 70%)}
+details.road.took>summary,details.road.took>.rbody{position:relative;z-index:1}
+details.road.took>summary{padding:30px 32px 24px}
+details.road.took .sfilm{width:100%;font-size:clamp(44px,9.4vw,90px);font-weight:700;line-height:.9;
+  letter-spacing:.005em;margin:14px 0 2px;
+  background:linear-gradient(168deg,#ffffff 4%,var(--film) 58%,var(--film-deep) 108%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+details.road.took .sop{color:var(--film);border-bottom-color:rgba(127,179,222,.45)}
+details.road.took>.rbody{padding:4px 32px 34px}
+.rbody .wthesis{font-size:16.5px;color:#cdc3de;margin:16px 0 0;max-width:64ch}
+.rbody>section{padding:34px 0 0}
+.rbody>section:first-of-type{padding-top:28px}
+.rbody .sec-head{margin-bottom:0}
+.rbody .sec-head h2{font-size:clamp(23px,4vw,34px)}
+.two-films{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:16.5px;
+  color:var(--text-dim);text-align:center;max-width:58ch;margin:16px auto 0}
+@media(max-width:600px){details.road.took>summary{padding:24px 20px 20px}
+  details.road.took>.rbody{padding:4px 20px 28px}}
+
+/* ---------- what happens next ---------- */
+.endsec{padding-top:10px}
+.next-up{border:1px solid var(--line-2);border-radius:16px;padding:32px 26px;text-align:center;
+  background:linear-gradient(180deg,rgba(255,92,122,.09),rgba(255,255,255,.012))}
+.next-up .nlink{display:block;text-decoration:none;color:inherit}
+.next-up .nlab{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--text-faint)}
+.next-up .nid{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.22em;color:var(--hb);margin-top:14px}
+.next-up .ntitle{font-family:'Oswald',sans-serif;font-size:clamp(28px,5.6vw,46px);font-weight:700;
+  text-transform:uppercase;color:#fff;line-height:1.02;margin-top:6px}
+.next-up .ndate{font-size:13.5px;color:var(--text-dim);margin-top:12px}
+.next-up .ngo{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:#fff;margin-top:18px;display:inline-block;border-bottom:1px solid var(--hb);padding-bottom:3px}
+.next-up .ngo.dim{color:var(--text-faint);border-bottom:0;font-family:'Inter',sans-serif;
+  font-size:13px;letter-spacing:0;text-transform:none;font-style:italic}
+.next-up .nlink:hover .ntitle{color:var(--hb)}
+.rbody>h4{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sb);margin:24px 0 10px}
+.rbody>p{font-size:15.5px;color:#c6bcd8;margin:0 0 12px;max-width:68ch}
+.rbody>ul{margin:0 0 4px;padding-left:20px}
+.rbody>ul>li{font-size:15px;color:var(--text-dim);margin-bottom:9px}
+.rbody>ul>li b{color:var(--text)}
+@media(max-width:600px){.won{padding:26px 22px 28px}details.road summary{padding:18px 20px}.rbody{padding:4px 20px 26px}}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:30px 0 56px;text-align:center;
+  color:var(--text-faint);font-size:13.5px}
+footer{border-top:1px solid var(--line);margin-top:10px;padding:40px 0 64px;text-align:center}
+footer a{color:var(--text-dim)}
+footer .fm{font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--text-faint)}
+footer .fname{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:19px;
+  color:var(--text-dim);margin-top:12px}
+footer .fmem{margin-top:14px;font-size:14px}
+footer .fmem a{color:var(--text);border-bottom:1px solid var(--line-2);text-decoration:none;padding-bottom:2px}
+footer .fmem a:hover{border-bottom-color:var(--hb)}
+footer .fline{margin-top:18px;font-size:13px;color:var(--text-faint)}
+/* the claim line: present on every page and every paper edition, never loud */
+footer .fcr{margin-top:16px;font-size:12px;color:var(--text-faint);opacity:.85}
+footer .fline a{color:var(--text-dim);text-decoration:none;border-bottom:1px solid var(--line-2)}
+footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text-faint);opacity:.8;line-height:1.55}
+.contact{margin-top:14px;font-size:13px;color:var(--text-faint)}
+.contact a{color:var(--film);text-decoration:none;border-bottom:1px solid rgba(127,179,222,.4)}
+.contact a:hover{color:#fff;border-bottom-color:#fff}
+@media(max-width:720px){.ballot,.pickrow{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.steps{grid-template-columns:1fr}}
+.print-only{display:none}
+
+/* ================= the paper edition ================= */
+@media print{
+  @page{ size:Letter }
+  :root{
+    --ink:#fdfcfa; --ink-2:#fdfcfa;
+    --line:#e2dce8; --line-2:#ded7e4;
+    --text:#171021; --text-dim:#3a3145; --text-faint:#776e88;
+    --hb:#c8365a; --sb:#b06a12; --film:#2b5f8c; --film-deep:#1d4163;
+  }
+  body{background:#fdfcfa;color:#241d2b;font-size:10.6pt;line-height:1.55}
+  body::before{display:none}
+  .wrap{max-width:none;padding:0}
+  *{text-shadow:none !important;box-shadow:none !important}
+  a{color:#2b5f8c !important;text-decoration:none}
+
+  /* strip every interactive affordance */
+  .masthead,.tabs,.hero,.pdfrow,.backup,.gate .op,.road .sop,.endsec,
+  .diagram::after{ display:none !important }
+  details>summary{list-style:none}
+  .print-only{display:block}
+
+  /* cover */
+  .print-cover{page-break-after:always;padding-top:32mm;text-align:center}
+  .pc-brand{font-family:'Oswald',sans-serif;font-size:10pt;letter-spacing:.34em;text-transform:uppercase;color:#8a7f99}
+  .pc-title{font-family:'Oswald',sans-serif;font-size:54pt;font-weight:700;letter-spacing:.02em;
+    text-transform:uppercase;color:#171021;margin:8mm 0 4mm;line-height:1}
+  .pc-vol{font-family:'Oswald',sans-serif;font-size:10.5pt;letter-spacing:.24em;text-transform:uppercase;color:#6d6480}
+  .pc-rule{width:26mm;height:2.2pt;background:linear-gradient(90deg,#c8365a,#ff9d2e);margin:9mm auto;border:0}
+  .pc-study{font-family:'Oswald',sans-serif;font-size:10pt;letter-spacing:.2em;text-transform:uppercase;color:#8a7f99}
+  .pc-name{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:21pt;color:#3a3145;margin-bottom:3mm}
+  .pc-films{margin:13mm auto 0;max-width:120mm;text-align:left}
+  .pc-films div{border-top:.5pt solid #ded7e4;padding:4mm 0;font-size:11pt;color:#3a3145}
+  .pc-films div:last-child{border-bottom:.5pt solid #ded7e4}
+  .pc-films b{font-family:'Oswald',sans-serif;font-size:9.5pt;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:1.5mm}
+  .pc-films .hbc{color:#c8365a} .pc-films .sbc{color:#b06a12}
+  .pc-note{margin:11mm auto 0;max-width:112mm;font-size:9pt;line-height:1.5;color:#6d6480;font-style:italic}
+
+  /* running structure */
+  section{padding:8mm 0}
+  h1,h2,h3,h4{color:#171021}
+  .sec-head{border-top:.75pt solid #ded7e4;padding-top:5mm}
+  .sec-head h2{font-size:22pt;line-height:1.08}
+  .sec-head p{color:#6d6480}
+  .eyebrow{color:#c8365a}
+
+  /* the winner reads as a title page block, not a glowing card */
+  .roads{padding-bottom:4mm}
+  .won{border:0 !important;border-top:2.5pt solid #2b5f8c !important;border-radius:0;
+    padding:6mm 0 0 !important;margin-top:6mm;background:none !important}
+  .won::after{display:none !important}
+  .voted{background:none !important;color:#c8365a !important;border:.75pt solid #c8365a;padding:1mm 3mm}
+  .road-tag.hb{color:#c8365a !important;background:none !important;border-color:#c8365a !important}
+  .road-tag.sb{color:#b06a12 !important;background:none !important;border-color:#b06a12 !important}
+  .film-title{background:none !important;-webkit-text-fill-color:#171021;color:#171021 !important;
+    font-size:44pt;margin-bottom:3mm}
+  .wmeta{color:#776e88}
+  .wthesis{color:#3a3145;font-size:11.4pt;max-width:none}
+
+  /* the other road, kept but quiet */
+  details.road{border:.5pt solid #ded7e4 !important;background:none !important;opacity:1 !important;
+    border-radius:2mm;page-break-inside:auto}
+  .road .sfilm{color:#171021 !important;font-size:17pt}
+  .road .smeta{color:#776e88}
+  .rbody{border-top:.5pt solid #ded7e4}
+  .rbody>h4{color:#b06a12}
+  .rbody p,.rbody>ul>li{color:#3a3145}
+  .rbody>ul>li b{color:#171021}
+
+  /* facts and gates become paper rules */
+  .facts.three{grid-template-columns:1fr 1fr;gap:5mm}
+  .fct{border:.5pt solid #ded7e4 !important;background:none !important;border-radius:2mm;padding:5mm;page-break-inside:avoid}
+  .facts.three{page-break-before:auto}
+  .fct p{color:#3a3145}
+  .gate{border:0 !important;border-bottom:.5pt solid #ded7e4 !important;border-radius:0;
+    background:none !important;margin-top:0;page-break-inside:avoid}
+  .gate summary{padding:5mm 0 2mm;font-size:13pt;color:#171021}
+  .gate .gt{color:#c8365a !important;border-color:#c8365a !important;font-size:8pt;padding:1mm 3mm}
+  .gate.wide .gt{color:#2b5f8c !important;border-color:#2b5f8c !important}
+  .gbody{padding:0 0 5mm;border-top:0}
+  .gbody p{color:#3a3145;max-width:none;margin-top:3mm}
+  .gbody p.why{color:#6d6480;border-left:1.5pt solid #b06a12;padding-left:4mm}
+  .gate.wide .gbody p.why{border-left-color:#2b5f8c}
+  .gbody b{color:#171021 !important}
+
+  /* questions */
+  .qs{border-top:.5pt solid #ded7e4}
+  .q{border-bottom:.5pt solid #ded7e4;padding:4mm 0;page-break-inside:avoid}
+  .qn{color:#c8365a}
+  .q p{color:#241d2b;font-size:11.2pt;max-width:none}
+
+  /* the lesson */
+  .lesson{page-break-before:always}
+  .lesson p{color:#3a3145}
+  .pull{border-left:2pt solid #c8365a;background:none !important;border-radius:0}
+  .pull p{color:#241d2b}
+  .kinds{grid-template-columns:1fr 1fr 1fr;gap:4mm}
+  .kind{border:.5pt solid #ded7e4 !important;background:none !important;border-radius:2mm;page-break-inside:avoid}
+  .kind .n{color:#c8365a}
+  .eg{color:#776e88}
+  .diagram{border:.5pt solid #ded7e4 !important;background:none !important;page-break-inside:avoid;overflow:visible}
+  .diagram svg{min-width:0}
+  .dnote{color:#776e88}
+
+  /* one film per paper edition, chosen with data-pdf on <html> */
+  html[data-pdf="hb"] details.road[data-road="sb"],
+  html[data-pdf="sb"] details.road[data-road="hb"],
+  html[data-pdf="hb"] .pc-films.sbrow,
+  html[data-pdf="sb"] .pc-films.hbrow{display:none !important}
+  details.road{border:0 !important;border-top:2.5pt solid #2b5f8c !important;border-radius:0;
+    padding:6mm 0 0 !important;background:none !important;margin:0;opacity:1 !important}
+  details.road::after{display:none !important}
+  details.road>summary{padding:0}
+  details.road>.rbody{padding:0;border-top:0}
+  details.road .sfilm{background:none !important;-webkit-text-fill-color:#171021;color:#171021 !important;
+    font-size:40pt;width:100%;margin:4mm 0 2mm;font-weight:700;line-height:.94}
+  details.road[data-road="sb"]{border-top-color:#b06a12 !important}
+  .voted{background:none !important;color:#c8365a !important;border:.75pt solid #c8365a;padding:1mm 3mm}
+  .two-films{color:#6d6480;text-align:center}
+  .rbody .wthesis{color:#3a3145;font-size:11.4pt;max-width:none}
+  .rbody>section{padding:6mm 0 0}
+  h3,h4{page-break-after:avoid}
+  .sec-head{page-break-after:avoid;page-break-inside:avoid}
+  .won{page-break-inside:avoid}
+  .pull{page-break-inside:avoid}
+  footer{border-color:#ded7e4;padding:6mm 0 0;color:#776e88}
+  footer .fcr{font-size:8.5pt;color:#8a7f99;opacity:1}
+  .contact a{color:#2b5f8c !important;border-bottom:0}
+}
+
+/* Oscars: the trophy shows when you hover the film, and stays put for a Best Picture winner */
+.osc{display:flex;align-items:center;gap:7px;margin-top:10px;font-family:'Oswald',sans-serif;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--film);
+  opacity:0;transition:opacity .25s ease}
+.osc .trophy{width:15px;height:15px;flex:none}
+details.road[open] .osc{opacity:1}
+@media (hover:hover){details.road:hover .osc,details.road:focus-within .osc{opacity:1}}
+/* on a touch screen there is no hover, so the trophy shows itself for a few
+   seconds when the page opens and again whenever a film card is tapped */
+details.road.osc-show .osc{opacity:1}
+@media (prefers-reduced-motion:reduce){.osc{transition:none}}
+/* the paper edition is a print object; on a phone it steps back and lets the
+   web guide do the reading, rather than shouting to be downloaded */
+@media (max-width:640px){
+  .pdfrow{opacity:.75;font-size:12px}
+  .pdfrow a{padding-block:8px}
+}
+
+/* pieces the generated guides add on top of the chapter shell */
+.why-ballot{max-width:62ch;margin:18px auto 0;color:var(--text-dim);font-size:16.5px;line-height:1.6;text-align:center}
+.srcline{font-size:13px;color:var(--text-faint);margin-top:14px}
+.qs{margin-top:8px}
+details.road[open] .notsel{opacity:0}
+details.road.voted-road .notsel{display:none}
+:root{--film:#c9433f;--film-deep:#7a1d1b}
+@media print{html[data-pdf="hb"]{--film:#7a1d1b;--film-deep:#7a1d1b}html[data-pdf="sb"]{--film:#2a5f8c;--film-deep:#2a5f8c}}
+</style>
+</head>
+
+<body data-chapter="3">
+
+<div class="masthead">
+  <div class="wrap">
+    <a class="brand" href="/" title="All chapters"><span class="bk">&larr;</span><span class="long">The Illiterate Writer&rsquo;s Film Forum</span><span class="shrt">Film Forum</span><span class="dot"> &middot; </span><b>Ch. 3</b></a>
+    <div class="mast-r">
+      <a class="mast-btn ghost" data-ff="current" href="/">Current chapter &rarr;</a>
+      <a class="mast-btn" href="#took">The film</a>
+    </div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="wrap" data-ff="tabs"></div>
+</div>
+
+<div class="wrap">
+  <div class="print-cover print-only">
+    <div class="pc-brand">The Illiterate Writer&rsquo;s</div>
+    <div class="pc-title">Film&nbsp;Forum</div>
+    <div class="pc-vol">The Elements of Film &middot; Part One &middot; Story</div>
+    <hr class="pc-rule">
+    <div class="pc-study">Chapter 3 &middot; Point of View</div>
+    <div class="pc-name">Whose eyes the story lends you, and what it costs to borrow them.</div>
+    <div class="pc-films hbrow"><div><b class="hbc">Hollywood Blvd.</b>Rear Window &middot; 1954 &middot; 112 min &middot; dir. Alfred Hitchcock &middot; Paramount</div></div>
+    <div class="pc-films sbrow"><div><b class="sbc">Sunset Blvd.</b>The Truman Show &middot; 1998 &middot; 103 min &middot; dir. Peter Weir &middot; written by Andrew Niccol &middot; Paramount</div></div>
+    <p class="pc-note">This is the print edition, with everything the online guide has. Some information will include spoilers, advised to stop at the end of &ldquo;Before you press play&rdquo; and resume after the credits.</p>
+  </div>
+
+  <div class="hero">
+    <div class="vol">The Elements of Film &middot; Part One &middot; Story</div>
+    <h1>Who's<br>Watching</h1>
+    <blockquote class="hq">"Seeing comes before words."<cite>John Berger, Ways of Seeing, 1972</cite></blockquote>
+    <p class="how">Chapter 3 &middot; Point of View. Whose eyes the story lends you, and what it costs to borrow them.</p>
+  </div>
+
+  <section class="roads">
+    <div class="sec-head">
+      <div class="eyebrow">The two roads</div>
+      <h2>Straight on, or a left at the Vista</h2>
+    </div>
+    <p class="two-films">Hollywood Boulevard runs east until it hits Sunset, and there is a theatre standing on the corner where they meet. Every chapter the room decides at that corner.</p>
+    <p class="two-films">Two films about the act of watching, built from opposite ends of the lens. In <i>Rear Window</i> you are the watcher: you sit in one man&rsquo;s chair, you see what he sees, and the film almost never lets you leave the room. In <i>The Truman Show</i> you are the audience of a man being watched by everyone, and the film keeps swapping whose eyes you are using &mdash; his, the hidden cameras&rsquo;, the control room&rsquo;s, the viewers&rsquo; at home.</p>
+    <p class="two-films">One locks the point of view down tighter than almost any film ever made. The other splits it five ways. Both end with somebody looking straight back.</p>
+
+    <details class="road" id="took" data-road="hb" data-color="#c9433f" data-deep="#7a1d1b" data-ink="#120707" data-ink2="#1d0c0b">
+      <summary>
+        <span class="road-tag hb">Hollywood Blvd.</span>
+        <span class="sfilm">Rear Window</span>
+        <span class="notsel">Not selected</span>
+        <span class="smeta">1954 &middot; 112 min &middot; dir. Alfred Hitchcock &middot; Paramount</span>
+      </summary>
+      <div class="rbody">
+        <p class="wthesis">A photographer stuck at home with a broken leg starts watching his neighbours across the courtyard, and becomes sure one of them has committed murder.</p>
+        <div class="pdfrow"><a class="pdfbtn" href="film-forum-ch03-rear-window.pdf" download>Download the Rear Window paper edition (PDF)</a></div>
+        <p class="why-ballot"><b>Why it is on the ballot.</b> It is the purest point-of-view experiment in the Hollywood canon. For almost two hours the camera stays inside one apartment and shows you what one man in a wheelchair can see. Everything you know, you know because he looked.</p>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">01</div>
+      <h2>Before you press play</h2>
+      <p>Optional trivia.</p>
+    </div>
+    <div class="facts three">
+      <div class="fct"><h4>The whole world of the film is one set</h4><p>The courtyard was built as a single composite set on Paramount&rsquo;s Stage 18, roughly 185 feet long and 98 feet wide, holding 31 apartments. The stage floor was dug out so the courtyard sat below stage level and Jeff&rsquo;s second-floor window looked down on it from ground level. Sources disagree on how many apartments were fully furnished: the studio&rsquo;s own notes say eight, other accounts say twelve.</p></div>
+      <div class="fct"><h4>The neighbours could not hear the director</h4><p>Hitchcock stayed in Jeff&rsquo;s apartment and cued the actors across the courtyard by short-wave radio, through flesh-coloured earpieces they wore on camera.</p></div>
+      <div class="fct"><h4>It disappeared for a decade</h4><p>The rights to five Hitchcock films, <i>Rear Window</i> among them, reverted to him, and he kept them out of circulation. They became known as the &ldquo;Lost Hitchcocks.&rdquo; <i>Rear Window</i> only came back in a Universal re-release in October 1983, three years after his death.</p></div>
+    </div>
+  </section>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">02</div>
+      <h2>While you watch</h2>
+      <p>Open each one only when you reach it.</p>
+    </div>
+    <details class="gate" name="w-hb">
+      <summary><span class="gt">First three minutes</span> The story before a word is spoken <span class="op">Open</span></summary>
+      <div class="gbody"><p>The blinds rise with the credits. The camera drifts across the courtyard, finds a thermometer in the nineties, a sleeping man, a signed plaster cast, a smashed camera, a photograph of a racing crash, a magazine cover. You know who he is, what he does and how he got hurt before anybody speaks.</p><p class="why"><b>Why it matters:</b> The film teaches you its rule in the first shot. The camera shows you things, and you do the reading.</p></div>
+    </details>
+    <details class="gate" name="w-hb">
+      <summary><span class="gt">Every time Jeff looks</span> Look, see, react <span class="op">Open</span></summary>
+      <div class="gbody"><p>Watch the pattern: a close-up of Jeff looking, a shot of what he sees, then his face again. Hitchcock described that three-part structure to Fran&ccedil;ois Truffaut as &ldquo;the purest expression of a cinematic idea.&rdquo;</p><p class="why"><b>Why it matters:</b> The neighbours never change. What changes is his face, and the meaning you read into it.</p></div>
+    </details>
+    <details class="gate" name="w-hb">
+      <summary><span class="gt">While Jeff is asleep</span> The film cheats, once <span class="op">Open</span></summary>
+      <div class="gbody"><p>In the small hours the camera pans away from the sleeping Jeff on its own and shows Thorwald leaving the building with a woman. Jeff never sees it.</p><p class="why"><b>Why it matters:</b> It is the film&rsquo;s one real break from its own rule, and it works against his theory at the exact moment you are committing to it. Ask yourself afterwards whether the film lied to him, or told the truth to you.</p></div>
+    </details>
+    <details class="gate" name="w-hb">
+      <summary><span class="gt">The look back</span> He sees you <span class="op">Open</span></summary>
+      <div class="gbody"><p>Across the courtyard, a man turns his head and looks straight down the lens.</p><p class="why"><b>Why it matters:</b> For the whole film, looking has been one way. The moment the watched one looks back, the rules break, and the next ten minutes come for the room you have been sitting in.</p></div>
+    </details>
+  </section>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">03</div>
+      <h2>After the credits</h2>
+      <p>Everything here gives the film away. Keep it for afterwards.</p>
+    </div>
+    <details class="gate wide" name="a-hb">
+      <summary><span class="gt">Open</span> The climax borrows someone else&rsquo;s eyes <span class="op">Open</span></summary>
+      <div class="gbody"><p>During the flashbulb scene the film cuts four times to Thorwald&rsquo;s dazzled vision, rendered through a red filter. It is one of the only times the camera belongs to somebody other than Jeff, and the film saves it for the moment he is most defenceless.</p></div>
+    </details>
+    <details class="gate wide" name="a-hb">
+      <summary><span class="gt">Open</span> It came from a pulp story, and the women were invented <span class="op">Open</span></summary>
+      <div class="gbody"><p>The source is Cornell Woolrich&rsquo;s &ldquo;It Had to Be Murder,&rdquo; published in <i>Dime Detective</i> in February 1942. There is no Lisa in it and no Stella. Screenwriter John Michael Hayes built both women out of the story&rsquo;s male houseman. The film&rsquo;s biggest addition is the person who actually does the dangerous part.</p></div>
+    </details>
+    <details class="gate wide" name="a-hb">
+      <summary><span class="gt">Open</span> The courtyard had its own weather department <span class="op">Open</span></summary>
+      <div class="gbody"><p>The set was lit with a reported thousand-plus units and fitted with a sprinkler system for the thunderstorm. Jeff&rsquo;s world, like Truman&rsquo;s, was a place where somebody else controlled the sun and the rain. Hitchcock&rsquo;s cameo is inside it: he is the man winding the clock in the songwriter&rsquo;s apartment.</p></div>
+    </details>
+  </section>
+<section>
+    <div class="qs">
+      <div class="q"><span class="qn">01</span><p>Jeff never leaves his chair, and neither do you. By the end, is the film on the side of watching, or is it quietly judging him, and you?</p></div>
+      <div class="q"><span class="qn">02</span><p>If the neighbour had turned out to be innocent, would the film still work? What would it be about then?</p></div>
+      <div class="q"><span class="qn">03</span><p>Lisa takes every real risk in the film. So whose film is this?</p></div>
+    </div>
+  </section>
+  <div class="watch">
+    <div class="k">Where to watch</div>
+    <p><b>Find it here &rarr; <a href="https://www.justwatch.com/us/search?q=Rear%20Window">Rear Window on JustWatch</a></b>, which shows every service carrying it right now, including free ones.</p>
+    <p>And two nobody uses: <strong>Kanopy</strong> and <strong>Hoopla</strong> are free with a library card. If you find it cheaper or free somewhere else, post the link in <a href="https://illiteratewriter.substack.com">my Substack</a>.</p>
+    <p class="srcline">Sources: AFI Catalog &middot; TCM &middot; American Cinematographer &middot; Yale Film Archive</p>
+  </div>
+      </div>
+    </details>
+    <details class="road" id="other" data-road="sb" data-color="#79b7e8" data-deep="#2a5f8c" data-ink="#070b12" data-ink2="#0e1520">
+      <summary>
+        <span class="road-tag sb">Sunset Blvd.</span>
+        <span class="sfilm">The Truman Show</span>
+        <span class="notsel">Not selected</span>
+        <span class="smeta">1998 &middot; 103 min &middot; dir. Peter Weir &middot; written by Andrew Niccol &middot; Paramount</span>
+      </summary>
+      <div class="rbody">
+        <p class="wthesis">An insurance salesman slowly realises his whole life has been a television show, broadcast around the clock to the whole world.</p>
+        <div class="pdfrow"><a class="pdfbtn" href="film-forum-ch03-the-truman-show.pdf" download>Download the The Truman Show paper edition (PDF)</a></div>
+        <p class="why-ballot"><b>Why it is on the ballot.</b> Where <i>Rear Window</i> never lets you out of one man&rsquo;s eyes, this film cannot decide whose eyes you should be using, and that is the point. You watch Truman, you watch the people watching Truman, and you watch the man who decides what everyone sees. By the end you have to ask which audience you belong to.</p>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">01</div>
+      <h2>Before you press play</h2>
+      <p>Optional trivia.</p>
+    </div>
+    <div class="facts three">
+      <div class="fct"><h4>It arrived before reality TV did</h4><p>It opened on 5 June 1998. Dutch <i>Big Brother</i> began fifteen months later, in September 1999, and <i>Survivor</i> reached American television in May 2000. The film predicted a genre before the genre had a name.</p></div>
+      <div class="fct"><h4>Seahaven is a real town</h4><p>The picture-perfect island was shot largely in Seaside, Florida, a planned resort town on the Gulf coast that already looked like that. The production barely had to dress it.</p></div>
+      <div class="fct"><h4>Christof was cast twice, and the second one had a weekend to prepare</h4><p>Dennis Hopper was cast as the show&rsquo;s creator and left after filming began. Ed Harris came in at the last minute: &ldquo;It was a Friday. I think I started work on Monday.&rdquo; He was nominated for an Oscar for it.</p></div>
+    </div>
+  </section>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">02</div>
+      <h2>While you watch</h2>
+      <p>Open each one only when you reach it.</p>
+    </div>
+    <details class="gate" name="w-sb">
+      <summary><span class="gt">The opening credits</span> Whose film is starting? <span class="op">Open</span></summary>
+      <div class="gbody"><p>The first credits you see are the show&rsquo;s, not the movie&rsquo;s. Truman Burbank is billed &ldquo;as himself.&rdquo;</p><p class="why"><b>Why it matters:</b> Before the story begins, the film has told you that you are watching the programme, not a movie about it.</p></div>
+    </details>
+    <details class="gate" name="w-sb">
+      <summary><span class="gt">Watch the edges</span> Hidden-camera shots <span class="op">Open</span></summary>
+      <div class="gbody"><p>A great many shots are taken from odd places, with dark vignetted corners like a keyhole: a car radio, a button, a bathroom mirror. Cinematographer Peter Biziou built them with very wide lenses and masks in front of the glass, and one camera really was a lens dropped into the cavity of Truman&rsquo;s car radio.</p><p class="why"><b>Why it matters:</b> Those shots are the show&rsquo;s point of view. Notice when the film switches to a clean, normal camera, and ask whose eyes those are.</p></div>
+    </details>
+    <details class="gate" name="w-sb">
+      <summary><span class="gt">Early on</span> Something falls out of the sky <span class="op">Open</span></summary>
+      <div class="gbody"><p>A studio light crashes into the street in front of Truman. Read the label: &ldquo;Sirius (9 Canis Major).&rdquo;</p><p class="why"><b>Why it matters:</b> It is the first crack in the world, and the film hands you the joke before Truman understands it. Being a step ahead of him is its own kind of point of view. Sirius is really Alpha Canis Majoris, so even the label is a fake.</p></div>
+    </details>
+    <details class="gate" name="w-sb">
+      <summary><span class="gt">Mid-argument</span> The cocoa <span class="op">Open</span></summary>
+      <div class="gbody"><p>In the middle of a real fight, Meryl turns toward an unseen camera: &ldquo;Why don&rsquo;t you let me fix you some of this new Mococoa drink? All natural cocoa beans from the upper slopes of Mount Nicaragua. No artificial sweeteners.&rdquo;</p><p class="why"><b>Why it matters:</b> It is funny and horrible at once. She is performing for a camera Truman cannot see, and for a second, so are you.</p></div>
+    </details>
+  </section>
+<section>
+    <div class="sec-head">
+      <div class="eyebrow">03</div>
+      <h2>After the credits</h2>
+      <p>Everything here gives the film away. Keep it for afterwards.</p>
+    </div>
+    <details class="gate wide" name="a-sb">
+      <summary><span class="gt">Open</span> The script started much darker <span class="op">Open</span></summary>
+      <div class="gbody"><p>Andrew Niccol&rsquo;s draft was a thriller set in a rain-soaked artificial New York, with a drinking, unravelling Truman. Weir moved it into bright suburban daylight, on the reasoning that nobody would watch something that grim twenty-four hours a day. The trap is harder to see because it is sunny.</p></div>
+    </details>
+    <details class="gate wide" name="a-sb">
+      <summary><span class="gt">Open</span> It gave its name to a real condition <span class="op">Open</span></summary>
+      <div class="gbody"><p>In 2008 the brothers Joel Gold, a psychiatrist, and Ian Gold, a philosopher of psychiatry, described patients convinced they were being filmed for a show. They called it the &ldquo;Truman Show delusion.&rdquo;</p></div>
+    </details>
+    <details class="gate wide" name="a-sb">
+      <summary><span class="gt">Open</span> Three Oscar nominations, no wins <span class="op">Open</span></summary>
+      <div class="gbody"><p>Ed Harris for Supporting Actor, Peter Weir for Directing, Andrew Niccol for Original Screenplay. It lost all three. The film&rsquo;s last line belongs to two viewers on a couch, asking what else is on.</p></div>
+    </details>
+  </section>
+<section>
+    <div class="qs">
+      <div class="q"><span class="qn">01</span><p>The film shows Truman through hidden cameras and through its own &ldquo;normal&rdquo; camera. Is there any difference, or were you watching the show the whole time?</p></div>
+      <div class="q"><span class="qn">02</span><p>Christof says Truman could leave at any time. Is that true?</p></div>
+      <div class="q"><span class="qn">03</span><p>The final line goes to two people on a couch. Who is the film actually about?</p></div>
+    </div>
+  </section>
+  <div class="watch">
+    <div class="k">Where to watch</div>
+    <p><b>Find it here &rarr; <a href="https://www.justwatch.com/us/search?q=The%20Truman%20Show">The Truman Show on JustWatch</a></b>, which shows every service carrying it right now, including free ones.</p>
+    <p>And two nobody uses: <strong>Kanopy</strong> and <strong>Hoopla</strong> are free with a library card. If you find it cheaper or free somewhere else, post the link in <a href="https://illiteratewriter.substack.com">my Substack</a>.</p>
+    <p class="srcline">Sources: AFI Catalog &middot; American Cinematographer &middot; The Hollywood Reporter &middot; the Academy&rsquo;s awards database</p>
+  </div>
+      </div>
+    </details>
+  </section>
+
+  <section class="lesson">
+    <div class="sec-head">
+      <div class="eyebrow">The lesson</div>
+      <h2>The camera doesn't lie</h2>
+    </div>
+    <h3>Henry James described what he was doing</h3>
+    <p>In the prefaces he wrote for the New York Edition of his novels, published 1907 to 1909, Henry James explained his habit of telling a story through one character&rsquo;s consciousness &mdash; what he called a &ldquo;centre&rdquo; or a &ldquo;reflector.&rdquo; It was a working novelist describing his own method, and he never used the phrase &ldquo;point of view&rdquo; for it.</p>
+    <h3>Percy Lubbock turned it into a law</h3>
+    <p>In 1921 the critic Percy Lubbock, who was James&rsquo;s literary executor, published <i>The Craft of Fiction</i> and made that habit the whole art: &ldquo;The whole intricate question of method, in the craft of fiction, I take to be governed by the question of the point of view.&rdquo; The phrase is his, not James&rsquo;s. From there it became a classroom rule, and eventually &ldquo;show, don&rsquo;t tell.&rdquo; One novelist&rsquo;s working method hardened into the standard for everyone.</p>
+    <h3>Hollywood&rsquo;s version: the camera tells the truth</h3>
+    <p>Film grew its own form of the rule. What the camera shows you, happened. In 1950 Alfred Hitchcock broke it in <i>Stage Fright</i>, opening with a flashback that turns out to be a lie. Audiences felt cheated, and he later called it one of his biggest mistakes. Four years later he made <i>Rear Window</i>, where the camera almost never shows you anything Jeff did not see.</p>
+    <h3>Three ways a film can lend you its eyes</h3>
+    <div class="kinds">
+      <div class="kind"><div class="n">One</div><h4>Restricted</h4><p>You know only what one character knows, and you find things out when they do.</p><div class="eg">Rear Window &middot; Memento &middot; Parasite&rsquo;s first half</div></div>
+      <div class="kind"><div class="n">Two</div><h4>Unrestricted</h4><p>The film shows you more than any character knows, and the tension comes from watching them walk into it.</p><div class="eg">Psycho &middot; Jaws &middot; The Shining</div></div>
+      <div class="kind"><div class="n">Three</div><h4>Subjective</h4><p>The camera becomes a character&rsquo;s eyes, for a shot or for a whole film.</p><div class="eg">Lady in the Lake &middot; Hardcore Henry &middot; found footage</div></div>
+    </div>
+    <p class="dnote">The Truman Show is a fourth case: a film that passes the camera between characters until you keep changing sides.</p>
+    <h3>One piece of vocabulary</h3>
+    <p>Hitchcock separated <b>surprise</b> from <b>suspense</b> using a bomb under a table. If it simply explodes, the audience gets a shock. If they were shown the bomb first, the same scene becomes unbearable: &ldquo;In the first case we have given the public fifteen seconds of surprise at the moment of the explosion. In the second we have provided them with fifteen minutes of suspense.&rdquo; The only thing that changed is what the point of view let them know.</p>
+    <h3>Why these films</h3>
+    <p>Chapter 1 was the shape of a story and chapter 2 was its clock. This chapter is the narrator: who is holding the camera, and whether you trust them. One film keeps you in one chair. The other hands you around a room full of watchers until you realise you are one of them.</p>
+  </section>
+  <section class="endsec">
+    <div class="next-up" data-ff="next">
+      <div class="nlab">Next</div>
+      <div class="nid">Chapter 4</div>
+      <div class="ntitle">Frame Game</div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fm">The Illiterate Writer&rsquo;s Film Forum</div>
+    <div class="fname">R. Julian Tuttle</div>
+    <div class="fmem"><a href="https://illiteratewriter.substack.com">Become a Film Forum member &rarr;</a></div>
+    <div class="fline">Film Forum &middot; Part One &middot; Story &middot; Chapter 3 &middot; Field Guide &middot; <a href="/">All chapters</a></div>
+    <div class="contact">Questions, arguments, films you want on the ballot:
+      <a href="mailto:heyilliteratewriter@gmail.com">heyilliteratewriter@gmail.com</a></div>
+    <div class="fsrc">Facts in this guide are drawn from the AFI Catalog, TCM, American Cinematographer, the Academy&rsquo;s awards database, the Yale Film Archive and contemporary reporting. Where sources disagree, the disagreement is printed rather than resolved.</div>
+    <div class="fcr">&copy; 2026 R. Julian Tuttle &middot; The Illiterate Writer&rsquo;s Film Forum</div>
+  </footer>
+</div>
+
+<script src="/chapters.js"></script>
+<script>
+(function(){
+  /* the paper edition wants every gate open */
+  var openAll = function(){
+    document.querySelectorAll('details[name]').forEach(function(d){
+      d.setAttribute('data-name', d.getAttribute('name')); d.removeAttribute('name');
+    });
+    document.querySelectorAll('details').forEach(function(d){ d.open = true; });
+  };
+  var closeAll = function(){
+    document.querySelectorAll('details[data-name]').forEach(function(d){
+      d.open = false; d.setAttribute('name', d.getAttribute('data-name')); d.removeAttribute('data-name');
+    });
+  };
+  window.addEventListener('afterprint', closeAll);
+  if (window.matchMedia) { var mq = window.matchMedia('print'); if (mq.addListener) mq.addListener(openAll); }
+  window.addEventListener('beforeprint', openAll);
+})();
+</script>
+<script>
+/* The trophies on a touch screen: a finger cannot hover, so the line showing what
+   a film won reveals itself for three and a half seconds when the page opens, and
+   again for three and a half whenever a card is tapped. Desktop keeps its hover. */
+(function(){
+  if (window.matchMedia && window.matchMedia('(hover:hover)').matches) return;
+  var MS = 3500;
+  function flash(road){
+    if (!road || !road.querySelector('.osc')) return;
+    clearTimeout(road._oscTimer);
+    road.classList.add('osc-show');
+    road._oscTimer = setTimeout(function(){ road.classList.remove('osc-show'); }, MS);
+  }
+  document.querySelectorAll('details.road').forEach(flash);
+  document.addEventListener('click', function(e){
+    var r = e.target.closest && e.target.closest('details.road');
+    if (r) flash(r);
+  });
+})();
+</script>
+
+<script>
+(function () {
+  /* the road the room voted for wears the highlight and lends the page its colour */
+  var F = window.FF; if (!F) return;
+  var n = +(document.body.getAttribute('data-chapter') || 0);
+  var c = null; F.CHAPTERS.forEach(function (x) { if (x.n === n) c = x; });
+  if (!c || !c.voted) return;
+  var road = document.querySelector('details.road[data-road="' + c.voted + '"]');
+  if (road) {
+    /* a stylesheet rule, not an inline one: opening and closing a film tab sets and
+       clears inline custom properties, and an inline colour here would be wiped with them */
+    var st = document.createElement('style');
+    st.textContent = ':root{--film:' + road.getAttribute('data-color') + ';--film-deep:' + road.getAttribute('data-deep') + '}';
+    document.head.appendChild(st);
+  }
+  document.querySelectorAll('details.road').forEach(function (d) {
+    var mine = d.getAttribute('data-road') === c.voted;
+    d.classList.toggle('took', mine);
+    d.classList.toggle('voted-road', mine);
+    var s = d.querySelector('summary');
+    if (mine && s && !s.querySelector('.voted')) {
+      var tag = document.createElement('span'); tag.className = 'voted'; tag.textContent = 'Voted';
+      s.insertBefore(tag, s.querySelector('.sfilm'));
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# How Netlify builds the Film Forum.
+#
+# The site is plain HTML — nothing is compiled — but two things are generated
+# fresh on every deploy so they can never fall out of step with chapters.js:
+# the calendar invitations, and the list of chapters the ballot function trusts.
+
+[build]
+  command = "node tools/build-calendar.mjs"
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[[headers]]
+  for = "/calendar/*"
+  [headers.values]
+    Content-Type = "text/calendar; charset=utf-8"

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Illiterate Writer&rsquo;s Film Forum">
+<meta property="og:title" content="The Illiterate Writer&rsquo;s Film Forum &middot; The Elements of Film">
+<meta property="og:description" content="Nine chapters. Two roads to choose from each week. A film club from The Illiterate Writer.">
+<meta property="og:image" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta property="og:image:secure_url" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+<meta property="og:image:alt" content="The Illiterate Writer&rsquo;s Film Forum &middot; The Elements of Film">
+<meta property="og:url" content="https://illiterate-film-forum.netlify.app/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Illiterate Writer&rsquo;s Film Forum &middot; The Elements of Film">
+<meta name="twitter:description" content="Nine chapters. Two roads to choose from each week. A film club from The Illiterate Writer.">
+<meta name="twitter:image" content="https://illiterate-film-forum.netlify.app/film-forum-share-2.jpg">
+<meta name="description" content="Nine chapters. Two roads to choose from each week. A film club from The Illiterate Writer.">
+<title>The Illiterate Writer&rsquo;s Film Forum &middot; The Elements of Film</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/icons/icon-180.png">
+<meta name="theme-color" content="#0c0a12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Film Forum">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Film Forum is a single dark world on purpose, so the page paints its own ground */
+:root{
+  color-scheme:dark;
+  --ink:#0c0a12; --ink-2:#141020; --ink-3:#1b1529;
+  --line:rgba(255,255,255,.10); --line-2:rgba(255,255,255,.18);
+  --text:#efe9f5; --dim:#a99fbd; --faint:#7a7090;
+  --hb:#ff5c7a; --sb:#ff9d2e; --ok:#8fd9a8;
+  --display:'Oswald','Arial Narrow',Arial,sans-serif;
+  --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ink);color:var(--text);font-family:var(--sans);font-size:16px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding-inline:20px}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(900px 500px at 10% -10%,rgba(255,92,122,.14),transparent 62%),
+             radial-gradient(800px 460px at 94% 2%,rgba(255,157,46,.10),transparent 62%)}
+.page{position:relative;z-index:1;max-width:880px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hb);outline-offset:3px;border-radius:6px}
+
+/* ---------- masthead ---------- */
+.mast{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:18px;
+  border-bottom:1px solid var(--line)}
+.brand{font-family:var(--display);font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.concept-unused{font-family:var(--display);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--sb);
+  border:1px dashed rgba(255,157,46,.5);border-radius:999px;padding:5px 12px;white-space:nowrap}
+
+/* ---------- title page ---------- */
+.titlepage{text-align:center;padding-block:64px 36px}
+.kicker{font-family:var(--display);font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--faint)}
+h1{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-spacing:.01em;line-height:.9;
+  font-size:clamp(46px,11vw,96px);margin:16px 0 0;text-wrap:balance;
+  background:linear-gradient(175deg,#fff 8%,#cfc3e6 55%,#8d7fae 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.tag{font-family:var(--serif);font-style:italic;font-size:clamp(17px,2.6vw,21px);color:var(--dim);margin:18px 0 0}
+
+/* the book as a strip of nine frames */
+.reel{margin:40px auto 0;max-width:560px}
+.strip{position:relative;display:grid;grid-template-columns:repeat(9,1fr);gap:5px;padding:13px 8px;
+  background:#07060b;border-radius:6px;border:1px solid var(--line)}
+.strip::before,.strip::after{content:"";position:absolute;left:8px;right:8px;height:5px;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 7px,transparent 7px 14px);border-radius:2px}
+.strip::before{top:4px}.strip::after{bottom:4px}
+.frame{appearance:none;border:1px solid var(--line-2);background:var(--ink-2);border-radius:3px;aspect-ratio:4/3;
+  font-family:var(--display);font-size:13px;letter-spacing:.06em;color:var(--faint);cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s,border-color .15s,box-shadow .15s,background .15s}
+
+.frame.past{background:linear-gradient(160deg,#3a2f4f,#211a30);color:var(--dim);border-color:rgba(255,255,255,.22)}
+/* the current chapter and the open ballot keep their colour, with a little light
+   struck across the top so they read as lit rather than flat */
+.frame.now{background:linear-gradient(160deg,#ff93a8 0%,var(--hb) 38%,#b8335a 100%);color:#fff;border-color:var(--hb);
+  box-shadow:0 0 18px -4px var(--hb),inset 0 1px 0 rgba(255,255,255,.55)}
+
+.frame.next{border-style:dashed;border-color:rgba(255,157,46,.6);color:var(--sb)}
+
+/* Hover, written last and with the strip in front of it so it beats every state
+   above: a frame under the cursor lifts and lights, the way a frame of film does
+   when you hold it up to a lamp. One that already carries a colour keeps it and
+   takes the light on top. */
+.strip .frame:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.34);color:#fff;
+  background:linear-gradient(160deg,#3b3150,#221a33);
+  box-shadow:0 0 0 1px rgba(255,255,255,.23),0 0 30px 4px rgba(255,255,255,.30),
+             inset 0 1px 0 rgba(255,255,255,.28)}
+.strip .frame.next:hover{border-color:rgba(255,157,46,.6);color:#ffd7a8;
+  box-shadow:0 0 0 1px rgba(255,255,255,.19),0 0 26px 2px rgba(255,157,46,.30),
+             inset 0 1px 0 rgba(255,255,255,.23)}
+.strip .frame.now:hover{background:linear-gradient(160deg,#ffa6b8 0%,var(--hb) 40%,#c43c62 100%);
+  border-color:rgba(255,255,255,.67);
+  box-shadow:0 0 0 1px rgba(255,255,255,.42),0 0 28px 2px rgba(255,92,122,.67),
+             inset 0 1px 0 rgba(255,255,255,.57)}
+.strip .frame.ballot:hover{background:linear-gradient(160deg,#ffd099 0%,var(--sb) 40%,#c4701d 100%);
+  border-color:rgba(255,255,255,.67);
+  box-shadow:0 0 0 1px rgba(255,255,255,.42),0 0 28px 2px rgba(255,157,46,.67),
+             inset 0 1px 0 rgba(255,255,255,.57)}
+.reelcap{display:flex;justify-content:space-between;gap:10px;margin-top:10px;font-size:12.5px;color:var(--faint)}
+.reelcap b{color:var(--text);font-weight:500}
+
+/* ---------- contents ---------- */
+.contents-h{display:flex;align-items:center;gap:14px;margin:30px 0 4px;font-family:var(--display);font-size:11px;
+  letter-spacing:.32em;text-transform:uppercase;color:var(--faint)}
+.contents-h::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.part{margin-top:34px}
+.parthead{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:baseline;
+  padding-bottom:12px;border-bottom:1px solid var(--line-2)}
+.partno{font-family:var(--display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.partname{font-family:var(--display);font-size:clamp(24px,4.6vw,34px);font-weight:600;text-transform:uppercase;
+  letter-spacing:.02em;line-height:1}
+.partline{grid-column:2;font-family:var(--serif);font-style:italic;font-size:15px;color:var(--dim);margin-top:6px}
+/* how much of a part a reader has finished: three is a target somebody can see
+   the end of, which nine never is */
+.partdone,.partsome{font-family:var(--display);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:400;margin-left:14px;vertical-align:middle;border-radius:999px;padding:4px 10px;white-space:nowrap}
+.partdone{color:var(--ok);border:1px solid rgba(143,217,168,.45)}
+.partsome{color:var(--faint);border:1px solid var(--line)}
+@media (max-width:640px){.partdone,.partsome{display:block;margin:8px 0 0;width:max-content;font-size:10px}}
+
+/* one chapter row */
+.ch{border-bottom:1px solid var(--line);transition:background .2s}
+.ch>.row{list-style:none;cursor:pointer;display:grid;
+  grid-template-columns:62px minmax(0,1fr) auto;column-gap:14px;align-items:center;padding:18px 6px}
+.ch>.row::-webkit-details-marker{display:none}
+.ch>.row:hover{background:rgba(255,255,255,.025)}
+.num{font-family:var(--display);font-size:34px;font-weight:300;color:var(--faint);line-height:1;
+  font-variant-numeric:tabular-nums;letter-spacing:.02em}
+.ttl{min-width:0}
+.name{display:flex;align-items:baseline;gap:12px;min-width:0}
+.name h3{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.015em;
+  font-size:clamp(19px,3.4vw,26px);line-height:1.05;margin:0;color:var(--text);text-wrap:balance}
+.leader{flex:1;min-width:24px;border-bottom:1px dotted rgba(255,255,255,.22);transform:translateY(-5px)}
+.subj{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;margin-top:6px}
+.subj .s{font-family:var(--display);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--sb)}
+.subj .l{font-family:var(--serif);font-style:italic;font-size:14.5px;color:var(--dim)}
+.status{font-family:var(--display);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);
+  white-space:nowrap;text-align:right}
+.status .pill{display:inline-block;border-radius:999px;padding:4px 11px;border:1px solid var(--line-2)}
+/* the one date a member has to be somewhere for reads a shade stronger */
+.status .pill.forum{color:var(--text);border-color:rgba(255,255,255,.3)}
+
+/* the two dates for one chapter, spelled out where the chapter is open */
+.when{display:flex;flex-wrap:wrap;gap:6px 22px;margin:0 0 16px;font-size:14px;color:var(--dim)}
+.when .w b{font-family:var(--display);font-weight:600;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--sb);margin-right:7px}
+
+.chev{display:inline-block;margin-left:10px;transition:transform .2s;color:var(--faint)}
+.ch[open] .chev{transform:rotate(180deg)}
+
+/* states */
+.ch.past{opacity:.78}
+.ch.past:hover,.ch.past[open]{opacity:1}
+/* chapters still to come: a title and a date, nothing to open yet */
+.ch.locked>.row{cursor:default}
+.ch.locked>.row:hover{background:none}
+.ch.next{opacity:.82}
+.ch.past .num{color:var(--dim)}
+.ch.future{opacity:.56}
+.ch.next .status .pill{border-style:dashed;border-color:rgba(255,157,46,.55);color:var(--sb)}
+.ch.now{position:relative;border:1px solid rgba(255,92,122,.45);border-radius:14px;margin:8px -8px;
+  background:linear-gradient(120deg,rgba(255,92,122,.13),rgba(255,157,46,.06) 60%,rgba(255,255,255,.01));
+  box-shadow:0 24px 60px -40px rgba(255,92,122,.9)}
+.ch.now>.row{padding-inline:14px}
+.ch.now .num{color:var(--hb);font-weight:500}
+.ch.now .status .pill{background:var(--hb);border-color:var(--hb);color:var(--ink);font-weight:600}
+
+/* the opened chapter */
+.body{padding:2px 6px 26px 82px;animation:open .25s ease}
+.ch.now .body{padding-inline:90px 18px}
+@keyframes open{from{opacity:.4;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.rule{margin:0;max-width:62ch}
+.rule .k{display:block;font-family:var(--display);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--faint);margin-bottom:6px}
+.rule p{margin:0;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.5;color:#d8cfe6}
+.roads{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.road{border:1px solid var(--line-2);border-radius:12px;padding:14px 16px 15px;background:rgba(255,255,255,.02)}
+.road .tagrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.rt{font-family:var(--display);font-size:10px;letter-spacing:.22em;text-transform:uppercase;border-radius:999px;
+  padding:3px 10px;border:1px solid}
+.rt.hb{color:var(--hb);border-color:rgba(255,92,122,.5)}
+.rt.sb{color:var(--sb);border-color:rgba(255,157,46,.45)}
+.voted{font-family:var(--display);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);background:var(--hb);border-radius:999px;padding:3px 9px}
+.prop{font-family:var(--display);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--faint)}
+.road .f{font-family:var(--display);font-size:21px;font-weight:600;text-transform:uppercase;line-height:1.05;
+  margin-top:10px;color:var(--text)}
+.road .m{font-size:13px;color:var(--faint);margin-top:4px}
+/* a fallback so a chapter with no poster colour still draws a readable card
+   (the winning title is painted with this, and an undefined value erases it) */
+.road{--fc:#cfc3e6}
+.road.won{border-color:var(--fc);box-shadow:0 18px 44px -32px var(--fc)}
+.road.won .f{background:linear-gradient(168deg,#fff 10%,var(--fc) 80%);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+/* how the room split, once voting is over */
+.share{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);
+  display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.share .sbar{flex:1 1 90px;min-width:70px;height:3px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden}
+.share .sbar i{display:block;height:100%;border-radius:2px;background:var(--faint)}
+.share.win .sbar i{background:var(--fc)}
+.share .spct{font-family:var(--display);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--faint);white-space:nowrap}
+.share.win .spct{color:var(--text)}
+.share .smine{font-family:var(--display);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ok);border:1px solid rgba(143,217,168,.45);border-radius:999px;padding:3px 9px;white-space:nowrap}
+.road.lost{opacity:.55}
+.cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.go{font-family:var(--display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;
+  color:#fff;border:1px solid var(--line-2);border-radius:999px;padding:10px 20px;transition:.2s}
+.go:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
+.note{font-size:13.5px;color:var(--faint);font-style:italic}
+
+/* ---------- getting to the forum ---------- */
+.forumrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:20px}
+.forumrow .join,.forumrow .ical{font-family:var(--display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:999px;padding:10px 20px;transition:.2s;white-space:nowrap}
+.forumrow .join{color:var(--ink);background:var(--ok);font-weight:600;border:1px solid var(--ok)}
+.forumrow .join:hover{background:#a8e6bd;border-color:#a8e6bd}
+.forumrow .join.off{background:none;color:var(--faint);border:1px dashed var(--line-2);font-weight:400}
+.forumrow .ical{color:var(--text);border:1px solid var(--line-2)}
+.forumrow .ical:hover{border-color:var(--text)}
+.forumrow .fwhen{font-size:13.5px;color:var(--faint)}
+.forumrow.live{padding:12px 14px;margin-inline:-14px;border-radius:12px;
+  border:1px solid rgba(143,217,168,.4);background:rgba(143,217,168,.07)}
+
+/* what this is, for somebody who has just landed */
+.how{max-width:56ch;margin:20px auto 0;color:var(--dim);font-size:15px;line-height:1.6}
+.how b{color:var(--text);font-weight:600}
+.howjoin{margin-top:14px}
+.howjoin a{font-family:var(--display);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;color:var(--text);border:1px solid var(--line-2);border-radius:999px;padding:9px 18px;
+  display:inline-block;transition:.2s}
+.howjoin a:hover{border-color:var(--hb)}
+
+/* On a phone the one thing worth doing rides along at the bottom, inside the
+   thumb's reach, instead of making somebody scroll back up to find it. */
+.actionbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;gap:10px;align-items:center;
+  padding:11px 14px calc(11px + env(safe-area-inset-bottom,0px));
+  background:rgba(12,10,18,.94);border-top:1px solid var(--line);backdrop-filter:blur(10px)}
+.actionbar a,.actionbar button{flex:1;font:inherit;font-family:var(--display);font-size:12.5px;letter-spacing:.16em;
+  text-transform:uppercase;text-align:center;text-decoration:none;border-radius:999px;padding:13px 16px;
+  border:1px solid var(--sb);background:var(--sb);color:var(--ink);font-weight:600;cursor:pointer}
+.actionbar.now a,.actionbar.now button{background:var(--ok);border-color:var(--ok)}
+.actionbar .quiet{flex:none;background:none;border-color:var(--line-2);color:var(--dim);font-weight:400;padding:13px 14px}
+body.has-bar{padding-bottom:84px}
+@media (hover:hover){.actionbar{display:none}body.has-bar{padding-bottom:0}}
+@media print{.actionbar{display:none}}
+
+/* ---------- the ballot ---------- */
+.mast-r{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.vchip{font-family:var(--display);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;border-radius:999px;
+  padding:6px 13px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.vchip.open{color:var(--ink);background:var(--sb);font-weight:600}
+.vchip.done{color:var(--ok);border:1px solid rgba(143,217,168,.5)}
+.ch.ballot{border:1px dashed rgba(255,157,46,.6);border-radius:14px;margin:8px -8px;
+  background:linear-gradient(120deg,rgba(255,157,46,.12),rgba(255,92,122,.05) 60%,rgba(255,255,255,.01));
+  box-shadow:0 24px 60px -40px rgba(255,157,46,.9)}
+.ch.ballot>.row{padding-inline:14px}
+.ch.ballot .num{color:var(--sb);font-weight:500}
+.ch.ballot .status .pill{background:var(--sb);border-color:var(--sb);color:var(--ink);font-weight:600}
+.ch.ballot.hasvote .status .pill{background:none;color:var(--ok);border-color:rgba(143,217,168,.55)}
+.ch.ballot .body{padding-inline:90px 18px}
+.frame.ballot{background:linear-gradient(160deg,#ffc887 0%,var(--sb) 38%,#b8641a 100%);color:#fff;border-color:var(--sb);box-shadow:0 0 18px -4px var(--sb),inset 0 1px 0 rgba(255,255,255,.55)}
+/* the tick a reader earns by finishing a chapter's guide: it sits in the corner
+   of the frame, survives every other state, and never goes away again */
+.frame{position:relative}
+.frame .ck{position:absolute;top:1px;right:3px;font-size:9px;line-height:1;color:var(--ok);margin:0}
+.frame.read{border-color:rgba(143,217,168,.5)}
+.frame.now .ck,.frame.ballot .ck{color:#0c0a12}
+.ballot-intro{margin:0;max-width:62ch;color:var(--dim);font-size:15px}
+.ballot-intro b{color:var(--text);font-weight:600}
+.namefield{display:flex;flex-direction:column;gap:6px;margin-top:16px;max-width:320px}
+.namefield label{font-family:var(--display);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--faint)}
+.namefield input{background:rgba(255,255,255,.04);border:1px solid var(--line-2);border-radius:999px;padding:11px 18px;
+  color:var(--text);font:inherit;font-size:15px}
+.namefield input:focus{outline:none;border-color:var(--sb)}
+.road .p{font-size:14px;color:var(--dim);margin-top:10px;line-height:1.5}
+.votebtn{margin-top:14px;width:100%;font-family:var(--display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  border-radius:999px;padding:11px 16px;cursor:pointer;background:none;color:var(--text);border:1px solid var(--line-2);transition:.2s}
+.votebtn.hb:hover{background:var(--hb);border-color:var(--hb);color:var(--ink)}
+.votebtn.sb:hover{background:var(--sb);border-color:var(--sb);color:var(--ink)}
+.road.mine{border-color:var(--ok);box-shadow:0 18px 44px -32px var(--ok)}
+.minepill{font-family:var(--display);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+  color:var(--ink);background:var(--ok);border-radius:999px;padding:3px 9px}
+.err{color:#ffb4c4;font-size:13.5px;margin:8px 0 0}
+.donemsg{margin-top:16px;border:1px solid rgba(143,217,168,.4);border-radius:12px;padding:14px 16px;
+  color:var(--text);font-size:14.5px;background:rgba(143,217,168,.06);max-width:62ch}
+.donemsg .small{display:block;color:var(--faint);font-size:13px;margin-top:4px}
+/* the plain way out, which a thumb can hit without a two-step chip */
+.donemsg .undo{display:inline-block;margin-top:12px;font:inherit;font-family:var(--display);font-size:11px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--dim);background:none;cursor:pointer;
+  border:1px solid var(--line-2);border-radius:999px;padding:10px 18px;transition:.2s}
+.donemsg .undo:hover{color:#ffb4c4;border-color:rgba(255,180,196,.6)}
+@media (hover:none){.donemsg .undo{width:100%;text-align:center;padding-block:13px}}
+.donemsg a{color:var(--text)}
+
+/* the green check turns into "clear my vote" on hover */
+.swap{cursor:pointer}
+.swap .b,.swap .c{display:none}
+@media (hover:hover){
+  .swap:hover .a,.swap:focus-visible .a{display:none}
+  .swap:hover .b,.swap:focus-visible .b{display:inline}
+}
+/* a tapped chip says what the second tap will do */
+.swap.armed .a,.swap.armed .b{display:none}
+.swap.armed .c{display:inline}
+.pill.swap.armed,.vchip.swap.armed{color:#ffb4c4 !important;border-color:rgba(255,180,196,.6) !important}
+.pill.swap:hover,.pill.swap:focus-visible,.vchip.swap:hover,.vchip.swap:focus-visible{color:#ffb4c4 !important;border-color:rgba(255,180,196,.6) !important}
+
+/* a small secret for the Halloween chapter: hover and a jack-o'-lantern tilts into frame */
+.ch{position:relative}
+
+/* ---------- the animated mark on each chapter tab ----------
+   It sits in the tab row, so it never covers the date or the vote pill. A mark
+   plays one whole cycle once it starts, and nothing stops it part way: hovering
+   the tab, opening or closing it, or tapping a locked chapter all start it, and
+   the chapter we are on runs it on a loop. */
+.rend{display:flex;align-items:center;gap:12px;justify-self:end;min-width:0}
+/* The whole mark is switched on and off by its own animation, not just its parts:
+   that way nothing can be left half-lit on screen between cycles. */
+.mark-anim{width:74px;height:48px;flex:none;pointer-events:none;opacity:0;
+  animation-duration:17s;animation-timing-function:linear;animation-fill-mode:both;
+  animation-iteration-count:1;animation-play-state:paused}
+@keyframes ffMarkOn{0%{opacity:0}3%,61%{opacity:1}65%,100%{opacity:0}}
+.mark-anim svg{width:100%;height:100%;display:block;overflow:visible;filter:drop-shadow(0 0 7px currentColor)}
+.mark-anim *{animation-duration:17s;animation-timing-function:linear;animation-fill-mode:both;
+  animation-iteration-count:1;animation-play-state:paused}
+.ch:not(.anim-play):not(.now) .mark-anim,.ch:not(.anim-play):not(.now) .mark-anim *{animation-name:none}
+.ch.anim-play .mark-anim,.ch.now .mark-anim{animation-name:ffMarkOn}
+.ch.anim-play .mark-anim,.ch.anim-play .mark-anim *,
+.ch.now .mark-anim,.ch.now .mark-anim *{animation-play-state:running}
+.ch.now .mark-anim,.ch.now .mark-anim *{animation-iteration-count:infinite}
+@media (max-width:640px){.mark-anim{width:54px;height:36px}}
+@media (prefers-reduced-motion:reduce){.mark-anim,.mark-anim *{animation:none!important;stroke-dashoffset:0}
+  .mark-anim *{opacity:1}
+  .ch.anim-play .mark-anim,.ch.now .mark-anim{opacity:1}
+  .m3 .lids,.m5 .wink{display:none}}
+
+/* 1 · the three act curve, ridden like a rollercoaster */
+.m1{color:#e8bd5c}
+.m1 .track{stroke-dasharray:200;animation-name:ffTrack}
+.m1 .cart{offset-path:path("M2 41C10 41 12 31 20 31S28 35 34 34C42 33 44 7 52 7C58 7 60 33 66 37L72 40");offset-rotate:auto;animation-name:ffCart}
+@keyframes ffTrack{0%{stroke-dashoffset:200;opacity:1}18%,60%{stroke-dashoffset:0;opacity:1}70%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes ffCart{0%,8%{offset-distance:0%;opacity:0}11%{opacity:1}46%{offset-distance:62%}
+  56%{offset-distance:100%;opacity:1}64%,100%{offset-distance:100%;opacity:0}}
+
+/* 2 · a stopwatch, ticking until every hand lands on twelve */
+.m2{color:#7fb3de}
+.m2 .watch{animation-name:ffFadeMark}
+.m2 .mh{transform-origin:37px 28px;animation-name:ffMin,ffFadeMark;animation-timing-function:steps(24),linear}
+.m2 .hh{transform-origin:37px 28px;animation-name:ffHour,ffFadeMark;animation-timing-function:steps(12),linear}
+@keyframes ffMin{0%{transform:rotate(0deg)}62%,100%{transform:rotate(720deg)}}
+@keyframes ffHour{0%{transform:rotate(0deg)}62%,100%{transform:rotate(360deg)}}
+@keyframes ffFadeMark{0%{opacity:0}5%,64%{opacity:1}72%,100%{opacity:0}}
+
+/* 3 · binoculars that look, blink twice, look again, then go */
+.m3{color:var(--ok)}
+.m3 .body,.m3 .rings{animation-name:ffBinoc}
+.m3 .eyes{animation-name:ffEyes}
+.m3 .lids{animation-name:ffLids}
+@keyframes ffBinoc{0%{opacity:0}4%,62%{opacity:1}68%,100%{opacity:0}}
+@keyframes ffEyes{0%,15%{opacity:0}18%,30%{opacity:1}31.5%,34%{opacity:0}35.5%,43%{opacity:1}
+  44.5%,47%{opacity:0}48.5%,60%{opacity:1}66%,100%{opacity:0}}
+@keyframes ffLids{0%,31%{opacity:0}31.5%,34%{opacity:1}34.5%,44%{opacity:0}44.5%,47%{opacity:1}47.5%,100%{opacity:0}}
+
+/* 4 · a neon frame that draws itself and rules itself into thirds */
+.m4{color:#6ea8ff}
+.m4 .box{stroke-dasharray:192;animation-name:ffBox}
+.m4 .thirds{stroke-dasharray:180;animation-name:ffThirds}
+@keyframes ffBox{0%{stroke-dashoffset:192;opacity:1}16.6%,33.3%{stroke-dashoffset:0;opacity:1}50%,100%{stroke-dashoffset:0;opacity:0}}
+@keyframes ffThirds{0%,16.6%{stroke-dashoffset:180;opacity:0}17%{opacity:1}33.3%,50%{stroke-dashoffset:0;opacity:1}66.6%,100%{stroke-dashoffset:0;opacity:0}}
+
+/* 5 · the jack-o'-lantern, with a wink */
+.m5{color:#ff9d2e}
+.m5 svg{transform:rotate(-14deg)}
+.m5 svg>path,.m5 svg>g[mask]{animation-name:ffJack}
+.m5 .wink{animation-name:ffWink}
+@keyframes ffJack{0%{opacity:0}5%,62%{opacity:1}70%,100%{opacity:0}}
+@keyframes ffWink{0%,24%{opacity:0}25%,29%{opacity:1}30%,47%{opacity:0}48%,52%{opacity:1}53%,100%{opacity:0}}
+
+/* 6 · a tone pulsing to a beat you can't hear: one two, one two three */
+.m6{color:#c9a3ff}
+.m6 .bars rect{transform-origin:50% 24px;animation-name:ffBeat}
+.m6 .b2{animation-delay:.15s}.m6 .b3{animation-delay:.3s}.m6 .b4{animation-delay:.45s}
+.m6 .ring{transform-origin:37px 24px;animation-name:ffRing}
+@keyframes ffBeat{0%{transform:scaleY(.5);opacity:0}4%{opacity:1}
+  5%{transform:scaleY(1.5)}9%{transform:scaleY(.6)}
+  13%{transform:scaleY(1.5)}17%{transform:scaleY(.6)}
+  22%{transform:scaleY(1.5)}26%{transform:scaleY(.6)}
+  30%{transform:scaleY(1.5)}34%{transform:scaleY(.6)}
+  38%{transform:scaleY(1.6)}42%{transform:scaleY(.6)}
+  47%{transform:scaleY(1.5)}51%{transform:scaleY(.6)}
+  55%{transform:scaleY(1.5)}60%{transform:scaleY(.6);opacity:1}68%,100%{transform:scaleY(.5);opacity:0}}
+@keyframes ffRing{0%{transform:scale(.7);opacity:0}5%{transform:scale(1);opacity:.9}
+  13%{transform:scale(.82)}22%{transform:scale(1)}30%{transform:scale(.82)}38%{transform:scale(1.05)}
+  47%{transform:scale(.82)}55%{transform:scale(1);opacity:.9}66%,100%{transform:scale(.7);opacity:0}}
+
+/* 7 · chapter 7's ballot runs over Thanksgiving, so a turkey in a pilgrim hat
+   flails its wings twice, settles, and thinks better of it a second time */
+.m7{color:#e8a13c}
+.m7 .wing{transform-origin:36px 28px;animation-name:ffFlap}
+.m7 .wing2{transform-origin:33px 28px;animation-name:ffFlapBack}
+.m7 .bird,.m7 .hat{animation-name:ffBob}
+.m7 .tail{transform-origin:0 0;animation-name:ffFan}
+@keyframes ffFlap{0%,7%{transform:rotate(0deg)}
+  11%{transform:rotate(-13deg)}15%{transform:rotate(5deg)}
+  19%{transform:rotate(-11deg)}23%{transform:rotate(4deg)}
+  27%,44%{transform:rotate(0deg)}
+  48%{transform:rotate(-12deg)}52%{transform:rotate(5deg)}
+  56%{transform:rotate(-9deg)}
+  61%,100%{transform:rotate(0deg)}}
+@keyframes ffFlapBack{0%,7%{transform:rotate(0deg)}
+  11%{transform:rotate(12deg)}15%{transform:rotate(-4deg)}
+  19%{transform:rotate(10deg)}23%{transform:rotate(-3deg)}
+  27%,44%{transform:rotate(0deg)}
+  48%{transform:rotate(11deg)}52%{transform:rotate(-4deg)}
+  56%{transform:rotate(8deg)}
+  61%,100%{transform:rotate(0deg)}}
+@keyframes ffBob{0%,7%{transform:translateY(0)}
+  11%{transform:translateY(-1.2px)}15%{transform:translateY(.4px)}
+  19%{transform:translateY(-1px)}23%{transform:translateY(.3px)}
+  27%,44%{transform:translateY(0)}
+  48%{transform:translateY(-1.1px)}52%{transform:translateY(.3px)}
+  56%{transform:translateY(-.8px)}
+  61%,100%{transform:translateY(0)}}
+@keyframes ffFan{0%,7%{transform:scale(1)}
+  12%{transform:scale(1.05)}20%{transform:scale(.98)}
+  27%,45%{transform:scale(1)}
+  49%{transform:scale(1.04)}56%{transform:scale(.99)}
+  61%,100%{transform:scale(1)}}
+
+/* 8 · comedy and tragedy, layered, just alive enough */
+.m8 .mask-a,.m8 .mask-b{animation-name:ffFadeMark}
+.m8 .eyea,.m8 .eyeb{transform-box:fill-box;transform-origin:50% 50%;animation-name:ffLively}
+.m8 .mask-b .eyeb{animation-delay:.8s}
+.m8 .smile,.m8 .frown{transform-box:fill-box;transform-origin:50% 50%;animation-name:ffMouth}
+.m8 .frown{animation-delay:1.1s}
+@keyframes ffLively{0%,20%{transform:scaleY(1)}23%{transform:scaleY(.55)}26%,44%{transform:scaleY(1)}
+  47%{transform:scaleY(.55)}50%,100%{transform:scaleY(1)}}
+@keyframes ffMouth{0%,10%{transform:scale(1)}25%{transform:scale(1.12,1.25)}40%{transform:scale(.96,.9)}
+  55%{transform:scale(1.08,1.18)}70%,100%{transform:scale(1)}}
+
+/* 9 · new year: the hat, the confetti, the fireworks */
+.m9{color:#e8bd5c}
+.m9 .hat{transform-origin:29px 34px;animation-name:ffHat}
+.m9 .burst{transform-origin:52px 16px;animation-name:ffBurst}
+.m9 .b-two{transform-origin:64px 27px;animation-delay:1.6s}
+.m9 .confetti rect{transform-box:fill-box;transform-origin:50% 50%;animation-name:ffConfetti}
+.m9 .c2{animation-delay:.6s}.m9 .c3{animation-delay:1.2s}.m9 .c4{animation-delay:1.9s}
+@keyframes ffHat{0%{opacity:0;transform:translateY(8px) rotate(-8deg)}
+  7%{opacity:1;transform:translateY(0) rotate(0deg)}
+  14%{transform:rotate(4deg)}22%{transform:rotate(-3deg)}30%{transform:rotate(2deg)}
+  40%,62%{transform:rotate(0deg);opacity:1}72%,100%{opacity:0}}
+@keyframes ffBurst{0%,8%{transform:scale(.2);opacity:0}12%{transform:scale(.6);opacity:1}
+  20%{transform:scale(1.25);opacity:.9}26%{transform:scale(1.5);opacity:0}
+  36%{transform:scale(.2);opacity:0}40%{transform:scale(.7);opacity:1}
+  50%{transform:scale(1.35);opacity:.85}58%,100%{transform:scale(1.6);opacity:0}}
+@keyframes ffConfetti{0%,6%{opacity:0;transform:translate(0,-6px) rotate(0deg)}
+  10%{opacity:1}35%{transform:translate(-3px,12px) rotate(160deg)}
+  60%{opacity:1;transform:translate(3px,26px) rotate(320deg)}
+  68%,100%{opacity:0;transform:translate(0,32px) rotate(380deg)}}
+
+/* the sign that the whole book has run */
+.finale{text-align:center;padding:54px 18px 10px;max-width:60ch;margin:0 auto}
+.fin-rule{width:70px;height:1px;background:var(--line-2);margin:0 auto 26px}
+.fin-k{font-family:var(--display);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--sb)}
+.finale h2{font-family:var(--display);font-weight:600;text-transform:uppercase;letter-spacing:.01em;
+  font-size:clamp(24px,4.6vw,38px);line-height:1.05;margin:14px 0 0;color:var(--text);text-wrap:balance}
+.finale p{color:var(--dim);font-size:16px;line-height:1.65;margin:16px auto 0;max-width:52ch}
+.finale .fin-next{font-family:var(--serif);font-style:italic;color:var(--faint)}
+
+/* Oscars: the trophy shows on hover, and stays put for a Best Picture winner */
+.osc{display:flex;align-items:center;gap:7px;margin-top:8px;font-family:'Oswald',sans-serif;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold,#e8bd5c);
+  opacity:0;transition:opacity .25s ease}
+.osc .trophy{width:15px;height:15px;flex:none}
+@media (hover:hover){.road:hover .osc,.road:focus-within .osc{opacity:1}}
+/* on a touch screen there is no hover, so the trophy is shown for a few seconds
+   when the chapter opens and again whenever a film card is tapped (see below) */
+.road.osc-show .osc{opacity:1}
+@media (prefers-reduced-motion:reduce){.osc{transition:none}}
+
+
+@media (prefers-reduced-motion:reduce){.jack{transition:opacity .3s ease}}
+
+/* ---------- footer ---------- */
+footer{text-align:center;border-top:1px solid var(--line);margin-top:56px;padding-block:36px 120px;color:var(--faint);font-size:13.5px}
+footer .cr{margin-top:20px;font-size:12px;color:var(--faint);letter-spacing:.01em}
+footer .n{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--dim)}
+footer .row{margin-top:10px}
+footer a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--line-2)}
+footer a:hover{border-bottom-color:var(--hb)}
+
+@media (max-width:640px){
+  .ch>.row{grid-template-columns:44px minmax(0,1fr);row-gap:8px;padding:16px 2px}
+  .num{font-size:26px}
+  /* the mark + date pill share a wrapper: on a phone it drops under the title,
+     into column 2 — left it would land in the 44px number column and hang off the page */
+  .rend{grid-column:2;justify-self:start;gap:10px}
+  .status{text-align:left}
+  .leader{display:none}
+  .body,.ch.now .body,.ch.ballot .body{padding:0 4px 22px 58px}
+  .ch.ballot{margin-inline:-6px}
+  .roads{grid-template-columns:1fr}
+  .partname{font-size:24px}
+  .frame{font-size:11px}
+  .ch.now{margin-inline:-6px}
+}
+/* a phone as narrow as an SE: let the long labels wrap instead of pushing the page sideways */
+@media (max-width:400px){
+  .vchip{white-space:normal}
+  .status{font-size:10px;letter-spacing:.1em}
+  .status .pill{padding:4px 9px}
+  .chev{margin-left:6px}
+  .rend{gap:8px;min-width:0}
+  .mark-anim{width:44px;height:30px}
+  .ch.now>.row,.ch.ballot>.row{padding-inline:8px}
+  .status .pill.forum{letter-spacing:.06em}
+  .mast{flex-wrap:wrap;row-gap:8px}
+  .mast-r{min-width:0;justify-content:flex-start}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body data-chapter="">
+<div class="page">
+  <header class="mast">
+    <span class="brand">The Illiterate Writer</span>
+    <span class="mast-r"><span id="vchip"></span></span>
+  </header>
+
+  <section class="titlepage">
+    <div class="kicker">The Illiterate Writer&rsquo;s Film Forum</div>
+    <h1>The Elements<br>of Film</h1>
+    <p class="tag">Nine chapters. Two roads to choose from each week.</p>
+    <p class="how">Every chapter puts <b>two films</b> on the ballot &mdash; one from the canon, one
+      off the beaten track. The room votes, everyone watches the winner, and we meet on
+      Google&nbsp;Meet on a Sunday evening to talk it through.</p>
+    <div class="howjoin" id="howjoin" hidden><a href="https://illiteratewriter.substack.com">Become a member &rarr;</a></div>
+
+    <div class="reel" aria-label="Progress through the book">
+      <div class="strip" id="strip"></div>
+      <div class="reelcap"><span id="capL"></span><span id="capR"></span></div>
+    </div>
+  </section>
+
+  <div class="contents-h">Contents</div>
+  <div id="toc"></div>
+
+  <div class="actionbar" id="abar" hidden></div>
+  <footer>
+    <div class="n">R. Julian Tuttle</div>
+    <div class="row"><a href="https://illiteratewriter.substack.com">Become a Film Forum member &rarr;</a></div>
+    <div class="row"><a href="/calendar/film-forum-season.ics" download>Put all nine forums in your calendar &rarr;</a></div>
+    <div class="row">Questions, arguments, films you want on the ballot: <a href="mailto:heyilliteratewriter@gmail.com">heyilliteratewriter@gmail.com</a></div>
+  <div class="row cr">&copy; 2026 R. Julian Tuttle &middot; The Illiterate Writer&rsquo;s Film Forum</div>
+  </footer>
+</div>
+
+<!-- Netlify reads this hidden form at deploy time so it knows to collect ballot votes -->
+<form name="ballot" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="chapter"><input type="text" name="road"><input type="text" name="film">
+  <input type="text" name="name"><input type="text" name="bot-field">
+</form>
+
+<script src="/chapters.js"></script>
+<script>
+(function () {
+  var F = window.FF;
+  if (!F) return;
+  var CH = F.CHAPTERS, PARTS = F.PARTS, cur = F.cur, esc = F.esc, pad = F.pad;
+  var strip = document.getElementById('strip');
+  var sending = false;
+
+  function roadName(side) { return side === 'hb' ? 'Hollywood Blvd.' : 'Sunset Blvd.'; }
+
+  var TROPHY = '<svg class="trophy" viewBox="0 0 24 24" aria-hidden="true">' +
+    '<path d="M7 3h10v5a5 5 0 0 1-10 0z" fill="currentColor"/>' +
+    '<path d="M7 4H4.5v2A3.5 3.5 0 0 0 8 9.5M17 4h2.5v2A3.5 3.5 0 0 1 16 9.5" fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+    '<path d="M12 13v4M9 20h6M9.5 20l.6-3h3.8l.6 3z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>';
+  function awards(c, side) {
+    var a = c.aw && c.aw[side];
+    if (!a) return '';
+    return '<div class="osc' + (a.bp ? ' bp' : '') + '">' + TROPHY + '<span>' + esc(a.t) + '</span></div>';
+  }
+
+  /* How the room split, shown only once the ballot has closed and shown only as
+     a share of the votes cast — never a headcount, never while voting is open.
+     A percentage of the vote reads as a result whatever the turnout was, which
+     a small number never does. The figures are set per chapter in chapters.js. */
+  function share(c, side) {
+    if (!c.split || typeof c.split[side] !== 'number') return '';
+    var pct = Math.round(c.split[side]);
+    var mine = F.getVote(c);
+    var isMine = mine && mine.road === side;
+    return '<div class="share' + (c.voted === side ? ' win' : '') + '">' +
+             '<span class="sbar" aria-hidden="true"><i style="width:' + pct + '%"></i></span>' +
+             '<span class="spct">' + pct + '% of the vote</span>' +
+             (isMine ? '<span class="smine">Your pick</span>' : '') +
+           '</div>';
+  }
+
+  function road(side, c) {
+    var f = c[side], won = c.voted === side, lost = c.voted && c.voted !== side;
+    /* the winner wears its poster colour: chapters 1-2 carry it on the chapter,
+       3-9 carry one per road, so it is known before the room has voted */
+    var fc = c.color || (c.col && c.col[c.voted]) || '';
+    return '<div class="road' + (won ? ' won' : '') + (lost ? ' lost' : '') + '"' + (won && fc ? ' style="--fc:' + fc + '"' : '') + '>' +
+             '<div class="tagrow"><span class="rt ' + side + '">' + roadName(side) + '</span>' + (won ? '<span class="voted">Voted</span>' : '') + '</div>' +
+             '<div class="f">' + esc(f[0]) + '</div><div class="m">' + esc(f[1]) + '</div>' + awards(c, side) +
+             share(c, side) +
+           '</div>';
+  }
+
+  function ballotRoad(side, c, mine, quiet) {
+    var f = c.ballot[side], isMine = !quiet && mine && mine.road === side, other = !quiet && mine && mine.road !== side;
+    return '<div class="road' + (isMine ? ' mine' : '') + (other ? ' lost' : '') + '">' +
+             '<div class="tagrow"><span class="rt ' + side + '">' + roadName(side) + '</span>' +
+               (isMine ? '<span class="minepill">Your vote</span>' : '') + '</div>' +
+             '<div class="f">' + esc(f[0]) + '</div><div class="m">' + esc(f[1]) + '</div>' + awards(c, side) +
+             '<div class="p">' + esc(f[2]) + '</div>' +
+             (mine || quiet ? '' : '<button type="button" class="votebtn ' + side + '" data-vote="' + side + '">Vote ' + roadName(side) + '</button>') +
+           '</div>';
+  }
+
+  /* Knowing when the forum is is no use without a way to get to it. Every chapter
+     that has not run yet offers its calendar invitation — a real .ics file, so a
+     phone hands it straight to the calendar app with a reminder already set — and
+     from an hour before the call a join button appears beside it. */
+  function forumRow(c) {
+    if (F.beat(c) === 'done') return '';
+    var url = F.forumUrl(), live = F.forumLive(c), m = F.meetLocal(c);
+    var ics = '/calendar/film-forum-ch' + (c.n < 10 ? '0' : '') + c.n + '.ics';
+    return '<div class="forumrow' + (live ? ' live' : '') + '">' +
+      (live && url
+        ? '<a class="join" href="' + esc(url) + '" target="_blank" rel="noopener">Join the forum &rarr;</a>'
+        : live
+          ? '<span class="join off">The room link goes out by email</span>'
+          : '') +
+      '<a class="ical" href="' + ics + '" download>Add to calendar</a>' +
+      '<span class="fwhen">' + esc(m.day) + ' &middot; ' + esc(m.time) + ' on ' + esc(F.FORUM.place) + '</span>' +
+      '</div>';
+  }
+
+  function closedBody(c) {
+    return '<p class="ballot-intro"><b>Voting is closed for chapter ' + pad(c.n) + '.</b> Both films stay here while the result and the field guide are put together.</p>' +
+           '<div class="roads">' + ballotRoad('hb', c, null, true) + ballotRoad('sb', c, null, true) + '</div>' + forumRow(c);
+  }
+
+  function ballotBody(c) {
+    var mine = F.getVote(c);
+    var intro = '<p class="ballot-intro"><b>Pick the road for chapter ' + pad(c.n) + '.</b> Voting closes ' +
+                F.weekday(c.ballot.closes) + ' night, and the field guide for the winner lands the day after.</p>';
+    if (mine) {
+      return intro +
+        '<div class="roads">' + ballotRoad('hb', c, mine) + ballotRoad('sb', c, mine) + '</div>' +
+        forumRow(c) +
+        '<div class="donemsg">✓ Your vote is in, ' + esc(mine.name) + '. You picked ' + roadName(mine.road) + ', ' + esc(c.ballot[mine.road][0]) + '.' +
+          '<span class="small">Voting closes ' + F.weekday(c.ballot.closes) + ' night. You can change it until then.</span>' +
+          '<button type="button" class="undo" data-clear="' + c.n + '">Clear my vote and pick again</button></div>';
+    }
+    return intro +
+      '<div class="namefield"><label for="vname">Your name</label>' +
+        '<input id="vname" type="text" autocomplete="name" maxlength="60" ' +
+          'value="' + esc(F.name()) + '" placeholder="First and last"></div>' +
+      '<p class="err" id="verr" hidden></p>' +
+      '<div class="roads">' + ballotRoad('hb', c, null) + ballotRoad('sb', c, null) + '</div>' + forumRow(c);
+  }
+
+
+
+
+  /* one animated mark per chapter, drawn inside the tab row */
+  var FFMARKS = {
+    1: '<span class="mark-anim m1" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<path class="track" d="M2 41C10 41 12 31 20 31S28 35 34 34C42 33 44 7 52 7C58 7 60 33 66 37L72 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>' +
+         '<g class="cart"><rect x="-6" y="-8" width="12" height="7" rx="2.5" fill="currentColor"/>' +
+           '<circle cx="-3.5" cy="0" r="2" fill="currentColor"/><circle cx="3.5" cy="0" r="2" fill="currentColor"/></g>' +
+       '</svg></span>',
+    2: '<span class="mark-anim m2" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<g class="watch" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">' +
+           '<circle cx="37" cy="28" r="14"/><path d="M33 8h8M37 8v5M49 13l3.5-3.5"/></g>' +
+         '<g class="hands" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">' +
+           '<line class="hh" x1="37" y1="28" x2="37" y2="21"/><line class="mh" x1="37" y1="28" x2="37" y2="17"/></g>' +
+       '</svg></span>',
+    3: '<span class="mark-anim m3" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<g class="body" fill="currentColor">' +
+           '<rect x="19" y="5" width="11" height="8" rx="3.5"/><rect x="44" y="5" width="11" height="8" rx="3.5"/>' +
+           '<path d="M21 12h32l6 9c-4-2-9-3-13-3h-18c-4 0-9 1-13 3z"/><rect x="30" y="17" width="14" height="3.4" rx="1.7"/>' +
+         '</g>' +
+         '<g class="rings" fill="none" stroke="currentColor" stroke-width="3.4">'+
+           '<circle cx="17" cy="31" r="11"/><circle cx="57" cy="31" r="11"/><path d="M28.5 31h17" stroke-width="3.6"/></g>' +
+         '<g class="eyes" fill="currentColor"><circle cx="17" cy="31" r="5.4"/><circle cx="57" cy="31" r="5.4"/></g>' +
+         '<g class="lids" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M11.5 31h11M51.5 31h11"/></g>' +
+       '</svg></span>',
+    4: '<span class="mark-anim m4" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<rect class="box" x="7" y="7" width="60" height="34" fill="none" stroke="currentColor" stroke-width="2.4"/>' +
+         '<g class="thirds" fill="none" stroke="currentColor" stroke-width="1.4" opacity=".85">' +
+           '<path d="M27 7v34"/><path d="M47 7v34"/><path d="M7 18.3h60"/><path d="M7 29.6h60"/></g>' +
+       '</svg></span>',
+    5: '<span class="mark-anim m5" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<defs><mask id="jackface"><rect width="74" height="48" fill="#fff"/>' +
+           '<path fill="#000" d="M25 27h8l-4-7zM43 27h8l-4-7zM36 33.5h4l-2-4zM22 37q16 13 32 0l-3 3.2-3-2-3 3.3-3-2.2-3 3.4-3-2.4-3 3.4-3-3.2-3 2.2z"/>' +
+         '</mask></defs>' +
+         '<path d="M37 8c-.4-4 1.6-7.6 5.6-9l1.6 2.6c-3 1.2-4.2 3.6-3.8 6.6z" fill="#ff9d2e"/>' +
+         '<g mask="url(#jackface)" fill="#ff9d2e">' +
+           '<ellipse cx="26.5" cy="33" rx="13" ry="15.5"/><ellipse cx="49.5" cy="33" rx="13" ry="15.5"/><ellipse cx="38" cy="32" rx="14" ry="18"/>' +
+         '</g>' +
+         '<g class="wink"><path d="M25 27h8l-4-7z" fill="#ff9d2e"/><path d="M25 26.5h8" stroke="#1a1020" stroke-width="2" stroke-linecap="round"/></g>' +
+       '</svg></span>',
+    6: '<span class="mark-anim m6" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<circle class="ring" cx="37" cy="24" r="15" fill="none" stroke="currentColor" stroke-width="2"/>' +
+         '<g class="bars" fill="currentColor">' +
+           '<rect class="b1" x="21" y="18" width="5" height="12" rx="2.5"/><rect class="b2" x="30" y="14" width="5" height="20" rx="2.5"/>' +
+           '<rect class="b3" x="39" y="16" width="5" height="16" rx="2.5"/><rect class="b4" x="48" y="19" width="5" height="10" rx="2.5"/></g>' +
+       '</svg></span>',
+    7: '<span class="mark-anim m7" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<g transform="translate(26,30)"><g class="tail">' +
+           '<rect x="-4" y="-21" width="8" height="19" rx="4" fill="#c9552b" transform="rotate(-62)"/>' +
+           '<rect x="-4" y="-21" width="8" height="19" rx="4" fill="#e8a13c" transform="rotate(-31)"/>' +
+           '<rect x="-4" y="-21" width="8" height="19" rx="4" fill="#d97a2b"/>' +
+           '<rect x="-4" y="-21" width="8" height="19" rx="4" fill="#e8a13c" transform="rotate(31)"/>' +
+           '<rect x="-4" y="-21" width="8" height="19" rx="4" fill="#c9552b" transform="rotate(62)"/>' +
+         '</g></g>' +
+         '<g class="legs" stroke="#e8bd5c" stroke-width="1.7" stroke-linecap="round">' +
+           '<path d="M33 41v4M30.6 46.4h4.4M39 41v4M36.6 46.4H41"/></g>' +
+         '<g class="bird">' +
+           '<path class="wing2" d="M33 28c-4 1.4-6 4.6-5.4 8 2.8-1.2 4.8-3.6 5.4-8z" fill="#5e2f14"/>' +
+           '<ellipse class="body" cx="36" cy="32.5" rx="11.4" ry="10.2" fill="#8a4a22"/>' +
+           '<path class="wing" d="M35.6 27.4c5 .6 7.6 4 7.2 8.8-.6 2.6-2.6 4-5 3.4-3.2-.8-5-4-4.6-8 .2-2.2.8-3.6 2.4-4.2z" fill="#6d3618"/>' +
+           '<path class="neck" d="M44.6 29.6c1.4-4.6 2.6-8.2 4.6-11.4l3.4 2c-2 2.8-3.2 6.2-4 10.6z" fill="#a85a28"/>' +
+           '<circle class="head" cx="50.6" cy="16.6" r="4.9" fill="#a85a28"/>' +
+           '<path class="wattle" d="M53.6 19.4c1.6 1.2 2 3.4 1 5.2-1.4-.4-2.4-1.6-2.6-3.4z" fill="#cf3b4a"/>' +
+           '<path class="beak" d="M54.8 15.6l5 1.6-5 1.9z" fill="#e8bd5c"/>' +
+           '<circle class="eye" cx="51.8" cy="14.8" r="1.15" fill="#1b1326"/>' +
+         '</g>' +
+         '<g class="hat">' +
+           '<rect x="43.4" y="9.6" width="14.6" height="2.7" rx="1.35" fill="#2a2536" stroke="rgba(255,255,255,.45)" stroke-width=".7"/>' +
+           '<path d="M46.2 10V4.6a1.4 1.4 0 011.4-1.4h6.2a1.4 1.4 0 011.4 1.4V10z" fill="#2a2536" stroke="rgba(255,255,255,.45)" stroke-width=".7"/>' +
+           '<rect x="46.2" y="6.6" width="9.2" height="2.6" fill="#efe9f5"/>' +
+           '<rect x="49.4" y="6.2" width="3.4" height="3.4" rx=".6" fill="none" stroke="#e8bd5c" stroke-width="1.1"/>' +
+         '</g>' +
+       '</svg></span>',
+    8: '<span class="mark-anim m8" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<g class="mask-b" transform="rotate(7 46 24)">' +
+           '<path d="M36 9c4-2.5 10-3.5 15-2.5s9 3.5 9 7c-1 13-5 24-12 26s-13-7-14-20c-.4-5 0-8.5 2-10.5z" fill="#c9a3ff"/>' +
+           '<g fill="#1b1326"><ellipse class="eyeb" cx="43" cy="19" rx="3.1" ry="2.2"/><ellipse class="eyeb" cx="53" cy="18" rx="3.1" ry="2.2"/>' +
+             '<path class="frown" d="M44 31c2.5-3.5 7-4 9.5-1-2.5 1-6.5 1.6-9.5 1z"/></g></g>' +
+         '<g class="mask-a" transform="rotate(-7 26 23)">' +
+           '<path d="M12 8c4-2.5 10-3.5 15-2.5s9 3.5 9 7c-1 13-5 24-12 26S11 31.5 10 18.5C9.6 13.5 10 10 12 8z" fill="#e8bd5c"/>' +
+           '<g fill="#1b1326"><path class="eyea" d="M15.5 18.5c1-2.2 4-2.6 5.6-.6-1.6 1.6-4 1.9-5.6.6z"/>' +
+             '<path class="eyea" d="M25.5 17.5c1-2.2 4-2.6 5.6-.6-1.6 1.6-4 1.9-5.6.6z"/>' +
+             '<path class="smile" d="M17 27c3.5 4.5 9 4.5 12 .5-4 3-8 3-12-.5z"/></g></g>' +
+       '</svg></span>',
+    9: '<span class="mark-anim m9" aria-hidden="true"><svg viewBox="0 0 74 48">' +
+         '<g class="burst" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none">' +
+           '<path d="M52 16v-7M52 16l6-4M52 16l6 4M52 16l-6-4M52 16l-6 4M52 16v7"/></g>' +
+         '<g class="burst b-two" stroke="#8fd9a8" stroke-width="1.6" stroke-linecap="round" fill="none">' +
+           '<path d="M64 27v-5M64 27l4.5-3M64 27l4.5 3M64 27l-4.5-3M64 27l-4.5 3"/></g>' +
+         '<g class="hat"><path d="M22 34L28 10l10 24z" fill="currentColor"/>' +
+           '<path d="M24.4 24.5h11.2M26.2 18h7.6" stroke="#1b1326" stroke-width="1.8"/>' +
+           '<circle cx="28" cy="8.5" r="2.6" fill="#ff5c7a"/></g>' +
+         '<g class="confetti">' +
+           '<rect class="c1" x="12" y="8" width="3.2" height="3.2" rx="1" fill="#ff5c7a"/>' +
+           '<rect class="c2" x="42" y="6" width="3" height="3" rx="1" fill="#8fd9a8"/>' +
+           '<rect class="c3" x="17" y="4" width="2.8" height="2.8" rx="1" fill="#7fb3de"/>' +
+           '<rect class="c4" x="46" y="12" width="3" height="3" rx="1" fill="#e8bd5c"/></g>' +
+       '</svg></span>'
+  };
+  var MARKS = FFMARKS;
+
+
+  /* One date, and it is always the next thing this chapter is waiting on:
+     the ballot opening, the ballot closing, the Forum, or the day it ran.
+     A member never has to work out which of three dates applies to them. */
+  function statusText(c, st, i) {
+    if (st === 'ballot' && F.getVote(c))
+      return '<span class="pill swap" role="button" tabindex="0" data-clear="' + c.n + '" title="Clear my vote">' +
+             '<span class="a">✓ Voted</span><span class="b">Clear my vote</span>' +
+             '<span class="c">Tap again to clear</span></span>';
+    var b = F.beat(c);
+    /* a chapter that has already run needs no date: nobody arriving at the site
+       is looking for it, and it only crowds the rows that still need something */
+    if (b === 'done') return '';
+    if (b === 'soon') return '<span class="pill">Votes open ' + F.withDay(c.ballot.opens) + '</span>';
+    if (b === 'vote') return '<span class="pill">Vote by ' + F.withDay(c.ballot.closes) + '</span>';
+    var m = F.meetLocal(c);
+    return '<span class="pill forum">Forum ' + m.day + ' · ' + m.time + '</span>';
+  }
+
+  /* the dates that still matter for this chapter, written out in full */
+  function whenLine(c) {
+    var b = F.beat(c), m = F.meetLocal(c, true), out = '';
+    if (b === 'soon') out += '<span class="w"><b>Votes open</b> ' + F.longDate(c.ballot.opens) + '</span>';
+    if (b === 'vote') out += '<span class="w"><b>Vote by</b> the end of ' + F.longDate(c.ballot.closes) + '</span>';
+    if (b !== 'done') out += '<span class="w"><b>Forum</b> ' + m.day + ' · ' + m.time + '</span>';
+    return out ? '<p class="when">' + out + '</p>' : '';
+  }
+
+  function render(keepOpen) {
+    strip.innerHTML = CH.map(function (c, i) {
+      var st = F.state(i);
+      var cls = st === 'closed' ? 'next' : st;
+      var read = F.isRead(c.n);
+      return '<button class="frame ' + cls + (read ? ' read' : '') + '" type="button" data-go="' + c.n + '"' +
+        ' aria-label="Chapter ' + c.n + ', ' + esc(c.title) + (read ? ', read' : '') + '">' + pad(c.n) +
+        (read ? '<span class="ck" aria-hidden="true">✓</span>' : '') + '</button>';
+    }).join('');
+    var c0 = CH[cur];
+    document.getElementById('capL').innerHTML = '<b>Chapter ' + pad(c0.n) + '</b> of 9 · ' + PARTS[c0.part].no + ', ' + PARTS[c0.part].name;
+    var done = !!F.done && CH.every(function (c) { return !!c.voted; });
+    var readN = F.readCount();
+    document.getElementById('capR').textContent = readN
+      ? readN + ' of ' + CH.length + ' read'
+      : (done ? CH.length + ' chapters · the book is finished'
+              : cur + ' finished · ' + (CH.length - cur - 1) + ' to come');
+
+    var html = '';
+    [1, 2, 3].forEach(function (p) {
+      var inPart = CH.filter(function (c) { return c.part === p; });
+      var readIn = inPart.filter(function (c) { return F.isRead(c.n); }).length;
+      var partDone = readIn === inPart.length && inPart.length > 0;
+      var partMark = partDone
+        ? '<span class="partdone">✓ All ' + (inPart.length === 3 ? 'three' : inPart.length) + ' read</span>'
+        : (readIn ? '<span class="partsome">' + readIn + ' of ' + inPart.length + ' read</span>' : '');
+      html += '<section class="part"><div class="parthead"><span class="partno">' + PARTS[p].no + '</span>' +
+              '<span class="partname">' + PARTS[p].name + partMark + '</span>' +
+              (PARTS[p].line ? '<span class="partline">' + PARTS[p].line + '</span>' : '') + '</div>';
+      CH.forEach(function (c, i) {
+        if (c.part !== p) return;
+        var st = F.state(i);
+        var full = (st === 'past' || st === 'now') && c.voted;
+        var open = full || st === 'ballot' || st === 'closed';
+        var subj = full
+          ? '<span class="subj"><span class="s">' + esc(c.subj) + '</span>' + (c.line ? '<span class="l">' + esc(c.line) + '</span>' : '') + '</span>'
+          : ((st === 'next' || st === 'ballot' || st === 'closed') ? '<span class="subj"><span class="s">' + esc(c.subj) + '</span></span>' : '');
+        var row =
+          '<span class="num">' + pad(c.n) + '</span>' +
+          '<span class="ttl"><span class="name"><h3>' + esc(c.title) + '</h3><span class="leader" aria-hidden="true"></span></span>' + subj + '</span>' +
+          '<span class="rend">' + (MARKS[c.n] || '') +
+          '<span class="status">' + statusText(c, st, i) + (open ? '<span class="chev" aria-hidden="true">▾</span>' : '') + '</span></span>';
+        var body = !open ? '' : st === 'ballot' ? whenLine(c) + ballotBody(c) : st === 'closed' ? whenLine(c) + closedBody(c) :
+          (c.rule ? '<div class="rule"><span class="k">Where the rule came from</span><p>' + esc(c.rule) + '</p></div>' : '') +
+          '<div class="roads">' + road('hb', c) + road('sb', c) + '</div>' +
+          forumRow(c) +
+          (c.page ? '<div class="cta"><a class="go" href="' + F.href(c.slug) + '">Open the field guide →</a>' +
+            (st === 'past' ? '<span class="note">Both films kept in full, with a paper edition for each.</span>' : '') + '</div>' : '<div class="cta"><span class="note">Field guide coming soon.</span></div>');
+        var cls = 'ch ' + (st === 'closed' ? 'next' : st) + (st === 'ballot' && F.getVote(c) ? ' hasvote' : '') + (c.spooky ? ' spooky' : '');
+        html += open
+          ? '<details class="' + cls + '" name="ch" id="ch-' + c.n + '"' + (keepOpen === c.n ? ' open' : '') + '>' +
+              '<summary class="row">' + row + '</summary><div class="body">' + body + '</div></details>'
+          : '<div class="' + cls + ' locked" id="ch-' + c.n + '"><div class="row">' + row + '</div></div>';
+      });
+      html += '</section>';
+    });
+    if (done) {
+      html += '<section class="finale">' +
+        '<div class="fin-rule" aria-hidden="true"></div>' +
+        '<div class="fin-k">The end</div>' +
+        '<h2>The Elements of Film is finished</h2>' +
+        '<p>Thanks for joining in. Every guide stays up, and every paper edition stays downloadable.</p>' +
+        '<p class="fin-next">A second book is being written. Watch the Substack for the first chapter.</p>' +
+        '</section>';
+    }
+    document.getElementById('toc').innerHTML = html;
+    armMarks();
+    armOscars();
+    drawBar();
+    drawJoinLine();
+  }
+
+  /* Somebody who has never voted is probably new, so they get the one line that
+     tells them how to get in. Everybody else is spared it. */
+  function drawJoinLine() {
+    var seen = false;
+    CH.forEach(function (c) { if (F.getVote(c)) seen = true; });
+    try { if (localStorage.getItem('ff-name')) seen = true; } catch (e) {}
+    var el = document.getElementById('howjoin');
+    if (el) el.hidden = seen;
+  }
+
+  /* ---------- the phone's action bar ----------
+     One job at a time, and only the job that is actually live: vote while a
+     ballot is open, join when the forum is on. Nothing to do means no bar. */
+  function drawBar() {
+    var bar = document.getElementById('abar');
+    if (!bar) return;
+    var url = F.forumUrl(), item = null;
+    for (var i = 0; i < CH.length; i++) {
+      if (F.forumLive(CH[i])) {
+        item = url
+          ? { cls: 'now', html: '<a href="' + esc(url) + '" target="_blank" rel="noopener">Join the forum &rarr;</a>' }
+          : { cls: 'now', html: '<a href="#ch-' + CH[i].n + '">Chapter ' + pad(CH[i].n) + ' is on now</a>' };
+        break;
+      }
+    }
+    if (!item) {
+      for (var j = 0; j < CH.length; j++) {
+        if (F.state(j) === 'ballot' && !F.getVote(CH[j])) {
+          item = { cls: '', html: '<button type="button" data-bar="' + CH[j].n + '">Vote &middot; chapter ' + pad(CH[j].n) + '</button>' };
+          break;
+        }
+      }
+    }
+    bar.hidden = !item;
+    bar.className = 'actionbar' + (item && item.cls ? ' ' + item.cls : '');
+    bar.innerHTML = item ? item.html : '';
+    document.body.classList.toggle('has-bar', !!item);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('[data-bar]');
+    if (b) openChapter(+b.getAttribute('data-bar'));
+  });
+
+  /* ---------- the trophies on a touch screen ----------
+     A mouse can hover a film card to read what it won. A finger cannot, so on a
+     touch screen the line shows itself: for three and a half seconds when the
+     chapter is opened, and again for three and a half whenever a card is tapped.
+     Desktop is untouched — there, hover still does the work. */
+  var TOUCH = !(window.matchMedia && window.matchMedia('(hover:hover)').matches);
+  var OSC_MS = 3500;
+  function flashOscar(road) {
+    if (!road || !road.querySelector('.osc')) return;
+    clearTimeout(road._oscTimer);
+    road.classList.add('osc-show');
+    road._oscTimer = setTimeout(function () { road.classList.remove('osc-show'); }, OSC_MS);
+  }
+  function armOscars() {
+    if (!TOUCH) return;
+    document.querySelectorAll('details.ch').forEach(function (ch) {
+      ch.addEventListener('toggle', function () {
+        if (!ch.open) return;
+        ch.querySelectorAll('.road').forEach(flashOscar);
+      });
+    });
+    var open = document.querySelector('details.ch[open]');
+    if (open) open.querySelectorAll('.road').forEach(flashOscar);
+  }
+  document.addEventListener('click', function (e) {
+    if (!TOUCH) return;
+    var r = e.target.closest && e.target.closest('.road');
+    if (r) flashOscar(r);
+  });
+
+  function openChapter(n) {
+    var el = document.getElementById('ch-' + n);
+    if (!el) return;
+    if (el.tagName === 'DETAILS') el.open = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function openRow() { var o = document.querySelector('details.ch[open]'); return o ? +o.id.replace('ch-', '') : null; }
+
+  /* Only one mark runs at a time: the chapter under the cursor, plus the chapter
+     we are on, which loops by itself. Leaving a chapter stops its mark; coming
+     back starts it again from the top. Staying inside an open chapter keeps it. */
+  var HOVER = !!(window.matchMedia && window.matchMedia('(hover:hover)').matches);
+  var playing = null;
+  function stopMark(el) {
+    if (!el) return;
+    clearTimeout(el._markTimer);
+    el.classList.remove('anim-play');
+    if (playing === el) playing = null;
+  }
+  function playMark(el) {
+    if (!el || el.classList.contains('now') || !el.querySelector('.mark-anim')) return;
+    if (playing && playing !== el) stopMark(playing);
+    if (el.classList.contains('anim-play')) return;
+    el.classList.remove('anim-play');
+    void el.offsetWidth;            /* restart the cycle from the beginning */
+    el.classList.add('anim-play');
+    playing = el;
+    clearTimeout(el._markTimer);
+    el._markTimer = setTimeout(function () { stopMark(el); }, 17300);
+  }
+  function armMarks() {
+    document.querySelectorAll('.ch').forEach(function (ch) {
+      if (ch._marked) return;
+      ch._marked = true;
+      if (HOVER) {
+        ch.addEventListener('mouseenter', function () { playMark(ch); });
+        ch.addEventListener('mouseleave', function () { stopMark(ch); });
+      }
+      if (ch.tagName === 'DETAILS') ch.addEventListener('toggle', function () { if (!HOVER) playMark(ch); });
+    });
+  }
+
+  document.addEventListener('ff:vote', function () { render(openRow()); });
+  /* a tick earned on a chapter page shows up here the next time this page is
+     looked at, and straight away if both are open in the same browser */
+  document.addEventListener('ff:read', function () { render(openRow()); });
+  /* a result that arrived from the server draws itself in */
+  document.addEventListener('ff:result', function () { render(openRow()); F.drawChip(); });
+  window.addEventListener('pageshow', function () { render(openRow()); });
+
+  document.addEventListener('click', function (e) {
+    var locked = e.target.closest('.ch.locked');
+    if (locked) { playMark(locked); return; }
+
+    var go = e.target.closest('[data-go]');
+    if (go) { openChapter(+go.getAttribute('data-go')); return; }
+
+    var chip = e.target.closest('.vchip.open');
+    if (chip) { e.preventDefault(); openChapter(+chip.getAttribute('href').split('ballot=')[1]); return; }
+
+    var v = e.target.closest('[data-vote]');
+    if (!v || sending) return;
+    var c = null;
+    for (var i = 0; i < CH.length; i++) if (F.state(i) === 'ballot') c = CH[i];
+    if (!c) return;
+    var input = document.getElementById('vname'), err = document.getElementById('verr');
+    var name = (input.value || '').trim().replace(/\s+/g, ' ');
+    if (!name) { err.textContent = 'Add your name first, so your vote can be counted.'; err.hidden = false; input.focus(); return; }
+    var side = v.getAttribute('data-vote');
+    sending = true;
+    document.querySelectorAll('.votebtn').forEach(function (b) { b.disabled = true; });
+    v.textContent = 'Sending…';
+    F.sendVote(c, side, name).then(function () {
+      F.setVote(c, { road: side, name: name, at: Date.now() });
+      F.saveName(name);              /* so the next ballot already knows them */
+      sending = false;
+      render(c.n);
+      F.drawChip();
+    }).catch(function () {
+      sending = false;
+      document.querySelectorAll('.votebtn').forEach(function (b) { b.disabled = false; });
+      v.textContent = 'Vote ' + roadName(side);
+      err.textContent = 'Your vote didn’t go through. Check your connection and try again.';
+      err.hidden = false;
+    });
+  });
+
+  render();
+
+  /* arriving from a ballot link or the old /vote address */
+  var q = new URLSearchParams(location.search).get('ballot');
+  if (q) setTimeout(function () { openChapter(+q || (function () { for (var i = 0; i < CH.length; i++) if (F.state(i) === 'ballot') return CH[i].n; })()); }, 60);
+})();
+</script>
+</body>
+</html>

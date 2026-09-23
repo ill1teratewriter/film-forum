@@ -1,0 +1,12 @@
+{
+  "name": "film-forum",
+  "private": true,
+  "type": "module",
+  "description": "The Illiterate Writer's Film Forum · The Elements of Film",
+  "scripts": {
+    "build": "node tools/build-calendar.mjs"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^8.1.0"
+  }
+}

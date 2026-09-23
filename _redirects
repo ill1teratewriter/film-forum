@@ -1,0 +1,15 @@
+# Old chapter addresses (Volume:Chapter:Study) now live at /chapter-N/
+/1-1-1/film-forum-1-1-1.pdf                    /chapter-1/film-forum-ch01-casablanca.pdf         301
+/1-1-1/film-forum-1-1-1-casablanca.pdf         /chapter-1/film-forum-ch01-casablanca.pdf         301
+/1-1-1/film-forum-1-1-1-sullivans-travels.pdf  /chapter-1/film-forum-ch01-sullivans-travels.pdf  301
+/1-1-2/film-forum-1-1-2.pdf                    /chapter-2/film-forum-ch02-dunkirk.pdf            301
+/1-1-2/film-forum-1-1-2-dunkirk.pdf            /chapter-2/film-forum-ch02-dunkirk.pdf            301
+/1-1-2/film-forum-1-1-2-run-lola-run.pdf       /chapter-2/film-forum-ch02-run-lola-run.pdf       301
+/1-1-1      /chapter-1/   301
+/1-1-1/*    /chapter-1/   301
+/1-1-2      /chapter-2/   301
+/1-1-2/*    /chapter-2/   301
+
+# The ballot lives on the contents page; old /vote links land there
+/vote       /?ballot=open   302
+/vote/*     /?ballot=open   302

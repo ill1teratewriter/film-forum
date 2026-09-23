@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Illiterate Writer's Film Forum//The Elements of Film//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Film Forum · Chapter 4
+X-WR-TIMEZONE:America/Los_Angeles
+BEGIN:VEVENT
+UID:ff-elements-ch4@illiterate-film-forum.netlify.app
+DTSTAMP:20260923T190800Z
+DTSTART:20261026T010000Z
+DTEND:20261026T020000Z
+SUMMARY:Film Forum · Chapter 4 · Frame Game
+LOCATION:https://illiterate-film-forum.netlify.app/chapter-4/
+URL:https://illiterate-film-forum.netlify.app/chapter-4/
+DESCRIPTION:The Illiterate Writer's Film Forum · chapter 4\, Frame Game.
+  We watch\, then we talk it through. The field guide\, both roads and th
+ e paper editions are at https://illiterate-film-forum.netlify.app/chapte
+ r-4/\nThe room link goes out by email before the call.
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Film Forum starts in 30 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR

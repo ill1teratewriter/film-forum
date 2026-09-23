@@ -1,0 +1,26 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Illiterate Writer's Film Forum//The Elements of Film//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Film Forum · Chapter 6
+X-WR-TIMEZONE:America/Los_Angeles
+BEGIN:VEVENT
+UID:ff-elements-ch6@illiterate-film-forum.netlify.app
+DTSTAMP:20260923T190800Z
+DTSTART:20261123T020000Z
+DTEND:20261123T030000Z
+SUMMARY:Film Forum · Chapter 6 · Beats and Bullets
+LOCATION:https://illiterate-film-forum.netlify.app/chapter-6/
+URL:https://illiterate-film-forum.netlify.app/chapter-6/
+DESCRIPTION:The Illiterate Writer's Film Forum · chapter 6\, Beats and B
+ ullets. We watch\, then we talk it through. The field guide\, both roads
+  and the paper editions are at https://illiterate-film-forum.netlify.app
+ /chapter-6/\nThe room link goes out by email before the call.
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:Film Forum starts in 30 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR
