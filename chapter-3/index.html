@@ -193,6 +193,31 @@ section{padding:40px 0}
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
 .dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+/* the two barrels — the same mint the binoculars blink in on the contents page */
+.pv-ring{fill:none;stroke:#8fd9a8;stroke-opacity:.6}
+.pv-ring2{fill:none;stroke:#8fd9a8;stroke-opacity:.24}
+.pv-dot,.pv-you,.pv-num{fill:#8fd9a8}
+.pv-bridge{fill:#8fd9a8;fill-opacity:.12;stroke:#8fd9a8;stroke-opacity:.4}
+.pv-ttl{fill:#a99fbd}
+.pv-lab{fill:#7a7090}
+.pv-sub{fill:#6b6182}
+.pv-role{fill:#8fd9a8;fill-opacity:.85}
+.pv-cam{fill:#8fd9a8;fill-opacity:.78}
+.pv-solo{fill-opacity:1}
+/* the moving point the lenses track while the figure plays itself; once a pointer
+   or a finger takes over, that point is the cursor and this marker steps aside */
+.pv-target{display:none}
+svg.pv-auto .pv-target{display:block}
+.diagram.lenses{position:relative}
+/* the barrels sit side by side on a wide screen and stack on a narrow one, so a phone
+   never has to scroll sideways inside the figure to see the other half of the idea */
+.diagram.lenses svg{min-width:0}
+svg.pv-narrow .pv-bridge-h{display:none}
+.diagram.lenses::after{content:"Move your pointer across the lenses";position:absolute;right:18px;top:10px;
+  font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:#5f5675;pointer-events:none}
+@media(hover:none){.diagram.lenses::after{content:"Drag across the lenses"}}
+@media(prefers-reduced-motion:reduce){.diagram.lenses::after{content:none}}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -519,6 +544,18 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .eg{color:#776e88}
   .diagram{border:.5pt solid #ded7e4 !important;background:none !important;page-break-inside:avoid;overflow:visible}
   .diagram svg{min-width:0}
+  /* mint is unreadable on paper; the barrels print in a deep green instead */
+  .pv-ring{stroke:#1f7a52;stroke-opacity:.85}
+  .pv-ring2{stroke:#1f7a52;stroke-opacity:.4}
+  .pv-dot,.pv-you,.pv-num{fill:#1f7a52}
+  .pv-bridge{fill:none;stroke:#1f7a52;stroke-opacity:.7}
+  .pv-ttl{fill:#3a3145}
+  .pv-lab{fill:#6d6480}
+  .pv-sub{fill:#776e88}
+  .pv-role{fill:#1f7a52}
+  .pv-cam{fill:#1f7a52;fill-opacity:.85}
+  .pv-solo{fill-opacity:1}
+  .pv-target{display:none !important}
   .dnote{color:#776e88}
 
   /* one film per paper edition, chosen with data-pdf on <html> */
@@ -805,6 +842,87 @@ details.road.voted-road .notsel{display:none}
     <p>Hitchcock separated <b>surprise</b> from <b>suspense</b> using a bomb under a table. If it simply explodes, the audience gets a shock. If they were shown the bomb first, the same scene becomes unbearable: &ldquo;In the first case we have given the public fifteen seconds of surprise at the moment of the explosion. In the second we have provided them with fifteen minutes of suspense.&rdquo; The only thing that changed is what the point of view let them know.</p>
     <h3>Why these films</h3>
     <p>Chapter 1 was the shape of a story and chapter 2 was its clock. This chapter is the narrator: who is holding the camera, and whether you trust them. One film keeps you in one chair. The other hands you around a room full of watchers until you realise you are one of them.</p>
+    <div class="diagram lenses">
+      <svg viewBox="0 0 900 400" data-wide="0 0 900 400" data-narrow="85 -6 330 801" role="img" aria-label="The two films drawn as the barrels of a pair of binoculars. Rear Window is one aperture holding a single camera, which you are pointing. The Truman Show is an aperture packed with 45 cameras, every one of them turned on you.">
+        <defs>
+          <g id="pvcam">
+            <rect x="-6" y="-3.6" width="9" height="7.2" rx="1.6"></rect>
+            <path d="M3 -1.6 L7.6 -4.8 L7.6 4.8 L3 1.6 Z"></path>
+          </g>
+        </defs>
+
+        <rect class="pv-bridge pv-bridge-h" x="350" y="132" width="200" height="16" rx="8"></rect>
+
+        <g data-side="a">
+          <text x="250" y="26" class="pv-ttl" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" letter-spacing="2.5">REAR WINDOW &#183; 1954</text>
+          <circle class="pv-ring" cx="250" cy="140" r="100" stroke-width="2"></circle>
+          <circle class="pv-ring2" cx="250" cy="140" r="78" stroke-width="1.5" stroke-dasharray="5 7"></circle>
+          <use href="#pvcam" class="pv-cam pv-solo" data-solo transform="translate(250 140) rotate(0) scale(2.4)"></use>
+          <text x="250" y="300" class="pv-num" text-anchor="middle" font-family="Oswald,sans-serif" font-size="64" font-weight="600">1</text>
+          <text x="250" y="328" class="pv-lab" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" letter-spacing="3">WINDOW</text>
+          <text x="250" y="352" class="pv-sub" text-anchor="middle" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.2">THE CAMERA ALMOST NEVER LEAVES THE ROOM</text>
+          <text x="250" y="382" class="pv-role" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="3.4">YOU POINT IT</text>
+        </g>
+
+        <g data-side="b">
+          <text x="650" y="26" class="pv-ttl" text-anchor="middle" font-family="Oswald,sans-serif" font-size="13" letter-spacing="2.5">THE TRUMAN SHOW &#183; 1998</text>
+          <circle class="pv-ring" cx="650" cy="140" r="100" stroke-width="2"></circle>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="617.0" data-y="74.0" transform="translate(617.0 74.0) rotate(63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="639.0" data-y="74.0" transform="translate(639.0 74.0) rotate(80.5)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="661.0" data-y="74.0" transform="translate(661.0 74.0) rotate(99.5)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="683.0" data-y="74.0" transform="translate(683.0 74.0) rotate(116.6)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="584.0" data-y="96.0" transform="translate(584.0 96.0) rotate(33.7)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="606.0" data-y="96.0" transform="translate(606.0 96.0) rotate(45.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="628.0" data-y="96.0" transform="translate(628.0 96.0) rotate(63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="650.0" data-y="96.0" transform="translate(650.0 96.0) rotate(90.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="672.0" data-y="96.0" transform="translate(672.0 96.0) rotate(116.6)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="694.0" data-y="96.0" transform="translate(694.0 96.0) rotate(135.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="716.0" data-y="96.0" transform="translate(716.0 96.0) rotate(146.3)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="573.0" data-y="118.0" transform="translate(573.0 118.0) rotate(15.9)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="595.0" data-y="118.0" transform="translate(595.0 118.0) rotate(21.8)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="617.0" data-y="118.0" transform="translate(617.0 118.0) rotate(33.7)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="639.0" data-y="118.0" transform="translate(639.0 118.0) rotate(63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="661.0" data-y="118.0" transform="translate(661.0 118.0) rotate(116.6)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="683.0" data-y="118.0" transform="translate(683.0 118.0) rotate(146.3)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="705.0" data-y="118.0" transform="translate(705.0 118.0) rotate(158.2)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="727.0" data-y="118.0" transform="translate(727.0 118.0) rotate(164.1)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="584.0" data-y="140.0" transform="translate(584.0 140.0) rotate(0.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="606.0" data-y="140.0" transform="translate(606.0 140.0) rotate(0.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="628.0" data-y="140.0" transform="translate(628.0 140.0) rotate(0.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="650.0" data-y="140.0" transform="translate(650.0 140.0) rotate(0.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="672.0" data-y="140.0" transform="translate(672.0 140.0) rotate(180.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="694.0" data-y="140.0" transform="translate(694.0 140.0) rotate(180.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="716.0" data-y="140.0" transform="translate(716.0 140.0) rotate(180.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="573.0" data-y="162.0" transform="translate(573.0 162.0) rotate(-15.9)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="595.0" data-y="162.0" transform="translate(595.0 162.0) rotate(-21.8)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="617.0" data-y="162.0" transform="translate(617.0 162.0) rotate(-33.7)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="639.0" data-y="162.0" transform="translate(639.0 162.0) rotate(-63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="661.0" data-y="162.0" transform="translate(661.0 162.0) rotate(-116.6)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="683.0" data-y="162.0" transform="translate(683.0 162.0) rotate(-146.3)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="705.0" data-y="162.0" transform="translate(705.0 162.0) rotate(-158.2)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="727.0" data-y="162.0" transform="translate(727.0 162.0) rotate(-164.1)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="584.0" data-y="184.0" transform="translate(584.0 184.0) rotate(-33.7)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="606.0" data-y="184.0" transform="translate(606.0 184.0) rotate(-45.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="628.0" data-y="184.0" transform="translate(628.0 184.0) rotate(-63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="650.0" data-y="184.0" transform="translate(650.0 184.0) rotate(-90.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="672.0" data-y="184.0" transform="translate(672.0 184.0) rotate(-116.6)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="694.0" data-y="184.0" transform="translate(694.0 184.0) rotate(-135.0)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="716.0" data-y="184.0" transform="translate(716.0 184.0) rotate(-146.3)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="617.0" data-y="206.0" transform="translate(617.0 206.0) rotate(-63.4)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="639.0" data-y="206.0" transform="translate(639.0 206.0) rotate(-80.5)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="661.0" data-y="206.0" transform="translate(661.0 206.0) rotate(-99.5)"></use>
+          <use href="#pvcam" class="pv-cam" data-cam data-x="683.0" data-y="206.0" transform="translate(683.0 206.0) rotate(-116.6)"></use>
+          <circle class="pv-you pv-target" r="5" cx="650" cy="140"></circle>
+          <text x="650" y="300" class="pv-num" text-anchor="middle" font-family="Oswald,sans-serif" font-size="64" font-weight="600">5,000</text>
+          <text x="650" y="328" class="pv-lab" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" letter-spacing="3">HIDDEN CAMERAS</text>
+          <text x="650" y="352" class="pv-sub" text-anchor="middle" font-family="Oswald,sans-serif" font-size="11" letter-spacing="1.2">THE SHOW CUTS BETWEEN ALL OF THEM</text>
+          <text x="650" y="382" class="pv-role" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="3.4">THEY POINT AT YOU</text>
+        </g>
+      </svg>
+      <p class="dnote">Rear Window puts you behind the lens. You sit in the dark and watch a life through a window, which is what a cinema is, and what a phone is. The film never settles whether that is a decent impulse or an appetite &mdash; only that you will not stop.</p>
+      <p class="dnote">The Truman Show turns the apparatus around. Its camera is not with Truman but against him: the few shots that feel like his are cuts the control room chose. It is a show from the first frame to the last, and the wall between the manufactured world and the real one is one pane thick. Rear Window was among the first to suggest we are all a little perverse for looking. The Truman Show finishes the thought &mdash; however much you feel for him, you are still Big Brother.</p>
+    </div>
+
   </section>
   <section class="endsec">
     <div class="next-up" data-ff="next">
@@ -892,6 +1010,127 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The two barrels aim.
+ *
+ * The figure plays itself whenever nobody is touching it: the single camera turns
+ * clockwise without stopping, and the swarm tracks a point walking a figure of eight.
+ * Move a pointer over it, or drag a finger, and that becomes the thing they follow —
+ * both barrels, everywhere over the figure. Leave, and it eases back to playing itself.
+ *
+ * Both barrels behave the same on purpose. An earlier pass had the Rear Window camera
+ * go dead the moment the pointer left its own circle, which was meant to say something
+ * about restriction and instead just read as half the picture breaking. The difference
+ * between the films is already carried by one lens turning against forty-five.
+ *
+ * Narrow screens stack the barrels rather than setting them side by side, which is why
+ * the aiming asks each group for its own matrix instead of the svg's.
+ *
+ * Reduced motion: nothing moves on its own, though a pointer still steers it.
+ * Paper: nothing moves at all, every lens turned inward on the man in the middle.
+ */
+(function () {
+  var box = document.querySelector('.diagram.lenses');
+  var svg = box && box.querySelector('svg');
+  if (!svg) return;
+
+  var gA = svg.querySelector('[data-side="a"]');
+  var gB = svg.querySelector('[data-side="b"]');
+  var cams = gB.querySelectorAll('[data-cam]');
+  var solo = gA.querySelector('[data-solo]');
+  var mark = gB.querySelector('.pv-target');
+  var LX = 250, LY = 140, RX = 650, RY = 140;
+
+  var WIDE = svg.getAttribute('data-wide'), NARROW = svg.getAttribute('data-narrow');
+  var still = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var pt = svg.createSVGPoint();
+
+  var aim = { x: RX, y: RY }, tgt = { x: RX, y: RY };
+  var soloA = 0, soloT = 0, held = false, resting = true;
+
+  function deg(fx, fy, tx, ty) { return Math.atan2(ty - fy, tx - fx) * 180 / Math.PI; }
+
+  /* one layout switch, driven by how much room the figure actually has */
+  function layout() {
+    var narrow = box.clientWidth < 560;
+    svg.setAttribute('viewBox', narrow ? NARROW : WIDE);
+    svg.classList.toggle('pv-narrow', narrow);
+    gB.setAttribute('transform', narrow ? 'translate(-400 400)' : '');
+  }
+  layout();
+  addEventListener('resize', layout);
+
+  function draw() {
+    solo.setAttribute('transform',
+      'translate(' + LX + ' ' + LY + ') rotate(' + soloA.toFixed(1) + ') scale(2.4)');
+    for (var i = 0; i < cams.length; i++) {
+      var c = cams[i], x = +c.getAttribute('data-x'), y = +c.getAttribute('data-y');
+      var a = resting ? deg(x, y, RX, RY) : deg(x, y, aim.x, aim.y);
+      c.setAttribute('transform', 'translate(' + x + ' ' + y + ') rotate(' + a.toFixed(1) + ')');
+    }
+    if (mark) { mark.setAttribute('cx', aim.x.toFixed(1)); mark.setAttribute('cy', aim.y.toFixed(1)); }
+  }
+
+  /* a screen point in one group's own coordinates */
+  function at(e, g) {
+    var m = g.getScreenCTM(); if (!m) return null;
+    pt.x = e.clientX; pt.y = e.clientY;
+    var q = pt.matrixTransform(m.inverse());
+    return { x: q.x, y: q.y };
+  }
+
+  function take(e) {
+    var inB = at(e, gB), inA = at(e, gA);
+    if (!inB || !inA) return;
+    held = true; resting = false;
+    svg.classList.remove('pv-auto');
+    tgt.x = inB.x; tgt.y = inB.y;
+    soloT = deg(LX, LY, inA.x, inA.y);
+    if (still) { aim.x = tgt.x; aim.y = tgt.y; soloA = soloT; draw(); }
+  }
+
+  function give() {
+    held = false;
+    if (still) { resting = true; soloA = 0; aim.x = RX; aim.y = RY; draw(); }
+  }
+
+  box.addEventListener('pointermove', take);
+  box.addEventListener('pointerleave', give);
+  box.addEventListener('touchstart', function (e) { take(e.touches[0]); }, { passive: true });
+  box.addEventListener('touchmove', function (e) { take(e.touches[0]); }, { passive: true });
+  box.addEventListener('touchend', give, { passive: true });
+
+  if (still) { draw(); return; }
+
+  /* the performance, run only while the figure is on screen */
+  var live = false, t0 = 0;
+  function frame(now) {
+    if (!live) return;
+    if (!t0) t0 = now;
+    var t = (now - t0) / 1000;
+    if (!held) {
+      soloT = (t * 42) % 360;                        // one slow clockwise sweep
+      tgt.x = RX + 74 * Math.sin(t * 0.9);           // a figure of eight, drawn forever
+      tgt.y = RY + 58 * Math.sin(t * 1.8);
+      resting = false;
+      svg.classList.add('pv-auto');
+    }
+    aim.x += (tgt.x - aim.x) * 0.16;                 // ease, so the handover never jumps
+    aim.y += (tgt.y - aim.y) * 0.16;
+    soloA += (((soloT - soloA + 540) % 360) - 180) * 0.16;
+    draw();
+    requestAnimationFrame(frame);
+  }
+  function start() { if (!live) { live = true; t0 = 0; requestAnimationFrame(frame); } }
+  function stop() { live = false; }
+
+  if (!('IntersectionObserver' in window)) { start(); return; }
+  new IntersectionObserver(function (es) {
+    es.forEach(function (en) { en.isIntersecting ? start() : stop(); });
+  }, { threshold: 0.15 }).observe(box);
 })();
 </script>
 </body>
