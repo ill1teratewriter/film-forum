@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
@@ -30,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+:root{color-scheme:dark;--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
   --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
   /* the chosen film's own colour, from its poster */
   --film:#7fb3de;--film-deep:#2b5f8c}
@@ -192,7 +193,113 @@ section{padding:40px 0}
 .diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
-.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.dnote{font-size:13.5px;color:var(--text-faint);margin:10px auto 0;max-width:66ch;text-align:center}
+/* ---- the genre machine ---------------------------------------------------
+   Plinko, not a family tree. A hopper for each of the five most used genres, a
+   lane of staggered pins under each, and five gutter bins at the foot of every
+   lane. Five balls go down at once and every pin they touch flashes one of the
+   colours this book is drawn in. Nothing here claims which genre came first,
+   because nobody can know that; it claims only which five sub-genres of each a
+   viewer is most likely to meet, and where each of those is usually traced to.
+
+   Two boards are drawn. The wide one is the machine proper, and is what paper
+   gets. The narrow one is a single lane at full width, because twenty-five bins
+   side by side on a phone is a barcode; the script dresses it for one family at
+   a time and moves it on after each drop. */
+.pkx{padding:18px 14px 14px}
+/* `.diagram.pkx svg` outranks a bare `.pk-narrow`, so the board switch has to be
+   written at the same weight or the wide machine never gives way on a phone. */
+.diagram.pkx svg{min-width:0;display:block;width:100%;height:auto}
+.diagram.pkx svg.pk-narrow{display:none}
+/* Twenty-five bins want more room than a column of prose. This is the only
+   figure in the book that steps outside it, which seems fair for the machine
+   the last chapter ends on. 80px of slack clears the scrollbar. */
+@media(min-width:1000px){
+  .diagram.pkx{width:min(1240px,calc(100vw - 80px));margin-left:50%;transform:translateX(-50%)}
+}
+@media(max-width:720px){.diagram.pkx svg.pk-wide{display:none}
+  .diagram.pkx svg.pk-narrow{display:block}}
+
+/* the cabinet: a double frame, four bolts and a plinth, so it reads as a thing
+   somebody built rather than a diagram that happens to move */
+.pk-case{fill:none;stroke:#e8bd5c;stroke-opacity:.5;stroke-width:2.4}
+.pk-case2{stroke-opacity:.15;stroke-width:1.1}
+.pk-bolt{fill:#2a2138;stroke:#e8bd5c;stroke-opacity:.45;stroke-width:1.4}
+.pk-plinth{fill:#e8bd5c;fill-opacity:.13}
+.pk-hop{fill:#e8bd5c;fill-opacity:.09;stroke:#e8bd5c;stroke-opacity:.34;stroke-width:1.3}
+.pk-fam{fill:#e8bd5c}
+.pk-funnel{fill:none;stroke:#e8bd5c;stroke-opacity:.34;stroke-width:1.6;stroke-linecap:round}
+.pk-slot{fill:#e8bd5c;fill-opacity:.5}
+.pk-wall{stroke:#e8bd5c;stroke-opacity:.18;stroke-width:1.4}
+
+/* One rule covers all 180 pins; the flash colour is set on the element, because
+   which colour a pin takes is the one thing in the figure that means nothing. */
+.pk-pin{fill:#2a2138;stroke:#e8bd5c;stroke-opacity:.4;stroke-width:1.3;
+  transition:fill .5s ease,stroke .5s ease,stroke-opacity .5s ease}
+.pk-narrow .pk-pin{stroke-width:2}
+.pk-pin.hit{fill:var(--flash,#e8bd5c);stroke:var(--flash,#e8bd5c);stroke-opacity:1;transition:none}
+
+.pk-fin{fill:#e8bd5c;fill-opacity:.15}
+/* A bin that is lit, hovered or holding focus is ringed in its own lane's
+   colour. The browser's default focus ring would be some other colour entirely
+   on top of a bin that has just turned pink. */
+.pk-cell{fill:#e8bd5c;fill-opacity:.03;stroke:var(--c);stroke-width:2;stroke-opacity:0;
+  transition:fill-opacity .45s ease,fill .45s ease,stroke-opacity .3s ease}
+.pk-bin-lab{fill:#6f6584;font-size:20px;transition:fill .45s ease}
+.pk-bin-lab-n{font-size:40px}
+.pk-bin{cursor:pointer;outline:none}
+.pk-bin:hover .pk-bin-lab{fill:#b7aec8}
+.pk-bin:hover .pk-cell{stroke-opacity:.45}
+.pk-bin:focus .pk-cell{stroke-opacity:.95}
+.pk-bin.lit .pk-cell{fill:var(--c);fill-opacity:.2;stroke-opacity:.9}
+.pk-bin.lit .pk-bin-lab{fill:var(--c)}
+
+/* the five balls are the book's own colours, three of them the confetti from
+   this chapter's mark on the contents page */
+/* the phone board's switcher: two chevrons and five pips */
+.pk-hit{fill:transparent}
+.pk-arw,.pk-pip{cursor:pointer;outline:none}
+.pk-chev{fill:none;stroke:#e8bd5c;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;
+  stroke-opacity:.55;transition:stroke-opacity .2s ease}
+.pk-arw:hover .pk-chev,.pk-arw:focus .pk-chev{stroke-opacity:1}
+.pk-dot{fill:#e8bd5c;fill-opacity:.22;transition:fill .3s ease,fill-opacity .3s ease}
+.pk-pip:hover .pk-dot,.pk-pip:focus .pk-dot{fill-opacity:.6}
+.pk-pip.on .pk-dot{fill:var(--c);fill-opacity:1}
+
+.pk-ball{opacity:0}
+.pk-com{fill:#ff5c7a}
+.pk-dra{fill:#8fd9a8}
+.pk-act{fill:#7fb3de}
+.pk-hor{fill:#c9a3ff}
+.pk-sci{fill:#ff9d2e}
+
+/* one readout per lane, so every drop reads out five things at once; on a phone
+   only the family on the board is shown */
+.pk-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:18px 0 0}
+@media(max-width:999px){.pk-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.pk-cards{grid-template-columns:1fr}}
+.pk-cards.solo .pk-card{display:none}
+.pk-cards.solo .pk-card.on{display:block}
+.pk-card{border:1px solid var(--line);border-top:2px solid var(--c);border-radius:0 0 12px 12px;
+  padding:13px 14px 15px;background:rgba(255,255,255,.02)}
+.pk-card[data-card="com"]{--c:#ff5c7a}
+.pk-card[data-card="dra"]{--c:#8fd9a8}
+.pk-card[data-card="act"]{--c:#7fb3de}
+.pk-card[data-card="hor"]{--c:#c9a3ff}
+.pk-card[data-card="sci"]{--c:#ff9d2e}
+.pk-k{margin:0;font-family:'Oswald',sans-serif;font-size:10px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-faint)}
+.pk-n{margin:5px 0 0;font-family:'Oswald',sans-serif;font-size:18px;font-weight:500;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--c);line-height:1.15;min-height:21px}
+.pk-d{margin:7px 0 0;font-size:13px;line-height:1.5;color:var(--text-dim);max-width:none}
+.pk-f{margin:9px 0 0;font-size:12px;line-height:1.45;color:var(--text-faint);max-width:none}
+.pk-f b{display:block;font-family:'Oswald',sans-serif;font-size:9.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--c);opacity:.75;font-weight:400;margin-bottom:2px}
+.pk-f i,.pk-d i{font-style:italic;color:var(--text-dim)}
+.pk-paper{display:none}
+@media(max-width:720px){
+  .pk-d{font-size:13.5px}.pk-f{font-size:12.5px}.pk-n{font-size:20px}
+}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -521,6 +628,49 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .diagram svg{min-width:0}
   .dnote{color:#776e88}
 
+  .dnote{margin-left:auto;margin-right:auto}
+  /* Paper gets the wide machine standing still with every bin named, and the
+     twenty-five written out underneath. The board and the list together run past
+     one page, and the global rule that keeps a figure whole was pushing the list
+     onto a page of its own; the board stays whole and the list flows under it.
+     The lit rules have to be beaten outright, because by the time anyone prints
+     a ball has already landed. */
+  .diagram.pkx{page-break-inside:auto !important;width:auto !important;
+    margin-left:0 !important;transform:none !important}
+  .diagram.pkx svg{page-break-inside:avoid;page-break-after:avoid}
+  .diagram.pkx svg.pk-narrow{display:none !important}
+  .diagram.pkx svg.pk-wide{display:block !important}
+  .pk-cards{display:none !important}
+  .pk-ball{display:none !important}
+  .pk-case{stroke:#8a6a1f !important;stroke-opacity:.6 !important}
+  .pk-case2{stroke-opacity:.26 !important}
+  .pk-bolt{fill:none !important;stroke:#8a6a1f !important;stroke-opacity:.6 !important}
+  .pk-plinth{fill:#8a6a1f !important;fill-opacity:.2 !important}
+  .pk-hop{fill:none !important;stroke:#8a6a1f !important;stroke-opacity:.5 !important}
+  .pk-fam{fill:#3a3145 !important;font-size:17px !important;letter-spacing:2 !important}
+  .pk-funnel,.pk-wall{stroke:#8a6a1f !important;stroke-opacity:.5 !important}
+  .pk-slot{fill:#8a6a1f !important;fill-opacity:1 !important}
+  .pk-pin,.pk-pin.hit{fill:#8a6a1f !important;stroke:#8a6a1f !important;stroke-opacity:1 !important}
+  .pk-fin{fill:#8a6a1f !important;fill-opacity:.26 !important}
+  .pk-cell,.pk-bin.lit .pk-cell{fill:none !important;fill-opacity:0 !important;
+    stroke-opacity:0 !important}
+  /* The printed board is about 680px across, so a 17-unit label came out near ten.
+     The gutter has room for more, and !important also clears whatever size the
+     on-screen fitter had left on the element. */
+  .pk-bin-lab,.pk-bin.lit .pk-bin-lab{fill:#3a3145 !important;font-size:21px !important;
+    letter-spacing:1 !important}
+  .pk-paper{display:block;margin:16px 0 0;column-count:2;column-gap:7mm}
+  .pk-pgroup{page-break-inside:avoid;break-inside:avoid;margin:0 0 7px}
+  .pk-pgroup h4{margin:0 0 4px;font-family:'Oswald',sans-serif;font-size:10pt;letter-spacing:.14em;
+    text-transform:uppercase;color:#8a6a1f}
+  .pk-pgroup ol{margin:0;padding:0 0 0 18px}
+  .pk-pgroup li{margin:0 0 5px;font-size:8.6pt;line-height:1.36;color:#3a3145;
+    page-break-inside:avoid;break-inside:avoid}
+  .pk-pgroup li b{color:#241d2b}
+  .pk-pgroup li span{display:block;color:#5a5268}
+  .pk-pf em{font-style:normal;font-family:'Oswald',sans-serif;font-size:7pt;letter-spacing:.16em;
+    text-transform:uppercase;color:#8a6a1f;margin-right:4px}
+
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
   html[data-pdf="sb"] details.road[data-road="hb"],
@@ -801,6 +951,19 @@ details.road.voted-road .notsel{display:none}
       <div class="kind"><div class="n">Three</div><h4>Break it</h4><p>Switch genres partway through and dare you to follow.</p><div class="eg">Psycho &middot; Audition &middot; From Dusk Till Dawn</div></div>
     </div>
     <p class="dnote">A genre is really a preset of everything in this book: a structure, a clock, a point of view, a frame, a cut, a sound, a kind of character and a kind of performance, all agreed before the lights go down.</p>
+    <h3>Where a genre comes from</h3>
+    <p>Nobody sits down and invents a genre. The films turn up first, somebody notices they rhyme, and a name arrives afterwards &mdash; often from a critic, sometimes decades late. Then the name starts working backwards, and films get made to fit it. Which is why the machine below claims nothing about what came first. It takes the five most used genres, cuts each into five of the sub-genres you are most likely to meet, and drops a ball down each.</p>
+    <div class="diagram pkx" data-pk>
+      <svg class="pk-wide" viewBox="0 0 1180 742" role="group" aria-label="A plinko machine. Five hoppers across the top, labelled Comedy, Drama, Action, Horror and Science Fiction, each feeding a lane of staggered pins. At the foot of every lane are five gutter bins naming five sub-genres of that family. A ball is dropped down each lane at once and bounces off the pins until it falls into one of the bins.">
+        <rect class="pk-case" x="5" y="5" width="1170" height="732" rx="18"></rect><rect class="pk-case pk-case2" x="13" y="13" width="1154" height="716" rx="12"></rect><circle class="pk-bolt" cx="26" cy="26" r="4.5"></circle><circle class="pk-bolt" cx="1154" cy="26" r="4.5"></circle><circle class="pk-bolt" cx="26" cy="716" r="4.5"></circle><circle class="pk-bolt" cx="1154" cy="716" r="4.5"></circle><rect class="pk-plinth" x="14" y="724" width="1152" height="10" rx="5"></rect><g class="pk-lane" data-lane="com" style="--c:#ff5c7a"><rect class="pk-hop" x="22.0" y="30" width="216" height="28" rx="14"></rect><text class="pk-fam" x="130.0" y="49" text-anchor="middle" font-family="Oswald,sans-serif" font-size="15" letter-spacing="2.2">COMEDY</text><path class="pk-funnel" d="M34.0 64 L117.0 100 M226.0 64 L143.0 100"></path><circle class="pk-slot" cx="130.0" cy="104" r="2.6"></circle><circle class="pk-pin" data-l="com" data-r="0" data-h="0" cx="43.6" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="0" data-h="2" cx="86.8" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="0" data-h="4" cx="130.0" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="0" data-h="6" cx="173.2" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="0" data-h="8" cx="216.4" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="1" data-h="1" cx="65.2" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="1" data-h="3" cx="108.4" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="1" data-h="5" cx="151.6" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="1" data-h="7" cx="194.8" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="2" data-h="0" cx="43.6" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="2" data-h="2" cx="86.8" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="2" data-h="4" cx="130.0" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="2" data-h="6" cx="173.2" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="2" data-h="8" cx="216.4" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="3" data-h="1" cx="65.2" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="3" data-h="3" cx="108.4" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="3" data-h="5" cx="151.6" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="3" data-h="7" cx="194.8" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="4" data-h="0" cx="43.6" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="4" data-h="2" cx="86.8" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="4" data-h="4" cx="130.0" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="4" data-h="6" cx="173.2" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="4" data-h="8" cx="216.4" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="5" data-h="1" cx="65.2" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="5" data-h="3" cx="108.4" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="5" data-h="5" cx="151.6" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="5" data-h="7" cx="194.8" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="6" data-h="0" cx="43.6" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="6" data-h="2" cx="86.8" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="6" data-h="4" cx="130.0" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="6" data-h="6" cx="173.2" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="6" data-h="8" cx="216.4" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="7" data-h="1" cx="65.2" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="7" data-h="3" cx="108.4" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="7" data-h="5" cx="151.6" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="com" data-r="7" data-h="7" cx="194.8" cy="434" r="3.4"></circle><path class="pk-fin" d="M22.0 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M65.2 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M108.4 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M151.6 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M194.8 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M238.0 480 l5 9 v231 h-10 v-231 Z"></path><g class="pk-bin" data-l="com" data-b="0" tabindex="0" role="button" aria-label="Slapstick"><rect class="pk-cell" x="27.0" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="43.6" y="694" text-anchor="start" transform="rotate(-90 43.6 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SLAPSTICK</text></g><g class="pk-bin" data-l="com" data-b="1" tabindex="0" role="button" aria-label="Screwball"><rect class="pk-cell" x="70.2" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="86.8" y="694" text-anchor="start" transform="rotate(-90 86.8 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SCREWBALL</text></g><g class="pk-bin" data-l="com" data-b="2" tabindex="0" role="button" aria-label="Parody"><rect class="pk-cell" x="113.4" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="130.0" y="694" text-anchor="start" transform="rotate(-90 130.0 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">PARODY</text></g><g class="pk-bin" data-l="com" data-b="3" tabindex="0" role="button" aria-label="Gross-out"><rect class="pk-cell" x="156.6" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="173.2" y="694" text-anchor="start" transform="rotate(-90 173.2 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">GROSS-OUT</text></g><g class="pk-bin" data-l="com" data-b="4" tabindex="0" role="button" aria-label="Mockumentary"><rect class="pk-cell" x="199.8" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="216.4" y="694" text-anchor="start" transform="rotate(-90 216.4 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">MOCKUMENTARY</text></g><circle class="pk-ball pk-com" r="7.5" cx="130.0" cy="-40"></circle></g><g class="pk-lane" data-lane="dra" style="--c:#8fd9a8"><rect class="pk-hop" x="252.0" y="30" width="216" height="28" rx="14"></rect><text class="pk-fam" x="360.0" y="49" text-anchor="middle" font-family="Oswald,sans-serif" font-size="15" letter-spacing="2.2">DRAMA</text><path class="pk-funnel" d="M264.0 64 L347.0 100 M456.0 64 L373.0 100"></path><circle class="pk-slot" cx="360.0" cy="104" r="2.6"></circle><circle class="pk-pin" data-l="dra" data-r="0" data-h="0" cx="273.6" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="0" data-h="2" cx="316.8" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="0" data-h="4" cx="360.0" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="0" data-h="6" cx="403.2" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="0" data-h="8" cx="446.4" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="1" data-h="1" cx="295.2" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="1" data-h="3" cx="338.4" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="1" data-h="5" cx="381.6" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="1" data-h="7" cx="424.8" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="2" data-h="0" cx="273.6" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="2" data-h="2" cx="316.8" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="2" data-h="4" cx="360.0" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="2" data-h="6" cx="403.2" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="2" data-h="8" cx="446.4" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="3" data-h="1" cx="295.2" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="3" data-h="3" cx="338.4" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="3" data-h="5" cx="381.6" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="3" data-h="7" cx="424.8" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="4" data-h="0" cx="273.6" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="4" data-h="2" cx="316.8" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="4" data-h="4" cx="360.0" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="4" data-h="6" cx="403.2" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="4" data-h="8" cx="446.4" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="5" data-h="1" cx="295.2" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="5" data-h="3" cx="338.4" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="5" data-h="5" cx="381.6" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="5" data-h="7" cx="424.8" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="6" data-h="0" cx="273.6" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="6" data-h="2" cx="316.8" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="6" data-h="4" cx="360.0" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="6" data-h="6" cx="403.2" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="6" data-h="8" cx="446.4" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="7" data-h="1" cx="295.2" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="7" data-h="3" cx="338.4" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="7" data-h="5" cx="381.6" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="dra" data-r="7" data-h="7" cx="424.8" cy="434" r="3.4"></circle><path class="pk-fin" d="M252.0 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M295.2 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M338.4 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M381.6 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M424.8 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M468.0 480 l5 9 v231 h-10 v-231 Z"></path><g class="pk-bin" data-l="dra" data-b="0" tabindex="0" role="button" aria-label="Melodrama"><rect class="pk-cell" x="257.0" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="273.6" y="694" text-anchor="start" transform="rotate(-90 273.6 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">MELODRAMA</text></g><g class="pk-bin" data-l="dra" data-b="1" tabindex="0" role="button" aria-label="Courtroom"><rect class="pk-cell" x="300.2" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="316.8" y="694" text-anchor="start" transform="rotate(-90 316.8 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">COURTROOM</text></g><g class="pk-bin" data-l="dra" data-b="2" tabindex="0" role="button" aria-label="Coming-of-age"><rect class="pk-cell" x="343.4" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="360.0" y="694" text-anchor="start" transform="rotate(-90 360.0 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">COMING-OF-AGE</text></g><g class="pk-bin" data-l="dra" data-b="3" tabindex="0" role="button" aria-label="Social problem"><rect class="pk-cell" x="386.6" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="403.2" y="694" text-anchor="start" transform="rotate(-90 403.2 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SOCIAL PROBLEM</text></g><g class="pk-bin" data-l="dra" data-b="4" tabindex="0" role="button" aria-label="Biopic"><rect class="pk-cell" x="429.8" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="446.4" y="694" text-anchor="start" transform="rotate(-90 446.4 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">BIOPIC</text></g><line class="pk-wall" x1="245.0" y1="26" x2="245.0" y2="720"></line><circle class="pk-ball pk-dra" r="7.5" cx="360.0" cy="-40"></circle></g><g class="pk-lane" data-lane="act" style="--c:#7fb3de"><rect class="pk-hop" x="482.0" y="30" width="216" height="28" rx="14"></rect><text class="pk-fam" x="590.0" y="49" text-anchor="middle" font-family="Oswald,sans-serif" font-size="15" letter-spacing="2.2">ACTION</text><path class="pk-funnel" d="M494.0 64 L577.0 100 M686.0 64 L603.0 100"></path><circle class="pk-slot" cx="590.0" cy="104" r="2.6"></circle><circle class="pk-pin" data-l="act" data-r="0" data-h="0" cx="503.6" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="0" data-h="2" cx="546.8" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="0" data-h="4" cx="590.0" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="0" data-h="6" cx="633.2" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="0" data-h="8" cx="676.4" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="1" data-h="1" cx="525.2" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="1" data-h="3" cx="568.4" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="1" data-h="5" cx="611.6" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="1" data-h="7" cx="654.8" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="2" data-h="0" cx="503.6" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="2" data-h="2" cx="546.8" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="2" data-h="4" cx="590.0" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="2" data-h="6" cx="633.2" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="2" data-h="8" cx="676.4" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="3" data-h="1" cx="525.2" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="3" data-h="3" cx="568.4" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="3" data-h="5" cx="611.6" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="3" data-h="7" cx="654.8" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="4" data-h="0" cx="503.6" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="4" data-h="2" cx="546.8" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="4" data-h="4" cx="590.0" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="4" data-h="6" cx="633.2" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="4" data-h="8" cx="676.4" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="5" data-h="1" cx="525.2" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="5" data-h="3" cx="568.4" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="5" data-h="5" cx="611.6" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="5" data-h="7" cx="654.8" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="6" data-h="0" cx="503.6" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="6" data-h="2" cx="546.8" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="6" data-h="4" cx="590.0" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="6" data-h="6" cx="633.2" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="6" data-h="8" cx="676.4" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="7" data-h="1" cx="525.2" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="7" data-h="3" cx="568.4" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="7" data-h="5" cx="611.6" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="act" data-r="7" data-h="7" cx="654.8" cy="434" r="3.4"></circle><path class="pk-fin" d="M482.0 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M525.2 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M568.4 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M611.6 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M654.8 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M698.0 480 l5 9 v231 h-10 v-231 Z"></path><g class="pk-bin" data-l="act" data-b="0" tabindex="0" role="button" aria-label="Swashbuckler"><rect class="pk-cell" x="487.0" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="503.6" y="694" text-anchor="start" transform="rotate(-90 503.6 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SWASHBUCKLER</text></g><g class="pk-bin" data-l="act" data-b="1" tabindex="0" role="button" aria-label="Martial arts"><rect class="pk-cell" x="530.2" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="546.8" y="694" text-anchor="start" transform="rotate(-90 546.8 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">MARTIAL ARTS</text></g><g class="pk-bin" data-l="act" data-b="2" tabindex="0" role="button" aria-label="Spy"><rect class="pk-cell" x="573.4" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="590.0" y="694" text-anchor="start" transform="rotate(-90 590.0 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SPY</text></g><g class="pk-bin" data-l="act" data-b="3" tabindex="0" role="button" aria-label="Disaster"><rect class="pk-cell" x="616.6" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="633.2" y="694" text-anchor="start" transform="rotate(-90 633.2 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">DISASTER</text></g><g class="pk-bin" data-l="act" data-b="4" tabindex="0" role="button" aria-label="Heist"><rect class="pk-cell" x="659.8" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="676.4" y="694" text-anchor="start" transform="rotate(-90 676.4 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">HEIST</text></g><line class="pk-wall" x1="475.0" y1="26" x2="475.0" y2="720"></line><circle class="pk-ball pk-act" r="7.5" cx="590.0" cy="-40"></circle></g><g class="pk-lane" data-lane="hor" style="--c:#c9a3ff"><rect class="pk-hop" x="712.0" y="30" width="216" height="28" rx="14"></rect><text class="pk-fam" x="820.0" y="49" text-anchor="middle" font-family="Oswald,sans-serif" font-size="15" letter-spacing="2.2">HORROR</text><path class="pk-funnel" d="M724.0 64 L807.0 100 M916.0 64 L833.0 100"></path><circle class="pk-slot" cx="820.0" cy="104" r="2.6"></circle><circle class="pk-pin" data-l="hor" data-r="0" data-h="0" cx="733.6" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="0" data-h="2" cx="776.8" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="0" data-h="4" cx="820.0" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="0" data-h="6" cx="863.2" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="0" data-h="8" cx="906.4" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="1" data-h="1" cx="755.2" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="1" data-h="3" cx="798.4" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="1" data-h="5" cx="841.6" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="1" data-h="7" cx="884.8" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="2" data-h="0" cx="733.6" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="2" data-h="2" cx="776.8" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="2" data-h="4" cx="820.0" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="2" data-h="6" cx="863.2" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="2" data-h="8" cx="906.4" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="3" data-h="1" cx="755.2" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="3" data-h="3" cx="798.4" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="3" data-h="5" cx="841.6" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="3" data-h="7" cx="884.8" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="4" data-h="0" cx="733.6" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="4" data-h="2" cx="776.8" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="4" data-h="4" cx="820.0" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="4" data-h="6" cx="863.2" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="4" data-h="8" cx="906.4" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="5" data-h="1" cx="755.2" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="5" data-h="3" cx="798.4" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="5" data-h="5" cx="841.6" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="5" data-h="7" cx="884.8" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="6" data-h="0" cx="733.6" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="6" data-h="2" cx="776.8" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="6" data-h="4" cx="820.0" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="6" data-h="6" cx="863.2" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="6" data-h="8" cx="906.4" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="7" data-h="1" cx="755.2" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="7" data-h="3" cx="798.4" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="7" data-h="5" cx="841.6" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="hor" data-r="7" data-h="7" cx="884.8" cy="434" r="3.4"></circle><path class="pk-fin" d="M712.0 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M755.2 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M798.4 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M841.6 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M884.8 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M928.0 480 l5 9 v231 h-10 v-231 Z"></path><g class="pk-bin" data-l="hor" data-b="0" tabindex="0" role="button" aria-label="Gothic"><rect class="pk-cell" x="717.0" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="733.6" y="694" text-anchor="start" transform="rotate(-90 733.6 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">GOTHIC</text></g><g class="pk-bin" data-l="hor" data-b="1" tabindex="0" role="button" aria-label="Vampire"><rect class="pk-cell" x="760.2" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="776.8" y="694" text-anchor="start" transform="rotate(-90 776.8 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">VAMPIRE</text></g><g class="pk-bin" data-l="hor" data-b="2" tabindex="0" role="button" aria-label="Creature"><rect class="pk-cell" x="803.4" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="820.0" y="694" text-anchor="start" transform="rotate(-90 820.0 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">CREATURE</text></g><g class="pk-bin" data-l="hor" data-b="3" tabindex="0" role="button" aria-label="Possession"><rect class="pk-cell" x="846.6" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="863.2" y="694" text-anchor="start" transform="rotate(-90 863.2 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">POSSESSION</text></g><g class="pk-bin" data-l="hor" data-b="4" tabindex="0" role="button" aria-label="Slasher"><rect class="pk-cell" x="889.8" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="906.4" y="694" text-anchor="start" transform="rotate(-90 906.4 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">SLASHER</text></g><line class="pk-wall" x1="705.0" y1="26" x2="705.0" y2="720"></line><circle class="pk-ball pk-hor" r="7.5" cx="820.0" cy="-40"></circle></g><g class="pk-lane" data-lane="sci" style="--c:#ff9d2e"><rect class="pk-hop" x="942.0" y="30" width="216" height="28" rx="14"></rect><text class="pk-fam" x="1050.0" y="49" text-anchor="middle" font-family="Oswald,sans-serif" font-size="15" letter-spacing="2.2">SCIENCE FICTION</text><path class="pk-funnel" d="M954.0 64 L1037.0 100 M1146.0 64 L1063.0 100"></path><circle class="pk-slot" cx="1050.0" cy="104" r="2.6"></circle><circle class="pk-pin" data-l="sci" data-r="0" data-h="0" cx="963.6" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="0" data-h="2" cx="1006.8" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="0" data-h="4" cx="1050.0" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="0" data-h="6" cx="1093.2" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="0" data-h="8" cx="1136.4" cy="112" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="1" data-h="1" cx="985.2" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="1" data-h="3" cx="1028.4" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="1" data-h="5" cx="1071.6" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="1" data-h="7" cx="1114.8" cy="158" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="2" data-h="0" cx="963.6" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="2" data-h="2" cx="1006.8" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="2" data-h="4" cx="1050.0" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="2" data-h="6" cx="1093.2" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="2" data-h="8" cx="1136.4" cy="204" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="3" data-h="1" cx="985.2" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="3" data-h="3" cx="1028.4" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="3" data-h="5" cx="1071.6" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="3" data-h="7" cx="1114.8" cy="250" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="4" data-h="0" cx="963.6" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="4" data-h="2" cx="1006.8" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="4" data-h="4" cx="1050.0" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="4" data-h="6" cx="1093.2" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="4" data-h="8" cx="1136.4" cy="296" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="5" data-h="1" cx="985.2" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="5" data-h="3" cx="1028.4" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="5" data-h="5" cx="1071.6" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="5" data-h="7" cx="1114.8" cy="342" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="6" data-h="0" cx="963.6" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="6" data-h="2" cx="1006.8" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="6" data-h="4" cx="1050.0" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="6" data-h="6" cx="1093.2" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="6" data-h="8" cx="1136.4" cy="388" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="7" data-h="1" cx="985.2" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="7" data-h="3" cx="1028.4" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="7" data-h="5" cx="1071.6" cy="434" r="3.4"></circle><circle class="pk-pin" data-l="sci" data-r="7" data-h="7" cx="1114.8" cy="434" r="3.4"></circle><path class="pk-fin" d="M942.0 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M985.2 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M1028.4 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M1071.6 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M1114.8 480 l5 9 v231 h-10 v-231 Z"></path><path class="pk-fin" d="M1158.0 480 l5 9 v231 h-10 v-231 Z"></path><g class="pk-bin" data-l="sci" data-b="0" tabindex="0" role="button" aria-label="Outer space"><rect class="pk-cell" x="947.0" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="963.6" y="694" text-anchor="start" transform="rotate(-90 963.6 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">OUTER SPACE</text></g><g class="pk-bin" data-l="sci" data-b="1" tabindex="0" role="button" aria-label="Aliens"><rect class="pk-cell" x="990.2" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="1006.8" y="694" text-anchor="start" transform="rotate(-90 1006.8 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">ALIENS</text></g><g class="pk-bin" data-l="sci" data-b="2" tabindex="0" role="button" aria-label="Apocalypse"><rect class="pk-cell" x="1033.4" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="1050.0" y="694" text-anchor="start" transform="rotate(-90 1050.0 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">APOCALYPSE</text></g><g class="pk-bin" data-l="sci" data-b="3" tabindex="0" role="button" aria-label="Cyberpunk"><rect class="pk-cell" x="1076.6" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="1093.2" y="694" text-anchor="start" transform="rotate(-90 1093.2 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">CYBERPUNK</text></g><g class="pk-bin" data-l="sci" data-b="4" tabindex="0" role="button" aria-label="Fantasy"><rect class="pk-cell" x="1119.8" y="489" width="33.2" height="227" rx="2"></rect><text class="pk-bin-lab" x="1136.4" y="694" text-anchor="start" transform="rotate(-90 1136.4 694)" font-family="Oswald,sans-serif" letter-spacing="1.2">FANTASY</text></g><line class="pk-wall" x1="935.0" y1="26" x2="935.0" y2="720"></line><circle class="pk-ball pk-sci" r="7.5" cx="1050.0" cy="-40"></circle></g>
+      </svg>
+      <svg class="pk-narrow" viewBox="0 0 900 958" role="group" aria-label="The same plinko machine with one lane showing at a time: a hopper naming one of the five genres, a field of staggered pins, and five gutter bins naming five of its sub-genres. It moves on to the next genre after each drop.">
+        <rect class="pk-case" x="5" y="5" width="890" height="948" rx="20"></rect><rect class="pk-case pk-case2" x="14" y="14" width="872" height="930" rx="14"></rect><circle class="pk-bolt" cx="30" cy="30" r="7"></circle><circle class="pk-bolt" cx="870" cy="30" r="7"></circle><circle class="pk-bolt" cx="30" cy="928" r="7"></circle><circle class="pk-bolt" cx="870" cy="928" r="7"></circle><rect class="pk-plinth" x="16" y="938" width="868" height="12" rx="6"></rect><g class="pk-lane" data-lane="one" style="--c:#e8bd5c"><rect class="pk-hop" x="30.0" y="30" width="840" height="52" rx="26"></rect><text class="pk-fam pk-fam-n" x="450.0" y="65" text-anchor="middle" font-family="Oswald,sans-serif" font-size="32" letter-spacing="5">COMEDY</text><g class="pk-arw" data-d="-1" tabindex="0" role="button" aria-label="Previous genre"><rect class="pk-hit" x="46.0" y="30" width="72" height="52" rx="26"></rect><path class="pk-chev" d="M93.0 46 L71.0 56 L93.0 66"></path></g><g class="pk-arw" data-d="1" tabindex="0" role="button" aria-label="Next genre"><rect class="pk-hit" x="782.0" y="30" width="72" height="52" rx="26"></rect><path class="pk-chev" d="M807.0 46 L829.0 56 L807.0 66"></path></g><g class="pk-pip" data-p="0" tabindex="0" role="button" aria-label="Comedy"><rect class="pk-hit" x="295.0" y="84" width="62" height="44"></rect><circle class="pk-dot" cx="326.0" cy="106" r="7.5"></circle></g><g class="pk-pip" data-p="1" tabindex="0" role="button" aria-label="Drama"><rect class="pk-hit" x="357.0" y="84" width="62" height="44"></rect><circle class="pk-dot" cx="388.0" cy="106" r="7.5"></circle></g><g class="pk-pip" data-p="2" tabindex="0" role="button" aria-label="Action"><rect class="pk-hit" x="419.0" y="84" width="62" height="44"></rect><circle class="pk-dot" cx="450.0" cy="106" r="7.5"></circle></g><g class="pk-pip" data-p="3" tabindex="0" role="button" aria-label="Horror"><rect class="pk-hit" x="481.0" y="84" width="62" height="44"></rect><circle class="pk-dot" cx="512.0" cy="106" r="7.5"></circle></g><g class="pk-pip" data-p="4" tabindex="0" role="button" aria-label="Science fiction"><rect class="pk-hit" x="543.0" y="84" width="62" height="44"></rect><circle class="pk-dot" cx="574.0" cy="106" r="7.5"></circle></g><path class="pk-funnel" d="M60.0 140 L416.0 182 M840.0 140 L484.0 182"></path><circle class="pk-slot" cx="450.0" cy="186" r="7"></circle><circle class="pk-pin" data-l="one" data-r="0" data-h="0" cx="114.0" cy="196" r="7"></circle><circle class="pk-pin" data-l="one" data-r="0" data-h="2" cx="282.0" cy="196" r="7"></circle><circle class="pk-pin" data-l="one" data-r="0" data-h="4" cx="450.0" cy="196" r="7"></circle><circle class="pk-pin" data-l="one" data-r="0" data-h="6" cx="618.0" cy="196" r="7"></circle><circle class="pk-pin" data-l="one" data-r="0" data-h="8" cx="786.0" cy="196" r="7"></circle><circle class="pk-pin" data-l="one" data-r="1" data-h="1" cx="198.0" cy="252" r="7"></circle><circle class="pk-pin" data-l="one" data-r="1" data-h="3" cx="366.0" cy="252" r="7"></circle><circle class="pk-pin" data-l="one" data-r="1" data-h="5" cx="534.0" cy="252" r="7"></circle><circle class="pk-pin" data-l="one" data-r="1" data-h="7" cx="702.0" cy="252" r="7"></circle><circle class="pk-pin" data-l="one" data-r="2" data-h="0" cx="114.0" cy="308" r="7"></circle><circle class="pk-pin" data-l="one" data-r="2" data-h="2" cx="282.0" cy="308" r="7"></circle><circle class="pk-pin" data-l="one" data-r="2" data-h="4" cx="450.0" cy="308" r="7"></circle><circle class="pk-pin" data-l="one" data-r="2" data-h="6" cx="618.0" cy="308" r="7"></circle><circle class="pk-pin" data-l="one" data-r="2" data-h="8" cx="786.0" cy="308" r="7"></circle><circle class="pk-pin" data-l="one" data-r="3" data-h="1" cx="198.0" cy="364" r="7"></circle><circle class="pk-pin" data-l="one" data-r="3" data-h="3" cx="366.0" cy="364" r="7"></circle><circle class="pk-pin" data-l="one" data-r="3" data-h="5" cx="534.0" cy="364" r="7"></circle><circle class="pk-pin" data-l="one" data-r="3" data-h="7" cx="702.0" cy="364" r="7"></circle><circle class="pk-pin" data-l="one" data-r="4" data-h="0" cx="114.0" cy="420" r="7"></circle><circle class="pk-pin" data-l="one" data-r="4" data-h="2" cx="282.0" cy="420" r="7"></circle><circle class="pk-pin" data-l="one" data-r="4" data-h="4" cx="450.0" cy="420" r="7"></circle><circle class="pk-pin" data-l="one" data-r="4" data-h="6" cx="618.0" cy="420" r="7"></circle><circle class="pk-pin" data-l="one" data-r="4" data-h="8" cx="786.0" cy="420" r="7"></circle><circle class="pk-pin" data-l="one" data-r="5" data-h="1" cx="198.0" cy="476" r="7"></circle><circle class="pk-pin" data-l="one" data-r="5" data-h="3" cx="366.0" cy="476" r="7"></circle><circle class="pk-pin" data-l="one" data-r="5" data-h="5" cx="534.0" cy="476" r="7"></circle><circle class="pk-pin" data-l="one" data-r="5" data-h="7" cx="702.0" cy="476" r="7"></circle><circle class="pk-pin" data-l="one" data-r="6" data-h="0" cx="114.0" cy="532" r="7"></circle><circle class="pk-pin" data-l="one" data-r="6" data-h="2" cx="282.0" cy="532" r="7"></circle><circle class="pk-pin" data-l="one" data-r="6" data-h="4" cx="450.0" cy="532" r="7"></circle><circle class="pk-pin" data-l="one" data-r="6" data-h="6" cx="618.0" cy="532" r="7"></circle><circle class="pk-pin" data-l="one" data-r="6" data-h="8" cx="786.0" cy="532" r="7"></circle><circle class="pk-pin" data-l="one" data-r="7" data-h="1" cx="198.0" cy="588" r="7"></circle><circle class="pk-pin" data-l="one" data-r="7" data-h="3" cx="366.0" cy="588" r="7"></circle><circle class="pk-pin" data-l="one" data-r="7" data-h="5" cx="534.0" cy="588" r="7"></circle><circle class="pk-pin" data-l="one" data-r="7" data-h="7" cx="702.0" cy="588" r="7"></circle><path class="pk-fin" d="M30.0 644 l5 9 v281 h-10 v-281 Z"></path><path class="pk-fin" d="M198.0 644 l5 9 v281 h-10 v-281 Z"></path><path class="pk-fin" d="M366.0 644 l5 9 v281 h-10 v-281 Z"></path><path class="pk-fin" d="M534.0 644 l5 9 v281 h-10 v-281 Z"></path><path class="pk-fin" d="M702.0 644 l5 9 v281 h-10 v-281 Z"></path><path class="pk-fin" d="M870.0 644 l5 9 v281 h-10 v-281 Z"></path><g class="pk-bin" data-l="one" data-b="0" tabindex="0" role="button" aria-label=""><rect class="pk-cell" x="35.0" y="653" width="158.0" height="277" rx="2"></rect><text class="pk-bin-lab pk-bin-lab-n" x="114.0" y="900" text-anchor="start" transform="rotate(-90 114.0 900)" font-family="Oswald,sans-serif" letter-spacing="1.2"></text></g><g class="pk-bin" data-l="one" data-b="1" tabindex="0" role="button" aria-label=""><rect class="pk-cell" x="203.0" y="653" width="158.0" height="277" rx="2"></rect><text class="pk-bin-lab pk-bin-lab-n" x="282.0" y="900" text-anchor="start" transform="rotate(-90 282.0 900)" font-family="Oswald,sans-serif" letter-spacing="1.2"></text></g><g class="pk-bin" data-l="one" data-b="2" tabindex="0" role="button" aria-label=""><rect class="pk-cell" x="371.0" y="653" width="158.0" height="277" rx="2"></rect><text class="pk-bin-lab pk-bin-lab-n" x="450.0" y="900" text-anchor="start" transform="rotate(-90 450.0 900)" font-family="Oswald,sans-serif" letter-spacing="1.2"></text></g><g class="pk-bin" data-l="one" data-b="3" tabindex="0" role="button" aria-label=""><rect class="pk-cell" x="539.0" y="653" width="158.0" height="277" rx="2"></rect><text class="pk-bin-lab pk-bin-lab-n" x="618.0" y="900" text-anchor="start" transform="rotate(-90 618.0 900)" font-family="Oswald,sans-serif" letter-spacing="1.2"></text></g><g class="pk-bin" data-l="one" data-b="4" tabindex="0" role="button" aria-label=""><rect class="pk-cell" x="707.0" y="653" width="158.0" height="277" rx="2"></rect><text class="pk-bin-lab pk-bin-lab-n" x="786.0" y="900" text-anchor="start" transform="rotate(-90 786.0 900)" font-family="Oswald,sans-serif" letter-spacing="1.2"></text></g><circle class="pk-ball pk-ball-n" r="16" cx="450.0" cy="-60"></circle></g>
+      </svg>
+      <div class="pk-cards"><div class="pk-card" data-card="com"><p class="pk-k">Comedy</p><p class="pk-n">&nbsp;</p><p class="pk-d">&nbsp;</p><p class="pk-f"><b>First</b><span>&nbsp;</span></p><p class="pk-f"><b>Most watched</b><span>&nbsp;</span></p></div><div class="pk-card" data-card="dra"><p class="pk-k">Drama</p><p class="pk-n">&nbsp;</p><p class="pk-d">&nbsp;</p><p class="pk-f"><b>First</b><span>&nbsp;</span></p><p class="pk-f"><b>Most watched</b><span>&nbsp;</span></p></div><div class="pk-card" data-card="act"><p class="pk-k">Action</p><p class="pk-n">&nbsp;</p><p class="pk-d">&nbsp;</p><p class="pk-f"><b>First</b><span>&nbsp;</span></p><p class="pk-f"><b>Most watched</b><span>&nbsp;</span></p></div><div class="pk-card" data-card="hor"><p class="pk-k">Horror</p><p class="pk-n">&nbsp;</p><p class="pk-d">&nbsp;</p><p class="pk-f"><b>First</b><span>&nbsp;</span></p><p class="pk-f"><b>Most watched</b><span>&nbsp;</span></p></div><div class="pk-card" data-card="sci"><p class="pk-k">Science fiction</p><p class="pk-n">&nbsp;</p><p class="pk-d">&nbsp;</p><p class="pk-f"><b>First</b><span>&nbsp;</span></p><p class="pk-f"><b>Most watched</b><span>&nbsp;</span></p></div></div>
+      <div class="pk-paper"><div class="pk-pgroup"><h4>Comedy</h4><ol><li><b>Slapstick</b><span>Bodies and objects rebel. The pratfall, the chase and the collision tell the joke, not the dialogue.</span><span class="pk-pf"><em>First</em> <i>L’Arroseur arrosé</i>, 1895 — forty-five seconds, and the first fiction film anyone made.</span><span class="pk-pf"><em>Most watched</em> <i>Home Alone</i>, 1990 — $477m.</span></li><li><b>Screwball</b><span>Two mismatched people insult each other into love, fast, and usually across a class line.</span><span class="pk-pf"><em>First</em> Disputed — <i>It Happened One Night</i> and <i>Twentieth Century</i>, both 1934. The word arrived in 1936.</span><span class="pk-pf"><em>Most watched</em> <i>It Happened One Night</i>, 1934 — no gross survives; it swept all five top Oscars.</span></li><li><b>Parody</b><span>Copies one film, or one whole genre, closely enough to be recognised, and then punctures it.</span><span class="pk-pf"><em>First</em> Usually <i>The Little Train Robbery</i>, 1905 — children robbing a train two years after the real one. Thinly evidenced.</span><span class="pk-pf"><em>Most watched</em> <i>Austin Powers in Goldmember</i>, 2002 — $296m.</span></li><li><b>Gross-out</b><span>Aimed at the gag reflex. Bodily fluids, taboo and bad taste, all played for the laugh.</span><span class="pk-pf"><em>First</em> Disputed — <i>Pink Flamingos</i>, 1972, is the archetype; the press first used the phrase for <i>Animal House</i>, 1978.</span><span class="pk-pf"><em>Most watched</em> <i>The Hangover</i>, 2009 — $466m.</span></li><li><b>Mockumentary</b><span>Fiction shot and cut as a documentary, so that the form itself is the joke.</span><span class="pk-pf"><em>First</em> Disputed — <i>David Holzman’s Diary</i>, 1967, or <i>Take the Money and Run</i>, 1969. <i>Spinal Tap</i>, 1984, only fixed it.</span><span class="pk-pf"><em>Most watched</em> <i>Borat</i>, 2006 — $262m.</span></li></ol></div><div class="pk-pgroup"><h4>Drama</h4><ol><li><b>Melodrama</b><span>Emotion at maximum. Virtue suffers, fate is cruel, and the score tells you exactly what to feel.</span><span class="pk-pf"><em>First</em> None — it walked in from the nineteenth-century stage already finished. Griffith set its film shape, <i>Way Down East</i>, 1920.</span><span class="pk-pf"><em>Most watched</em> <i>Gone with the Wind</i>, 1939 — $3.4bn adjusted, still the largest audience ever sold.</span></li><li><b>Courtroom</b><span>The story happens in one room, where talk is the action and a verdict is the clock.</span><span class="pk-pf"><em>First</em> Unsettled — <i>Falsely Accused!</i>, 1908, is the earliest title cited and barely documented. <i>The Passion of Joan of Arc</i>, 1928, is the earliest anyone screens.</span><span class="pk-pf"><em>Most watched</em> <i>A Few Good Men</i>, 1992 — $243m.</span></li><li><b>Coming-of-age</b><span>One summer, or one year, in which a young person crosses a line and cannot go back over it.</span><span class="pk-pf"><em>First</em> Nobody names one. <i>Zéro de conduite</i>, 1933, <i>Rebel Without a Cause</i>, 1955, and <i>The 400 Blows</i>, 1959, are all put forward.</span><span class="pk-pf"><em>Most watched</em> <i>Grease</i>, 1978 — $396m.</span></li><li><b>Social problem</b><span>Puts a named injustice on trial through one ordinary person who has to live inside it.</span><span class="pk-pf"><em>First</em> <i>Traffic in Souls</i>, 1913 — “melodrama, social indictment and documentary” at once, says the Library of Congress.</span><span class="pk-pf"><em>Most watched</em> <i>Erin Brockovich</i>, 2000 — $258m.</span></li><li><b>Biopic</b><span>One real life compressed into a shape: the rise, the cost, the moment they became the name.</span><span class="pk-pf"><em>First</em> <i>Jeanne d’Arc</i>, 1900, Méliès — eleven minutes, and the earliest film anyone files as a biopic.</span><span class="pk-pf"><em>Most watched</em> <i>Michael</i>, 2026 — the first biopic past a billion.</span></li></ol></div><div class="pk-pgroup"><h4>Action</h4><ol><li><b>Swashbuckler</b><span>Sword-fighting adventure with a grinning hero who leaps, duels and rescues. Never grim.</span><span class="pk-pf"><em>First</em> <i>The Mark of Zorro</i>, 1920 — Douglas Fairbanks more or less wrote the job description.</span><span class="pk-pf"><em>Most watched</em> <i>Pirates of the Caribbean: Dead Man’s Chest</i>, 2006 — $1.07bn.</span></li><li><b>Martial arts</b><span>The fights are the storytelling: trained bodies, choreography, and a code the hero has to earn.</span><span class="pk-pf"><em>First</em> <i>The Burning of the Red Lotus Temple</i>, 1928 — Shanghai, silent, and eighteen sequels.</span><span class="pk-pf"><em>Most watched</em> <i>The Karate Kid</i>, 2010 — $359m.</span></li><li><b>Spy</b><span>Cover identities and betrayal. The weapon is information, and nobody is who they say they are.</span><span class="pk-pf"><em>First</em> None settled — British shorts of 1913 and 1914 come first; Lang’s <i>Spione</i>, 1928, set the moves still in use.</span><span class="pk-pf"><em>Most watched</em> <i>Skyfall</i>, 2012 — $1.11bn.</span></li><li><b>Disaster</b><span>A crowd of strangers against something overwhelming. The question is who survives, not who did it.</span><span class="pk-pf"><em>First</em> <i>Deluge</i>, 1933 — lost for fifty years, and found again in 1981.</span><span class="pk-pf"><em>Most watched</em> <i>Titanic</i>, 1997 — $2.26bn.</span></li><li><b>Heist</b><span>A crew assembles, plans an impossible robbery in detail, does it, and then the plan comes apart.</span><span class="pk-pf"><em>First</em> Disputed — <i>The Asphalt Jungle</i>, 1950, or <i>Rififi</i>, 1955.</span><span class="pk-pf"><em>Most watched</em> <i>Ocean’s Eleven</i>, 2001 — $451m.</span></li></ol></div><div class="pk-pgroup"><h4>Horror</h4><ol><li><b>Gothic</b><span>Dread built out of place and inheritance: an old house, a family curse, and a building that seems to want something.</span><span class="pk-pf"><em>First</em> Disputed — <i>Le Manoir du diable</i>, 1896, has the furniture; gothic cinema proper is usually dated to <i>Caligari</i>, 1920, or <i>Nosferatu</i>, 1922.</span><span class="pk-pf"><em>Most watched</em> <i>Bram Stoker’s Dracula</i>, 1992 — $216m. Gothic is a mood, not a box-office category.</span></li><li><b>Vampire</b><span>An undead predator who has to be invited in, feeds on blood, and turns attraction into something catching.</span><span class="pk-pf"><em>First</em> <i>Nosferatu</i>, 1922 — the earliest that survives. <i>Drakula halála</i>, 1921, came first, but the film is lost and nobody can say what was in it.</span><span class="pk-pf"><em>Most watched</em> <i>Breaking Dawn – Part 2</i>, 2012 — $868m.</span></li><li><b>Creature</b><span>One oversized animal or monster hunts people while the authorities stand around arguing about it.</span><span class="pk-pf"><em>First</em> Disputed — <i>The Lost World</i>, 1925, for stop motion; <i>King Kong</i>, 1933, for the template; <i>Godzilla</i>, 1954, for the man in the suit.</span><span class="pk-pf"><em>Most watched</em> <i>Jurassic World</i>, 2015 — $1.67bn. Keep it to the B-picture strand and it is <i>Jaws</i>, 1975 — $495m.</span></li><li><b>Possession</b><span>A body is occupied by something intelligent and evil, and faith rather than force is the only weapon that works.</span><span class="pk-pf"><em>First</em> Not <i>The Exorcist</i> — possession films come before 1973. But it wrote the grammar every one since has used.</span><span class="pk-pf"><em>Most watched</em> <i>The Exorcist</i>, 1973 — $431m across its releases.</span></li><li><b>Slasher</b><span>A masked killer works through a group of young people one at a time, and one of them is left to face him.</span><span class="pk-pf"><em>First</em> Nobody agrees. <i>Psycho</i> and <i>Peeping Tom</i>, both 1960; <i>A Bay of Blood</i>, 1971; <i>Black Christmas</i>, 1974; <i>Halloween</i>, 1978, fixed the formula.</span><span class="pk-pf"><em>Most watched</em> <i>Halloween</i>, 2018 — $260m.</span></li></ol></div><div class="pk-pgroup"><h4>Science fiction</h4><ol><li><b>Outer space</b><span>Getting off the Earth is the engine of the story, and the vacuum supplies the danger.</span><span class="pk-pf"><em>First</em> <i>Le Voyage dans la Lune</i>, 1902, Méliès — with his own earlier trick films laying a claim.</span><span class="pk-pf"><em>Most watched</em> <i>Star Wars: The Force Awakens</i>, 2015 — $2.07bn.</span></li><li><b>Aliens</b><span>Something not human makes contact, and the real subject is whether we answer with curiosity or a weapon.</span><span class="pk-pf"><em>First</em> <i>Le Voyage dans la Lune</i>, 1902 — the Selenites are the first aliens anybody filmed.</span><span class="pk-pf"><em>Most watched</em> <i>Avatar</i>, 2009 — $2.92bn.</span></li><li><b>Apocalypse</b><span>Civilisation has already fallen. The film is about what the survivors eat, build and turn into.</span><span class="pk-pf"><em>First</em> Unsettled — <i>Verdens Undergang</i>, 1916, for the fall itself; <i>Deluge</i>, 1933, and <i>Five</i>, 1951, for what comes after, though that claim is asserted more often than sourced.</span><span class="pk-pf"><em>Most watched</em> <i>I Am Legend</i>, 2007 — $586m.</span></li><li><b>Cyberpunk</b><span>A near future run by corporations, where bodies and minds can be hacked and the hero is a low-life specialist.</span><span class="pk-pf"><em>First</em> <i>Blade Runner</i>, 1982 — four years older than the word. <i>Metropolis</i>, 1927, is named as an ancestor, not an origin.</span><span class="pk-pf"><em>Most watched</em> <i>The Matrix Reloaded</i>, 2003 — $742m.</span></li><li><b>Fantasy</b><span>Magic, myth or another world running on its own rules, and nobody in the film asks for a scientific explanation.</span><span class="pk-pf"><em>First</em> No settled credit. Everyone points at Méliès’s trick films — <i>Le Manoir du diable</i>, 1896, then <i>Cendrillon</i>, 1899.</span><span class="pk-pf"><em>Most watched</em> <i>Ne Zha 2</i>, 2025 — $2.22bn.</span></li></ol></div></div>
+      <p class="dnote">Twenty-five bins, every one of them a sub-genre on the chart the club works from &mdash; which is also why Fantasy is a bin inside Science Fiction rather than a lane of its own. Where the first film is genuinely argued over the bin says so rather than picking a winner, which turns out to be most of them. The last two lanes are what Europe files together as <b>fantastic cinema</b>: horror, science fiction and fantasy as one family, the word Sitges has used since 1968 and the festivals federation took for its name. They arrive together too. M&eacute;li&egrave;s was making all three between 1896 and 1902, and which of them came first is an argument about labels nobody had invented yet.</p>
+    </div>
     <h3>One piece of vocabulary</h3>
     <p>A <b>genre switch</b> is a deliberate change of genre inside one film. It works when the first promise has been kept so well that the break feels like a betrayal, and then gives you something worth being betrayed for.</p>
     <h3>Why these films, and why last</h3>
@@ -821,7 +984,7 @@ details.road.voted-road .notsel{display:none}
     <div class="fline">Film Forum &middot; Part Three &middot; People &middot; Chapter 9 &middot; Field Guide &middot; <a href="/">All chapters</a></div>
     <div class="contact">Questions, arguments, films you want on the ballot:
       <a href="mailto:heyilliteratewriter@gmail.com">heyilliteratewriter@gmail.com</a></div>
-    <div class="fsrc">Facts in this guide are drawn from the AFI Catalog, the Academy&rsquo;s awards database, Time, Slate, Roger Ebert, Box Office Mojo and Film Comment. Where sources disagree, the disagreement is printed rather than resolved.</div>
+    <div class="fsrc">Facts in this guide are drawn from the AFI Catalog, the BFI, the Library of Congress, the Academy&rsquo;s awards database, Dartmouth&rsquo;s film-genre guides, Box Office Mojo, The Numbers, Guinness World Records, Roger Ebert and Film Comment. Box-office figures are worldwide gross except where marked. Where sources disagree, the disagreement is printed rather than resolved.</div>
     <div class="fcr">&copy; 2026 R. Julian Tuttle &middot; The Illiterate Writer&rsquo;s Film Forum</div>
   </footer>
 </div>
@@ -892,6 +1055,338 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The genre machine.
+ *
+ * A ball down every lane at the same moment. Where each one lands is decided
+ * before it is dropped and the path is built to arrive there, because a figure
+ * in a book should show every bin rather than whatever chance hands it: each
+ * lane deals its five in a shuffled round, never repeats one until all five
+ * have shown, and never opens a new round on the one that just went.
+ *
+ * The bounce is not physics. The ball sits on a pin, steps one half-space left
+ * or right, and the lane walls turn a step back — which is what a real board
+ * does, and it keeps the walk inside the five bins it is allowed to reach.
+ *
+ * Two boards, one script. Past 720px the wide machine runs all five lanes at
+ * once. Under it, a single lane fills the width and the script dresses it for
+ * one family at a time, moving on after each drop, because twenty-five bins
+ * across a phone would be unreadable and untappable.
+ */
+(function () {
+  var box = document.querySelector('[data-pk]');
+  if (!box) return;
+
+  var DATA = [{"k": "com", "name": "Comedy", "c": "#ff5c7a", "bins": [{"lab": "Slapstick", "def": "Bodies and objects rebel. The pratfall, the chase and the collision tell the joke, not the dialogue.", "first": "<i>L’Arroseur arrosé</i>, 1895 — forty-five seconds, and the first fiction film anyone made.", "pop": "<i>Home Alone</i>, 1990 — $477m."}, {"lab": "Screwball", "def": "Two mismatched people insult each other into love, fast, and usually across a class line.", "first": "Disputed — <i>It Happened One Night</i> and <i>Twentieth Century</i>, both 1934. The word arrived in 1936.", "pop": "<i>It Happened One Night</i>, 1934 — no gross survives; it swept all five top Oscars."}, {"lab": "Parody", "def": "Copies one film, or one whole genre, closely enough to be recognised, and then punctures it.", "first": "Usually <i>The Little Train Robbery</i>, 1905 — children robbing a train two years after the real one. Thinly evidenced.", "pop": "<i>Austin Powers in Goldmember</i>, 2002 — $296m."}, {"lab": "Gross-out", "def": "Aimed at the gag reflex. Bodily fluids, taboo and bad taste, all played for the laugh.", "first": "Disputed — <i>Pink Flamingos</i>, 1972, is the archetype; the press first used the phrase for <i>Animal House</i>, 1978.", "pop": "<i>The Hangover</i>, 2009 — $466m."}, {"lab": "Mockumentary", "def": "Fiction shot and cut as a documentary, so that the form itself is the joke.", "first": "Disputed — <i>David Holzman’s Diary</i>, 1967, or <i>Take the Money and Run</i>, 1969. <i>Spinal Tap</i>, 1984, only fixed it.", "pop": "<i>Borat</i>, 2006 — $262m."}]}, {"k": "dra", "name": "Drama", "c": "#8fd9a8", "bins": [{"lab": "Melodrama", "def": "Emotion at maximum. Virtue suffers, fate is cruel, and the score tells you exactly what to feel.", "first": "None — it walked in from the nineteenth-century stage already finished. Griffith set its film shape, <i>Way Down East</i>, 1920.", "pop": "<i>Gone with the Wind</i>, 1939 — $3.4bn adjusted, still the largest audience ever sold."}, {"lab": "Courtroom", "def": "The story happens in one room, where talk is the action and a verdict is the clock.", "first": "Unsettled — <i>Falsely Accused!</i>, 1908, is the earliest title cited and barely documented. <i>The Passion of Joan of Arc</i>, 1928, is the earliest anyone screens.", "pop": "<i>A Few Good Men</i>, 1992 — $243m."}, {"lab": "Coming-of-age", "def": "One summer, or one year, in which a young person crosses a line and cannot go back over it.", "first": "Nobody names one. <i>Zéro de conduite</i>, 1933, <i>Rebel Without a Cause</i>, 1955, and <i>The 400 Blows</i>, 1959, are all put forward.", "pop": "<i>Grease</i>, 1978 — $396m."}, {"lab": "Social problem", "def": "Puts a named injustice on trial through one ordinary person who has to live inside it.", "first": "<i>Traffic in Souls</i>, 1913 — “melodrama, social indictment and documentary” at once, says the Library of Congress.", "pop": "<i>Erin Brockovich</i>, 2000 — $258m."}, {"lab": "Biopic", "def": "One real life compressed into a shape: the rise, the cost, the moment they became the name.", "first": "<i>Jeanne d’Arc</i>, 1900, Méliès — eleven minutes, and the earliest film anyone files as a biopic.", "pop": "<i>Michael</i>, 2026 — the first biopic past a billion."}]}, {"k": "act", "name": "Action", "c": "#7fb3de", "bins": [{"lab": "Swashbuckler", "def": "Sword-fighting adventure with a grinning hero who leaps, duels and rescues. Never grim.", "first": "<i>The Mark of Zorro</i>, 1920 — Douglas Fairbanks more or less wrote the job description.", "pop": "<i>Pirates of the Caribbean: Dead Man’s Chest</i>, 2006 — $1.07bn."}, {"lab": "Martial arts", "def": "The fights are the storytelling: trained bodies, choreography, and a code the hero has to earn.", "first": "<i>The Burning of the Red Lotus Temple</i>, 1928 — Shanghai, silent, and eighteen sequels.", "pop": "<i>The Karate Kid</i>, 2010 — $359m."}, {"lab": "Spy", "def": "Cover identities and betrayal. The weapon is information, and nobody is who they say they are.", "first": "None settled — British shorts of 1913 and 1914 come first; Lang’s <i>Spione</i>, 1928, set the moves still in use.", "pop": "<i>Skyfall</i>, 2012 — $1.11bn."}, {"lab": "Disaster", "def": "A crowd of strangers against something overwhelming. The question is who survives, not who did it.", "first": "<i>Deluge</i>, 1933 — lost for fifty years, and found again in 1981.", "pop": "<i>Titanic</i>, 1997 — $2.26bn."}, {"lab": "Heist", "def": "A crew assembles, plans an impossible robbery in detail, does it, and then the plan comes apart.", "first": "Disputed — <i>The Asphalt Jungle</i>, 1950, or <i>Rififi</i>, 1955.", "pop": "<i>Ocean’s Eleven</i>, 2001 — $451m."}]}, {"k": "hor", "name": "Horror", "c": "#c9a3ff", "bins": [{"lab": "Gothic", "def": "Dread built out of place and inheritance: an old house, a family curse, and a building that seems to want something.", "first": "Disputed — <i>Le Manoir du diable</i>, 1896, has the furniture; gothic cinema proper is usually dated to <i>Caligari</i>, 1920, or <i>Nosferatu</i>, 1922.", "pop": "<i>Bram Stoker’s Dracula</i>, 1992 — $216m. Gothic is a mood, not a box-office category."}, {"lab": "Vampire", "def": "An undead predator who has to be invited in, feeds on blood, and turns attraction into something catching.", "first": "<i>Nosferatu</i>, 1922 — the earliest that survives. <i>Drakula halála</i>, 1921, came first, but the film is lost and nobody can say what was in it.", "pop": "<i>Breaking Dawn – Part 2</i>, 2012 — $868m."}, {"lab": "Creature", "def": "One oversized animal or monster hunts people while the authorities stand around arguing about it.", "first": "Disputed — <i>The Lost World</i>, 1925, for stop motion; <i>King Kong</i>, 1933, for the template; <i>Godzilla</i>, 1954, for the man in the suit.", "pop": "<i>Jurassic World</i>, 2015 — $1.67bn. Keep it to the B-picture strand and it is <i>Jaws</i>, 1975 — $495m."}, {"lab": "Possession", "def": "A body is occupied by something intelligent and evil, and faith rather than force is the only weapon that works.", "first": "Not <i>The Exorcist</i> — possession films come before 1973. But it wrote the grammar every one since has used.", "pop": "<i>The Exorcist</i>, 1973 — $431m across its releases."}, {"lab": "Slasher", "def": "A masked killer works through a group of young people one at a time, and one of them is left to face him.", "first": "Nobody agrees. <i>Psycho</i> and <i>Peeping Tom</i>, both 1960; <i>A Bay of Blood</i>, 1971; <i>Black Christmas</i>, 1974; <i>Halloween</i>, 1978, fixed the formula.", "pop": "<i>Halloween</i>, 2018 — $260m."}]}, {"k": "sci", "name": "Science fiction", "c": "#ff9d2e", "bins": [{"lab": "Outer space", "def": "Getting off the Earth is the engine of the story, and the vacuum supplies the danger.", "first": "<i>Le Voyage dans la Lune</i>, 1902, Méliès — with his own earlier trick films laying a claim.", "pop": "<i>Star Wars: The Force Awakens</i>, 2015 — $2.07bn."}, {"lab": "Aliens", "def": "Something not human makes contact, and the real subject is whether we answer with curiosity or a weapon.", "first": "<i>Le Voyage dans la Lune</i>, 1902 — the Selenites are the first aliens anybody filmed.", "pop": "<i>Avatar</i>, 2009 — $2.92bn."}, {"lab": "Apocalypse", "def": "Civilisation has already fallen. The film is about what the survivors eat, build and turn into.", "first": "Unsettled — <i>Verdens Undergang</i>, 1916, for the fall itself; <i>Deluge</i>, 1933, and <i>Five</i>, 1951, for what comes after, though that claim is asserted more often than sourced.", "pop": "<i>I Am Legend</i>, 2007 — $586m."}, {"lab": "Cyberpunk", "def": "A near future run by corporations, where bodies and minds can be hacked and the hero is a low-life specialist.", "first": "<i>Blade Runner</i>, 1982 — four years older than the word. <i>Metropolis</i>, 1927, is named as an ancestor, not an origin.", "pop": "<i>The Matrix Reloaded</i>, 2003 — $742m."}, {"lab": "Fantasy", "def": "Magic, myth or another world running on its own rules, and nobody in the film asks for a scientific explanation.", "first": "No settled credit. Everyone points at Méliès’s trick films — <i>Le Manoir du diable</i>, 1896, then <i>Cendrillon</i>, 1899.", "pop": "<i>Ne Zha 2</i>, 2025 — $2.22bn."}]}];
+  var ROWS = 8;
+  var WIDE = { svg: box.querySelector('.pk-wide'), LEFT: 22, LW: 216, GAP: 14,
+               BW: 43.2, TOP: 112, ROW: 46, LAND: 480, GUT: 240,
+               SLOT: 104, LIFT: 6, SINK: 36 };
+  var NAR  = { svg: box.querySelector('.pk-narrow'), LEFT: 30, BW: 168.0,
+               TOP: 196, ROW: 56, LAND: 644, GUT: 290,
+               SLOT: 156, LIFT: 13, SINK: 66 };
+
+  var ENTRY = 380, HOP = 235, DROP = 440, HOLD = 4400, NHOLD = 5200, PAUSE = 6000;
+  var FALL = ENTRY + ROWS * HOP + DROP;
+
+  /* every colour the book is drawn in; a struck pin borrows one at random */
+  var SPARK = ['#e8bd5c', '#7fb3de', '#5e9c7a', '#6ea8ff', '#ff9d2e',
+               '#c9a3ff', '#e8a13c', '#de3f58', '#8fd9a8', '#ff5c7a'];
+
+  function refs(g) {
+    var o = { g: g, ball: g.querySelector('.pk-ball'),
+              bins: [].slice.call(g.querySelectorAll('.pk-bin')), pins: {} };
+    [].forEach.call(g.querySelectorAll('.pk-pin'), function (p) {
+      o.pins[p.getAttribute('data-r') + ':' + p.getAttribute('data-h')] = p;
+    });
+    return o;
+  }
+
+  var cards = box.querySelector('.pk-cards');
+  var FAM = DATA.map(function (d, i) {
+    return { d: d, i: i, bag: [], last: -1, lit: 0, held: 0,
+             seq: null, t0: 0, step: -1, done: true,
+             card: box.querySelector('[data-card="' + d.k + '"]') };
+  });
+  WIDE.lanes = DATA.map(function (d) { return refs(WIDE.svg.querySelector('[data-lane="' + d.k + '"]')); });
+  NAR.lane = refs(NAR.svg.querySelector('[data-lane="one"]'));
+
+  var M = null, cur = 0, raf = null, off = false, seen = false, due = 0, pips = [];
+
+  function now() { return performance.now(); }
+  function live() { return M === 'wide' ? FAM : [FAM[cur]]; }
+  function unit(F) { return M === 'wide' ? WIDE.lanes[F.i] : NAR.lane; }
+  function geo() { return M === 'wide' ? WIDE : NAR; }
+  function xAt(F, h) {
+    return M === 'wide'
+      ? WIDE.LEFT + F.i * (WIDE.LW + WIDE.GAP) + (h / 2 + 0.5) * WIDE.BW
+      : NAR.LEFT + (h / 2 + 0.5) * NAR.BW;
+  }
+
+  /* a fresh round of all five, shuffled, never opening on the one just shown */
+  function nextTarget(F) {
+    if (!F.bag.length) {
+      var bag = [0, 1, 2, 3, 4], i, j, t;
+      for (i = bag.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1)); t = bag[i]; bag[i] = bag[j]; bag[j] = t;
+      }
+      if (bag[0] === F.last) { t = bag[0]; bag[0] = bag[1]; bag[1] = t; }
+      F.bag = bag;
+    }
+    F.last = F.bag.shift();
+    return F.last;
+  }
+
+  /* eight steps from the middle to the wanted bin, free wherever a free step
+     cannot put the ball out of reach of it */
+  function route(target) {
+    var want = target * 2, h = 4, out = [], r, left, gap, d;
+    for (r = 0; r < ROWS; r++) {
+      left = ROWS - r; gap = want - h;
+      if (Math.abs(gap) === left) d = gap > 0 ? 1 : -1;
+      else if (h === 0) d = 1;
+      else if (h === 8) d = -1;
+      else d = Math.random() < .5 ? -1 : 1;
+      h += d; out.push(h);
+    }
+    return out;
+  }
+
+  function flash(F, r, h) {
+    var p = unit(F).pins[r + ':' + h];
+    if (!p) return;
+    p.style.setProperty('--flash', SPARK[Math.floor(Math.random() * SPARK.length)]);
+    p.classList.add('hit');
+    setTimeout(function () { p.classList.remove('hit'); }, 90);
+  }
+
+  function lights() {
+    FAM.forEach(function (F, i) {
+      WIDE.lanes[i].bins.forEach(function (b, n) { b.classList.toggle('lit', n === F.lit); });
+    });
+    NAR.lane.bins.forEach(function (b, n) { b.classList.toggle('lit', n === FAM[cur].lit); });
+  }
+
+  function paint(F) {
+    var b = F.d.bins[F.lit];
+    F.card.querySelector('.pk-n').textContent = b.lab;
+    F.card.querySelector('.pk-d').innerHTML = b['def'];
+    var f = F.card.querySelectorAll('.pk-f span');
+    f[0].innerHTML = b.first;
+    f[1].innerHTML = b.pop;
+    lights();
+  }
+
+  /* the phone board is one lane wearing whichever family is up */
+  function dress(F) {
+    NAR.lane.g.style.setProperty('--c', F.d.c);
+    NAR.svg.querySelector('.pk-fam-n').textContent = F.d.name.toUpperCase();
+    NAR.lane.bins.forEach(function (b, n) {
+      b.setAttribute('aria-label', F.d.bins[n].lab);
+      b.querySelector('.pk-bin-lab').textContent = F.d.bins[n].lab.toUpperCase();
+    });
+    NAR.lane.ball.setAttribute('class', 'pk-ball pk-ball-n pk-' + F.d.k);
+    NAR.svg.setAttribute('aria-label', F.d.name +
+      ': a plinko lane with five gutter bins, one for each of its sub-genres.');
+    pips.forEach(function (p, i) { p.classList.toggle('on', i === F.i); });
+    fitLabels();
+  }
+
+  function soloCards() {
+    var solo = M === 'nar';
+    cards.classList.toggle('solo', solo);
+    FAM.forEach(function (F, i) { F.card.classList.toggle('on', i === cur); });
+  }
+
+  /* A bin label is set in whatever face the browser actually has. Oswald is
+     condensed and fits the gutter; a fallback is wider and would run up out of
+     the bin into the pins. So each one is measured once the fonts have settled,
+     and any too long for its bin is set smaller — cheaper than designing the
+     whole machine around the widest face somebody might be served. */
+  function fitIn(svg, run) {
+    [].forEach.call(svg.querySelectorAll('.pk-bin-lab'), function (t) {
+      t.style.fontSize = '';
+      var w = t.getBBox().width;
+      if (w > run) {
+        t.style.fontSize = (parseFloat(getComputedStyle(t).fontSize) * run / w).toFixed(1) + 'px';
+      }
+    });
+  }
+  function fitLabels() { fitIn(WIDE.svg, WIDE.GUT - 24); fitIn(NAR.svg, NAR.GUT - 34); }
+
+  function wire(lane, famOf) {
+    lane.bins.forEach(function (b, n) {
+      function pick(e) {
+        e.preventDefault();
+        var F = famOf();
+        F.lit = n; paint(F);
+        /* Reading a bin counts as having shown it. Take it out of what is left of
+           this round and treat it as the one that just went, or the next ball can
+           land on the card still open in front of the reader. */
+        var at = F.bag.indexOf(n);
+        if (at >= 0) F.bag.splice(at, 1);
+        F.last = n;
+        /* only this lane waits. Stopping all five so one card can be read is not
+           what a machine does, and it looked broken. */
+        F.held = now() + PAUSE;
+      }
+      b.addEventListener('click', pick);
+      b.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') pick(e);
+      });
+    });
+  }
+  WIDE.lanes.forEach(function (L, i) { wire(L, function () { return FAM[i]; }); });
+  wire(NAR.lane, function () { return FAM[cur]; });
+
+  /* Only one genre is on the phone board at a time, so a reader needs a way back
+     to one already seen instead of waiting four drops for it to come round. */
+  function goFam(n) {
+    FAM.forEach(function (F) { F.done = true; });
+    NAR.lane.ball.style.opacity = 0;
+    cur = ((n % FAM.length) + FAM.length) % FAM.length;
+    dress(FAM[cur]); soloCards(); paint(FAM[cur]);
+    due = 0;
+    if (!off) arm(FAM[cur], 240);
+  }
+  function tap(el, go) {
+    function hit(e) { e.preventDefault(); go(); }
+    el.addEventListener('click', hit);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') hit(e);
+    });
+  }
+  [].forEach.call(NAR.svg.querySelectorAll('.pk-arw'), function (a) {
+    var d = +a.getAttribute('data-d');
+    tap(a, function () { goFam(cur + d); });
+  });
+  pips = [].slice.call(NAR.svg.querySelectorAll('.pk-pip'));
+  pips.forEach(function (p, i) { tap(p, function () { goFam(i); }); });
+
+  /* ---- the run ---------------------------------------------------------- */
+
+  function arm(F, delay) {
+    F.seq = route(nextTarget(F));
+    F.t0 = now() + delay;
+    F.step = -1;
+    F.done = false;
+  }
+  function drop() {
+    var t = now();
+    if (M === 'wide') FAM.forEach(function (F, i) { if (t >= F.held) arm(F, i * 110); });
+    else if (t >= FAM[cur].held) arm(FAM[cur], 0);
+  }
+
+  function place(F, t) {
+    var G = geo(), ball = unit(F).ball, x, y, u, r, h0, h1;
+    if (t < 0) { ball.style.opacity = 0; return; }
+    ball.style.opacity = 1;
+    if (t < ENTRY) {
+      u = t / ENTRY;
+      x = xAt(F, 4);
+      y = G.SLOT + (G.TOP - G.SLOT) * u * u;
+    } else if (t < ENTRY + ROWS * HOP) {
+      r = Math.floor((t - ENTRY) / HOP);
+      u = ((t - ENTRY) % HOP) / HOP;
+      if (r > F.step) { F.step = r; flash(F, r, r === 0 ? 4 : F.seq[r - 1]); }
+      h0 = r === 0 ? 4 : F.seq[r - 1];
+      h1 = F.seq[r];
+      x = xAt(F, h0) + (xAt(F, h1) - xAt(F, h0)) *
+          (u < .5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2);
+      y = G.TOP + r * G.ROW + G.ROW * u * u - G.LIFT * Math.sin(Math.PI * u);
+    } else {
+      u = Math.min(1, (t - ENTRY - ROWS * HOP) / DROP);
+      x = xAt(F, F.seq[ROWS - 1]);
+      y = G.LAND + (G.GUT - G.SINK) * (u < .85 ? u / .85 : 1) -
+          (G.LIFT * .7) * Math.sin(Math.PI * Math.max(0, (u - .85) / .15));
+    }
+    ball.setAttribute('cx', x.toFixed(1));
+    ball.setAttribute('cy', y.toFixed(1));
+  }
+
+  function tick() {
+    if (off) { raf = null; return; }
+    var t = now(), all = true;
+    live().forEach(function (F) {
+      if (F.done) return;
+      var e = t - F.t0;
+      place(F, e);
+      if (e >= FALL) {
+        F.done = true;
+        unit(F).ball.style.opacity = 0;
+        F.lit = F.seq[ROWS - 1] / 2;
+        paint(F);
+      } else all = false;
+    });
+    if (all) {
+      if (!due) due = t + (M === 'wide' ? HOLD : NHOLD);
+      if (t >= due) {
+        if (M === 'wide') {
+          /* a lane somebody is reading sits the round out; the other four drop */
+          var any = false;
+          FAM.forEach(function (F, i) { if (t >= F.held) { arm(F, i * 110); any = true; } });
+          due = any ? 0 : t + 600;
+        } else if (t >= FAM[cur].held) {
+          due = 0;
+          goFam(cur + 1);
+        } else {
+          due = t + 400;
+        }
+      }
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  function run() { if (!raf && !off && seen) raf = requestAnimationFrame(tick); }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  var mq = matchMedia('(max-width:720px)');
+  function setMode() {
+    var m = mq.matches ? 'nar' : 'wide';
+    if (m === M) return;
+    M = m;
+    stop();
+    FAM.forEach(function (F) { F.done = true; });
+    [].forEach.call(box.querySelectorAll('.pk-ball'), function (b) { b.style.opacity = 0; });
+    if (M === 'nar') dress(FAM[cur]);
+    soloCards();
+    FAM.forEach(paint);
+    fitLabels();
+    due = 0;
+    if (!off) { drop(); run(); }
+  }
+
+  function still() {
+    off = true; stop();
+    [].forEach.call(box.querySelectorAll('.pk-ball'), function (b) { b.style.opacity = 0; });
+  }
+
+  if (mq.addEventListener) mq.addEventListener('change', setMode);
+  else if (mq.addListener) mq.addListener(setMode);
+  addEventListener('resize', fitLabels);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
+
+  M = mq.matches ? 'nar' : 'wide';
+  if (M === 'nar') dress(FAM[0]);
+  soloCards();
+  FAM.forEach(paint);
+  fitLabels();
+
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) still();
+  if (window.matchMedia('print').matches) still();
+  addEventListener('beforeprint', still);
+
+  if (!off) {
+    drop();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) { seen = en.isIntersecting; seen ? run() : stop(); });
+      }, { threshold: .15 }).observe(box);
+    } else { seen = true; run(); }
+  }
 })();
 </script>
 </body>

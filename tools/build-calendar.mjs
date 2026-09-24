@@ -76,7 +76,11 @@ function event(c) {
   const start = meetAt(c.date);
   const end = new Date(start.getTime() + minutes * 60000);
   const page = `${SITE}/${c.slug}/`;
-  const where = forumUrl || page;
+  /* The chapter page, never the Meet link. Google Calendar treats a Meet URL in
+     LOCATION as conference data and, seeing one code across nine events, mints a
+     fresh code per event — so members would each land in a different empty room.
+     The page is the one door; its JOIN button always carries the real link. */
+  const where = page;
   let desc = `The Illiterate Writer's Film Forum \u00b7 chapter ${c.n}, ${c.title}. ` +
     `We watch, then we talk it through. The field guide, both roads and the paper editions are at ${page}`;
   desc += forumUrl ? `\nJoin: ${forumUrl}` : '\nThe room link goes out by email before the call.';

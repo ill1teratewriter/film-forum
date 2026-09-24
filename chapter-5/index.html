@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
@@ -30,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+:root{color-scheme:dark;--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
   --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
   /* the chosen film's own colour, from its poster */
   --film:#7fb3de;--film-deep:#2b5f8c}
@@ -192,7 +193,51 @@ section{padding:40px 0}
 .diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
-.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.dnote{font-size:13.5px;color:var(--text-faint);margin:10px auto 0;max-width:66ch;text-align:center}
+/* ---- the cutting rate strip ---------------------------------------------
+   A length of film stock with a scale on it. Drag the splice line; the readout
+   names whose average you have landed on and the strip underneath redraws a
+   minute of screen time cut at that rate. */
+.cutx{padding:20px 18px 14px}
+.cx-read{text-align:center;margin-bottom:14px}
+.cx-secs{font-family:'Oswald',sans-serif;line-height:1}
+.cx-secs b{font-size:52px;font-weight:600;color:#ff9d2e;letter-spacing:.01em}
+.cx-secs span{display:block;margin-top:6px;font-size:11px;letter-spacing:.24em;
+  text-transform:uppercase;color:var(--text-faint)}
+.cx-film{margin-top:12px;font-family:'Playfair Display',Georgia,serif;font-style:italic;
+  font-size:19px;color:var(--text)}
+.cx-era{margin-top:6px;font-size:13px;color:var(--text-faint)}
+.cx-track{cursor:ew-resize;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.cx-track:focus-visible{outline:2px solid #ff9d2e;outline-offset:4px;border-radius:6px}
+.cx-track svg,.cx-demo{display:block;min-width:0;width:100%;height:auto}
+.cx-stock{fill:#1a1322}
+.cx-hole{fill:#0b0810}
+.cx-gate{fill:#241a30}
+.cx-notch{fill:#efe4ff;fill-opacity:.42}
+.cx-notch.on{fill-opacity:1}
+.cx-key{fill:#ff9d2e;fill-opacity:1}
+.cx-glow{fill:#ff9d2e;fill-opacity:.22;filter:blur(3px)}
+.cx-cut{stroke:#efe9f5;stroke-width:2.4}
+.cx-tab{fill:#efe9f5}
+.cx-ticks{display:flex;justify-content:space-between;margin:6px 4% 0;
+  font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.16em;color:var(--text-faint)}
+.cx-lab{margin-top:20px;text-align:center;font-family:'Oswald',sans-serif;font-size:10.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--text-faint)}
+.cx-demo{margin-top:8px}
+.cx-frame{fill:#ff9d2e;fill-opacity:.22;stroke:#ff9d2e;stroke-opacity:.55}
+.cx-paper{display:none}
+.cx-plab{text-align:center;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--text-faint);margin-bottom:10px}
+.cx-prow{margin:0 0 9px}
+.cx-fkey{fill-opacity:.4}
+.cx-pkey b{color:#ff9d2e}
+.cx-pname{font-size:12.5px;color:var(--text-dim);margin-bottom:3px}
+.cx-prow svg{display:block;width:100%;height:auto}
+@media(max-width:600px){
+  .cx-secs b{font-size:42px}
+  .cx-film{font-size:17px}
+  .cx-ticks{font-size:9.5px}
+}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -363,6 +408,42 @@ details.road.took .sfilm{width:100%;font-size:clamp(44px,9.4vw,90px);font-weight
 details.road.took .sop{color:var(--film);border-bottom-color:rgba(127,179,222,.45)}
 details.road.took>.rbody{padding:4px 32px 34px}
 .rbody .wthesis{font-size:16.5px;color:#cdc3de;margin:16px 0 0;max-width:64ch}
+/* ---- the 1999 site --------------------------------------------------------
+   The Blair Witch Project's original website is still up, unchanged, at the
+   address it used before release. It belongs in the Hollywood Blvd. panel and
+   nowhere else: it is the best argument this chapter has that the marketing was
+   part of the edit. The figure is the door — tapping it is the whole gesture. */
+.haxan{display:flex;gap:20px;align-items:flex-start;margin:20px 0 6px;padding:20px 22px;
+  text-decoration:none;border:1px solid rgba(147,160,140,.3);border-radius:14px;
+  background:linear-gradient(180deg,rgba(147,160,140,.07),rgba(0,0,0,0));
+  transition:border-color .25s ease,background .25s ease}
+.haxan:hover,.haxan:focus-visible{border-color:rgba(147,160,140,.7);
+  background:linear-gradient(180deg,rgba(147,160,140,.13),rgba(0,0,0,0))}
+.hx-fig{flex:0 0 auto;width:60px;height:auto;overflow:visible}
+.hx-tw{fill:none;stroke:#cfd8c9;stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round;
+  stroke-opacity:.8;transition:stroke-opacity .25s ease,filter .25s ease}
+.hx-bind{fill:none;stroke:#8f9a88;stroke-width:2;stroke-linecap:round}
+.haxan:hover .hx-tw,.haxan:focus-visible .hx-tw{stroke-opacity:1;
+  filter:drop-shadow(0 0 7px rgba(226,235,222,.75))}
+.hx-txt{display:block}
+.hx-k{display:block;font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.28em;
+  text-transform:uppercase;color:#93a08c}
+/* the pale, slightly lit look the title has on the poster */
+.hx-h{display:block;margin:5px 0 0;font-family:'Oswald',sans-serif;font-size:clamp(19px,3.4vw,24px);
+  font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:#f2f6f0;
+  text-shadow:0 0 14px rgba(226,235,222,.5),0 0 34px rgba(190,205,186,.28)}
+.hx-p{display:block;margin:9px 0 0;font-size:14.5px;line-height:1.55;color:var(--text-dim);
+  max-width:56ch}
+.hx-go{display:block;margin:10px 0 0;font-family:'Oswald',sans-serif;font-size:11.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:#cfd8c9}
+/* on paper there is nothing to click, so the address takes the invitation's place */
+.hx-url{display:none}
+.haxan:hover .hx-go,.haxan:focus-visible .hx-go{color:#fff}
+/* On a phone the figure beside the text left a column about twenty characters
+   wide, so it stacks instead: the mark on top, the whole width for the words. */
+@media(max-width:560px){.haxan{flex-direction:column;gap:13px;padding:17px 17px 19px}
+  .hx-fig{width:54px}.hx-p{font-size:14px}}
+
 .rbody>section{padding:34px 0 0}
 .rbody>section:first-of-type{padding-top:28px}
 .rbody .sec-head{margin-bottom:0}
@@ -441,6 +522,18 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
 
   /* cover */
   .print-cover{page-break-after:always;padding-top:32mm;text-align:center}
+  /* On paper the address is the useful part, because there is nothing to tap. */
+  .haxan{border:.5pt solid #ded7e4 !important;background:none !important;border-radius:2mm;
+    page-break-inside:avoid;padding:4mm 5mm;gap:5mm}
+  .hx-tw{stroke:#5a5268 !important;stroke-opacity:1 !important;filter:none !important}
+  .hx-bind{stroke:#8d8494 !important}
+  .hx-k{color:#8a7f52 !important}
+  .hx-h{color:#241d2b !important;text-shadow:none !important}
+  .hx-p{color:#3a3145 !important}
+  .hx-go{display:none !important}
+  .hx-url{display:block !important;margin:9px 0 0;font-family:'Oswald',sans-serif;
+    font-size:10pt;letter-spacing:.1em;color:#5a5268}
+
   .pc-brand{font-family:'Oswald',sans-serif;font-size:10pt;letter-spacing:.34em;text-transform:uppercase;color:#8a7f99}
   .pc-title{font-family:'Oswald',sans-serif;font-size:54pt;font-weight:700;letter-spacing:.02em;
     text-transform:uppercase;color:#171021;margin:8mm 0 4mm;line-height:1}
@@ -520,6 +613,31 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .diagram{border:.5pt solid #ded7e4 !important;background:none !important;page-break-inside:avoid;overflow:visible}
   .diagram svg{min-width:0}
   .dnote{color:#776e88}
+
+  .dnote{margin-left:auto;margin-right:auto}
+  .cx-track{cursor:auto}
+  .cx-secs b{color:#9a5a10}
+  .cx-film{color:#241d2b}
+  .cx-era{color:#776e88}
+  .cx-stock{fill:#efecf6}
+  .cx-hole{fill:#ffffff;stroke:#cfc7e2}
+  .cx-gate{fill:#e4dff0}
+  .cx-notch{fill:#6d6480;fill-opacity:.85}
+  .cx-key{fill:#9a5a10;fill-opacity:1}
+  .cx-glow{fill:#9a5a10;fill-opacity:.2;filter:none}
+  .cx-cut{stroke:#3a3145}
+  .cx-tab{fill:#3a3145}
+  .cx-frame{fill:#9a5a10;fill-opacity:.18;stroke:#9a5a10}
+  .cx-ticks{color:#776e88}
+  /* paper cannot be dragged, so the slider's readout and its single strip give
+     way to a ladder that shows four rates at once and explains itself */
+  .cx-read,.cx-lab,.cx-demo,.cx-hand{display:none !important}
+  .cx-paper{display:block;margin-top:14px}
+  .cx-plab{color:#776e88}
+  .cx-pname{color:#3a3145}
+  .cx-pname b{color:#3a3145}
+  .cx-pkey b{color:#9a5a10}
+  .cx-fkey{fill-opacity:.34}
 
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
@@ -632,6 +750,17 @@ details.road.voted-road .notsel{display:none}
         <p class="wthesis">Three film students hike into a Maryland forest to make a documentary about a local legend. A year later, their footage is found.</p>
         <div class="pdfrow"><a class="pdfbtn" href="film-forum-ch05-the-blair-witch-project.pdf" download>Download the The Blair Witch Project paper edition (PDF)</a></div>
         <p class="why-ballot"><b>Why it is on the ballot.</b> It is the film that made found footage a genre, and it is a masterclass in editing that pretends not to be edited. Every cut is disguised as a camera switching off, and almost everything frightening happens in the gaps between shots.</p>
+
+        <a class="haxan" href="https://www.haxan.com/blairwitch/" target="_blank" rel="noopener">
+          <svg class="hx-fig" viewBox="0 0 84 118" aria-hidden="true"><path class="hx-tw" d="M42 7 L55 21 L41 35 L29 20 Z"/><path class="hx-tw" d="M41 35 L42 82"/><path class="hx-tw" d="M41 47 L15 41"/><path class="hx-tw" d="M15 41 L11 66"/><path class="hx-tw" d="M41 47 L68 42"/><path class="hx-tw" d="M68 42 L73 67"/><path class="hx-tw" d="M42 82 L27 111"/><path class="hx-tw" d="M42 82 L58 110"/><path class="hx-bind" d="M36 45 L46 49"/><path class="hx-bind" d="M11 38 L19 44"/><path class="hx-bind" d="M64 39 L72 45"/><path class="hx-bind" d="M37 79 L47 85"/></svg>
+          <span class="hx-txt">
+            <span class="hx-k">Still online</span>
+            <span class="hx-h">The Blair Witch Project</span>
+            <span class="hx-p">A year before anyone could buy a ticket, this film had a website that never once admitted it was a film. Police reports, a legend, a missing-persons case. People believed it, and it is one of the most enjoyable pieces of marketing anybody has ever run. It is still there, at the address it had in 1999.</span>
+            <span class="hx-go">Click the figure and go back to 1999&nbsp;&rarr;</span>
+            <span class="hx-url">haxan.com/blairwitch</span>
+          </span>
+        </a>
 <section>
     <div class="sec-head">
       <div class="eyebrow">01</div>
@@ -801,6 +930,36 @@ details.road.voted-road .notsel{display:none}
       <div class="kind"><div class="n">Three</div><h4>The cut that shows</h4><p>Jump cuts, black screens, a camera switching off. The edit is on display.</p><div class="eg">Breathless &middot; The Blair Witch Project &middot; Uncut Gems</div></div>
     </div>
     <p class="dnote">A horror film usually runs on the first and the third at once: invisible cutting to keep you inside, and one visible cut to make you jump.</p>
+    <h3>How long is a shot?</h3>
+    <p>Editing has one number attached to it that anybody can check: the average shot length, the runtime divided by the number of shots. It will not tell you whether a film is any good, but it will tell you how hard it is working to hold you, and it separates eras more cleanly than almost anything else you can measure.</p>
+    <div class="diagram cutx" data-cut>
+      <div class="cx-read">
+        <div class="cx-secs"><b>7.1</b><span>seconds a shot</span></div>
+        <div class="cx-film"><i>The Blair Witch Project</i> &middot; 1999</div>
+        <div class="cx-era">Ordinary for the mid to late 1960s, the 1970s and the 1980s</div>
+      </div>
+      <div class="cx-track" role="slider" tabindex="0" aria-label="Average shot length"
+           aria-valuemin="2" aria-valuemax="14" aria-valuenow="7.1" aria-valuetext="7.1 seconds, The Blair Witch Project">
+        <svg viewBox="0 0 640 128" aria-hidden="true">
+          <rect class="cx-stock" x="0" y="16" width="640" height="96" rx="4"></rect><rect class="cx-hole" x="7.0" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="7.0" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="39.4" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="39.4" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="71.8" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="71.8" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="104.3" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="104.3" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="136.7" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="136.7" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="169.1" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="169.1" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="201.5" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="201.5" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="233.9" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="233.9" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="266.4" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="266.4" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="298.8" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="298.8" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="331.2" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="331.2" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="363.6" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="363.6" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="396.1" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="396.1" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="428.5" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="428.5" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="460.9" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="460.9" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="493.3" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="493.3" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="525.7" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="525.7" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="558.2" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="558.2" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="590.6" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="590.6" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="623.0" y="23" width="10" height="13" rx="2.5"></rect><rect class="cx-hole" x="623.0" y="92" width="10" height="13" rx="2.5"></rect><rect class="cx-gate" x="8" y="44" width="624" height="40" rx="2"></rect><rect class="cx-notch" data-t="2.4" x="44.6" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="3.3" x="88.7" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="4.7" x="157.3" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="5.8" x="211.2" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="5.8" x="211.2" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="6.2" x="230.8" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="6.6" x="250.4" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="6.9" x="265.1" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="7.0" x="270.0" y="50" width="2" height="28"></rect><rect class="cx-glow" x="271.4" y="46" width="9" height="36" rx="4"></rect><rect class="cx-notch cx-key" data-t="7.1" x="274.4" y="46" width="3" height="36"></rect><rect class="cx-notch" data-t="7.9" x="314.1" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="8.4" x="338.6" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="8.5" x="343.5" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="9.5" x="392.5" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="10.9" x="461.1" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="11.4" x="485.6" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="11.6" x="495.4" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="12.1" x="519.9" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="12.6" x="544.4" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="12.9" x="559.1" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="13.0" x="564.0" y="50" width="2" height="28"></rect><rect class="cx-notch" data-t="13.3" x="578.7" y="50" width="2" height="28"></rect><rect class="cx-glow" x="585.0" y="46" width="9" height="36" rx="4"></rect><rect class="cx-notch cx-key" data-t="13.5" x="588.0" y="46" width="3" height="36"></rect><g class="cx-hand" transform="translate(275.9 0)"><path class="cx-tab" d="M0 4 L9 13 L-9 13 Z"></path><line class="cx-cut" x1="0" y1="12" x2="0" y2="118"></line><path class="cx-tab" d="M0 124 L9 115 L-9 115 Z"></path></g>
+        </svg>
+      </div>
+      <div class="cx-ticks"><span>2s</span><span>4s</span><span>6s</span><span>8s</span><span>10s</span><span>12s</span><span>14s</span></div>
+      <div class="cx-lab">Sixty seconds of screen time, cut at that rate</div>
+      <svg class="cx-demo" viewBox="0 0 640 60" aria-hidden="true">
+        <g class="cx-frames"></g>
+      </svg>
+      <div class="cx-paper print-only">
+        <div class="cx-plab">Sixty seconds of screen time, cut six ways</div>
+        <div class="cx-prow"><div class="cx-pname"><b>2.4</b> seconds a shot &middot; <i>The Bourne Supremacy</i>, 2004</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame" x="8.0" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="33.0" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="57.9" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="82.9" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="107.8" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="132.8" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="157.8" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="182.7" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="207.7" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="232.6" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="257.6" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="282.6" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="307.5" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="332.5" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="357.4" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="382.4" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="407.4" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="432.3" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="457.3" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="482.2" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="507.2" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="532.2" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="557.1" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="582.1" y="4" width="22.0" height="26" rx="2"></rect><rect class="cx-frame" x="607.0" y="4" width="22.0" height="26" rx="2"></rect></svg></div>
+        <div class="cx-prow"><div class="cx-pname"><b>4.7</b> seconds a shot &middot; <i>Eternal Sunshine of the Spotless Mind</i>, 2004</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame" x="8.0" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="56.9" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="105.8" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="154.6" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="203.5" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="252.4" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="301.3" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="350.2" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="399.0" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="447.9" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="496.8" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="545.7" y="4" width="45.9" height="26" rx="2"></rect><rect class="cx-frame" x="594.6" y="4" width="37.4" height="26" rx="2"></rect></svg></div>
+        <div class="cx-prow"><div class="cx-pname cx-pkey"><b>7.1</b> seconds a shot &middot; <i>The Blair Witch Project</i>, 1999</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame cx-fkey" x="8.0" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="81.8" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="155.7" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="229.5" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="303.4" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="377.2" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="451.0" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="524.9" y="4" width="70.8" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="598.7" y="4" width="33.3" height="26" rx="2"></rect></svg></div>
+        <div class="cx-prow"><div class="cx-pname"><b>9.5</b> seconds a shot &middot; <i>Touch of Evil</i>, 1958</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame" x="8.0" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="106.8" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="205.6" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="304.4" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="403.2" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="502.0" y="4" width="95.8" height="26" rx="2"></rect><rect class="cx-frame" x="600.8" y="4" width="31.2" height="26" rx="2"></rect></svg></div>
+        <div class="cx-prow"><div class="cx-pname"><b>11.4</b> seconds a shot &middot; <i>Citizen Kane</i>, 1941</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame" x="8.0" y="4" width="115.6" height="26" rx="2"></rect><rect class="cx-frame" x="126.6" y="4" width="115.6" height="26" rx="2"></rect><rect class="cx-frame" x="245.1" y="4" width="115.6" height="26" rx="2"></rect><rect class="cx-frame" x="363.7" y="4" width="115.6" height="26" rx="2"></rect><rect class="cx-frame" x="482.2" y="4" width="115.6" height="26" rx="2"></rect><rect class="cx-frame" x="600.8" y="4" width="31.2" height="26" rx="2"></rect></svg></div>
+        <div class="cx-prow"><div class="cx-pname cx-pkey"><b>13.5</b> seconds a shot &middot; <i>The Witch</i>, 2015</div><svg viewBox="0 0 640 34" aria-hidden="true"><rect class="cx-frame cx-fkey" x="8.0" y="4" width="137.4" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="148.4" y="4" width="137.4" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="288.8" y="4" width="137.4" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="429.2" y="4" width="137.4" height="26" rx="2"></rect><rect class="cx-frame cx-fkey" x="569.6" y="4" width="62.4" height="26" rx="2"></rect></svg></div>
+      </div>
+      <p class="dnote">The pale notches are published counts. The two in orange are this chapter&rsquo;s own films, timed in house rather than taken from anyone&rsquo;s table. Everything bunches between five and nine seconds, which is most of cinema; the room either side of that bunch is where a film is doing something deliberate.</p>
+    </div>
     <h3>One piece of vocabulary</h3>
     <p>The <b>Kuleshov effect</b>: viewers read emotion into a shot based on the shot beside it. A face, then the dark, and you decide what the face saw.</p>
     <h3>Why these films</h3>
@@ -892,6 +1051,201 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The cutting rate strip.
+ *
+ * The scale runs from two seconds a shot to fourteen, which covers everything
+ * anybody has bothered to count. Drag the splice line, click the strip, or use
+ * the arrow keys; the readout names the nearest film, the eras it would have
+ * been ordinary in, and the strip underneath redraws a minute of screen time at
+ * that rate. It sweeps by itself until the first time you touch it, then it is
+ * yours and stays where you left it.
+ *
+ * Every figure here was counted by somebody else and is listed in the chapter's
+ * sources. Nothing is interpolated: between two films the readout says so.
+ */
+(function () {
+  var box = document.querySelector('[data-cut]');
+  if (!box) return;
+  var LO = 2, HI = 14, PAD = 26, W = 640;
+  var track = box.querySelector('.cx-track');
+  var hand = box.querySelector('.cx-hand');
+  var notches = [].slice.call(box.querySelectorAll('.cx-notch'));
+  var secs = box.querySelector('.cx-secs b');
+  var film = box.querySelector('.cx-film');
+  var era = box.querySelector('.cx-era');
+  var frames = box.querySelector('.cx-frames');
+
+  var FILMS = notches.map(function (n) { return +n.getAttribute('data-t'); });
+  var NAMES = {
+    2.4: ['The Bourne Supremacy', 2004], 3.3: ['Babel', 2006],
+    4.7: ['Eternal Sunshine of the Spotless Mind', 2004],
+    5.8: ['North by Northwest', 1959], 6.2: ['Psycho', 1960],
+    6.6: ['Lost in Translation', 2003], 6.9: ['High Noon', 1952],
+    7: ['Vertigo', 1958], 7.1: ['The Blair Witch Project', 1999],
+    7.9: ['Pulp Fiction', 1994],
+    8.4: ['The Godfather', 1972], 8.5: ['Rear Window', 1954],
+    9.5: ['Touch of Evil', 1958], 10.9: ['8½', 1963], 11: ['Blowup', 1966],
+    11.4: ['Citizen Kane', 1941], 11.6: ['A Clockwork Orange', 1971],
+    12.1: ['Lady in the Water', 2006], 12.6: ['Paris, Texas', 1984],
+    12.9: ['The Shining', 1980], 13: ['2001: A Space Odyssey', 1968],
+    13.3: ['Barry Lyndon', 1975], 13.5: ['The Witch', 2015]
+  };
+  NAMES[5.8] = ['North by Northwest', 1959, 'Don’t Look Now', 1973];
+
+  /* Bordwell's ranges, which overlap, because the eras did */
+  var ERAS = [
+    [8, 11, 'Hollywood between 1930 and 1960'],
+    [6, 8, 'the mid to late 1960s'],
+    [5, 8, 'the 1970s'],
+    [5, 7, 'the 1980s'],
+    [3, 6, 'a typical film in 1999 or 2000']
+  ];
+
+  var val = 7.1;
+
+  function x(t) { return PAD + (t - LO) / (HI - LO) * (W - 2 * PAD); }
+
+  function join(a) {
+    if (!a.length) return '';
+    if (a.length === 1) return a[0];
+    return a.slice(0, -1).join(', ') + ' and ' + a[a.length - 1];
+  }
+
+  function paint() {
+    hand.setAttribute('transform', 'translate(' + x(val).toFixed(1) + ' 0)');
+    secs.textContent = val.toFixed(1);
+
+    var near = null, gap = 9;
+    FILMS.forEach(function (t) { var d = Math.abs(t - val); if (d < gap) { gap = d; near = t; } });
+    notches.forEach(function (n) {
+      n.classList.toggle('on', gap <= .25 && +n.getAttribute('data-t') === near);
+    });
+
+    if (gap <= .25) {
+      var f = NAMES[near];
+      film.innerHTML = f.length > 2
+        ? '<i>' + f[0] + '</i> &middot; ' + f[1] + '  &nbsp;and&nbsp;  <i>' + f[2] + '</i> &middot; ' + f[3]
+        : '<i>' + f[0] + '</i> &middot; ' + f[1];
+    } else {
+      film.innerHTML = '&nbsp;';       /* between two films, say nothing */
+    }
+
+    var hits = ERAS.filter(function (e) { return val >= e[0] && val <= e[1]; }).map(function (e) { return e[2]; });
+    era.textContent = hits.length
+      ? 'Ordinary for ' + join(hits)
+      : (val < 3 ? 'Faster than any era Bordwell measured as typical'
+                 : 'Slower than any era Bordwell measured as typical');
+
+    track.setAttribute('aria-valuenow', val.toFixed(1));
+    track.setAttribute('aria-valuetext', val.toFixed(1) + ' seconds. ' + film.textContent);
+
+    /* a minute of screen time, cut at this rate */
+    var run = 624, per = run / 60, out = '', at = 8;
+    for (var i = 0; at < 632 && i < 40; i++) {
+      var w = Math.min(val * per - 3, 632 - at);
+      if (w < 1) break;
+      out += '<rect class="cx-frame" x="' + at.toFixed(1) + '" y="8" width="' + w.toFixed(1) +
+             '" height="44" rx="2"></rect>';
+      at += val * per;
+    }
+    frames.innerHTML = out;
+  }
+
+  function fromEvent(e) {
+    var r = track.getBoundingClientRect();
+    var px = ((e.clientX - r.left) / r.width) * W;
+    var t = LO + (px - PAD) / (W - 2 * PAD) * (HI - LO);
+    val = Math.max(LO, Math.min(HI, t));
+    nudge();
+    paint();
+  }
+
+  var down = false;
+  track.addEventListener('pointerdown', function (e) {
+    down = true; track.setPointerCapture(e.pointerId); fromEvent(e); e.preventDefault();
+  });
+  track.addEventListener('pointermove', function (e) { if (down) fromEvent(e); });
+  track.addEventListener('pointerup', function () { down = false; });
+  track.addEventListener('pointercancel', function () { down = false; });
+  track.addEventListener('keydown', function (e) {
+    var step = e.shiftKey ? 1 : .1, d = 0;
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') d = -step;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowUp') d = step;
+    if (!d) return;
+    val = Math.max(LO, Math.min(HI, Math.round((val + d) * 10) / 10));
+    nudge(); paint(); e.preventDefault();
+  });
+
+  /* It runs a programme of its own: slide to a film, sit on it, slide to the next.
+     Touching the strip does not end that, it interrupts it. A moment after your
+     hand comes off, the programme starts again from wherever you left the line,
+     carrying on to whichever film comes next rather than snapping back. */
+  var DEMO = [2.4, 4.7, 7.1, 8.5, 11.4, 13.5];
+  var HOLD = 3600, SLIDE = 1500, RESUME = 1100;
+  var step = 0, raf = null, timer = null, idle = null, off = false;
+
+  function halt() {
+    if (raf) { cancelAnimationFrame(raf); raf = null; }
+    if (timer) { clearTimeout(timer); timer = null; }
+  }
+
+  /* a touch pauses the programme; letting go restarts the clock on it */
+  function nudge() {
+    if (off) return;
+    halt();
+    if (idle) clearTimeout(idle);
+    idle = setTimeout(function () {
+      idle = null;
+      step = 0;
+      for (var i = 0; i < DEMO.length; i++) { if (DEMO[i] > val + .05) { step = i; break; } }
+      walk();
+    }, RESUME);
+  }
+
+  function glideTo(target, then) {
+    var from = val, t0 = 0;
+    function tick(now) {
+      if (!t0) t0 = now;
+      var k = Math.min(1, (now - t0) / SLIDE);
+      var e = k < .5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+      val = from + (target - from) * e;
+      paint();
+      if (k < 1) raf = requestAnimationFrame(tick);
+      else { raf = null; val = target; paint(); then(); }
+    }
+    raf = requestAnimationFrame(tick);
+  }
+
+  function walk() {
+    if (off) return;
+    glideTo(DEMO[step % DEMO.length], function () {
+      step++;
+      timer = setTimeout(walk, HOLD);
+    });
+  }
+
+  function startSweep() { if (!off && !raf && !timer && !idle) walk(); }
+  function stopSweep() { off = true; halt(); if (idle) { clearTimeout(idle); idle = null; } }
+
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) off = true;
+  /* paper cannot be dragged, so it gets the printed ladder instead */
+  if (window.matchMedia('print').matches) off = true;
+  addEventListener('beforeprint', stopSweep);
+
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (en.isIntersecting) startSweep();
+        else { halt(); if (idle) { clearTimeout(idle); idle = null; } }
+      });
+    }, { threshold: .3 }).observe(box);
+  } else startSweep();
+
+  paint();
 })();
 </script>
 </body>

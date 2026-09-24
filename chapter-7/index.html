@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
@@ -30,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+:root{color-scheme:dark;--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
   --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
   /* the chosen film's own colour, from its poster */
   --film:#7fb3de;--film-deep:#2b5f8c}
@@ -192,7 +193,39 @@ section{padding:40px 0}
 .diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
-.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.dnote{font-size:13.5px;color:var(--text-faint);margin:10px auto 0;max-width:66ch;text-align:center}
+/* ---- the story circle ---------------------------------------------------
+   Eight wedges that fill as he passes them, a threshold across the middle, and
+   a figure that keeps running on the spot while you read. */
+.hjx{padding:20px 16px 14px}
+/* a fixed slot, so a two line note and a three line note do not shove the
+   picture up and down as the walk moves on */
+.hj-read{text-align:center;height:132px;display:flex;flex-direction:column;justify-content:center;
+  margin-bottom:4px}
+.hj-step{font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:var(--text-faint)}
+.hj-name{margin-top:7px;font-family:'Oswald',sans-serif;font-size:clamp(20px,5vw,26px);
+  font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:#e8a13c}
+.hj-note{margin:8px auto 0;max-width:54ch;font-size:14px;line-height:1.55;color:var(--text-dim)}
+.diagram.hjx svg{min-width:0;display:block;width:100%;height:auto;overflow:visible}
+.hj-wedge{fill:#e8a13c;fill-opacity:0;transition:fill-opacity .55s ease}
+.hj-wedge.done{fill-opacity:.26}
+.hj-wedge.now{fill-opacity:.46}
+.hj-spoke{stroke:rgba(232,161,60,.22);stroke-width:1.2}
+.hj-ring{fill:none;stroke:rgba(232,161,60,.5);stroke-width:1.8}
+.hj-thresh{stroke:rgba(232,161,60,.5);stroke-width:1.4;stroke-dasharray:7 8}
+.hj-half{fill:#8d82a6}
+.hj-hit{fill:transparent;cursor:pointer}
+.hj-wedge,.hj-spoke,.hj-ring,.hj-thresh,.hj-half,.hj-fig,.hj-glow{pointer-events:none}
+.hj-head{fill:#e8a13c}
+.hj-limb{fill:none;stroke:#e8a13c;stroke-width:2.6;stroke-linecap:round}
+.hj-glow{fill:#e8a13c;opacity:0;filter:blur(15px)}
+/* On paper there is no readout and no walker, so the wheel has to name its own
+   stations. Hidden on screen, where the centre already says where he is. */
+.hj-sta{display:none}
+.hj-paper{display:none}
+.screen-only{display:block}
+@media(max-width:600px){.hj-read{height:168px}.hj-note{font-size:13.5px}}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -521,6 +554,24 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .diagram svg{min-width:0}
   .dnote{color:#776e88}
 
+  .dnote{margin-left:auto;margin-right:auto}
+  /* paper gets the whole circle lit and every step numbered, since nothing walks */
+  .hj-read{display:none !important}
+  .hj-glow,.hj-fig,.hj-hit{display:none !important}
+  .hj-wedge,.hj-wedge.done,.hj-wedge.now{fill:#9a5a10;fill-opacity:.12 !important}
+  .hj-spoke{stroke:#b9853f}
+  .hj-ring{stroke:#9a5a10}
+  .hj-thresh{stroke:#9a5a10}
+  .hj-half{fill:#6d6480}
+  .hj-sta{display:block;fill:#4a4258}
+  .screen-only{display:none !important}
+  .hj-paper{display:block;margin:12px 0 0;padding:0 0 0 22px;counter-reset:hj}
+  .hj-paper li{margin:0 0 5px;font-size:10.4pt;line-height:1.45;page-break-inside:avoid}
+  .hj-paper li b{color:#9a5a10;font-weight:600}
+  .hj-paper li span{color:#3a3145}
+  .hj-paper li b::after{content:" \2014 "}
+  .hj-paper .hj-home{list-style:none;margin-left:-22px;padding-top:6px;border-top:.5pt solid #ded7e4}
+
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
   html[data-pdf="sb"] details.road[data-road="hb"],
@@ -792,6 +843,30 @@ details.road.voted-road .notsel{display:none}
     <p>In 1949 Joseph Campbell published <i>The Hero with a Thousand Faces</i>, comparing myths from around the world and arguing they share one pattern, the &ldquo;monomyth&rdquo; &mdash; a term he borrowed from James Joyce. A hero leaves the ordinary world, is tested, is transformed, comes home changed. It was comparative mythology, not a writing manual.</p>
     <h3>A studio memo made it a formula</h3>
     <p>George Lucas credited Campbell for <i>Star Wars</i> and called him &ldquo;my Yoda.&rdquo; Then, in the mid-1980s, Christopher Vogler, a story analyst at Disney, wrote a seven-page memo called &ldquo;A Practical Guide to The Hero with a Thousand Faces,&rdquo; turning Campbell into twelve steps for screenwriters. It circulated through Hollywood, and in 1992 he expanded it into the book <i>The Writer&rsquo;s Journey</i>. A description of ancient myths became a checklist for development meetings.</p>
+    <h3>The journey, drawn as a circle</h3>
+    <p>This is the hero&rsquo;s journey &mdash; Campbell&rsquo;s monomyth, the shape Vogler&rsquo;s memo turned into a checklist. Campbell drew it as a circle, and the circle is the argument: the hero does not finish somewhere new, he finishes where he began, carrying something he did not have when he left. Dan Harmon later compressed the whole thing to eight moves, which is the version below. The line across the middle is the threshold &mdash; above it the world he already knows.</p>
+    <div class="diagram hjx" data-hj>
+      <div class="hj-read">
+        <div class="hj-step">Step 1 of 8</div>
+        <div class="hj-name">Comfort</div>
+        <div class="hj-note">&ldquo;A character is in a zone of comfort.&rdquo; Whatever counts as normal for him, put there so the ending has something to be measured against.</div>
+      </div>
+      <svg viewBox="0 0 560 478" role="img" aria-label="The hero&rsquo;s journey drawn as a circle of eight wedges, divided across the middle by a threshold line: the world the hero knows above it, the one he does not below. A running figure travels clockwise, filling each wedge behind him, stumbles where he pays the price, and arrives back at the top with his arms raised.">
+        <path class="hj-wedge" data-w="0" d="M280.0 272.0 L280.0 132.0 A140.0 140.0 0 0 1 379.0 173.0 Z"></path><path class="hj-wedge" data-w="1" d="M280.0 272.0 L379.0 173.0 A140.0 140.0 0 0 1 420.0 272.0 Z"></path><path class="hj-wedge" data-w="2" d="M280.0 272.0 L420.0 272.0 A140.0 140.0 0 0 1 379.0 371.0 Z"></path><path class="hj-wedge" data-w="3" d="M280.0 272.0 L379.0 371.0 A140.0 140.0 0 0 1 280.0 412.0 Z"></path><path class="hj-wedge" data-w="4" d="M280.0 272.0 L280.0 412.0 A140.0 140.0 0 0 1 181.0 371.0 Z"></path><path class="hj-wedge" data-w="5" d="M280.0 272.0 L181.0 371.0 A140.0 140.0 0 0 1 140.0 272.0 Z"></path><path class="hj-wedge" data-w="6" d="M280.0 272.0 L140.0 272.0 A140.0 140.0 0 0 1 181.0 173.0 Z"></path><path class="hj-wedge" data-w="7" d="M280.0 272.0 L181.0 173.0 A140.0 140.0 0 0 1 280.0 132.0 Z"></path><line class="hj-spoke" x1="280.0" y1="272.0" x2="280.0" y2="132.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="379.0" y2="173.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="420.0" y2="272.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="379.0" y2="371.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="280.0" y2="412.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="181.0" y2="371.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="140.0" y2="272.0"></line><line class="hj-spoke" x1="280.0" y1="272.0" x2="181.0" y2="173.0"></line><circle class="hj-ring" cx="280" cy="272" r="140"></circle><line class="hj-thresh" x1="128.0" y1="272.0" x2="432.0" y2="272.0"></line><text class="hj-half" x="280" y="259" text-anchor="middle" font-family="Oswald,sans-serif" font-size="16" letter-spacing="3.2">WHAT HE KNOWS</text><text class="hj-half" x="280" y="297" text-anchor="middle" font-family="Oswald,sans-serif" font-size="16" letter-spacing="3.2">WHAT HE DOES NOT</text><text class="hj-sta" x="342.4" y="125.4" text-anchor="start" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">1 COMFORT</text><text class="hj-sta" x="430.6" y="213.6" text-anchor="start" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">2 WANT</text><text class="hj-sta" x="430.6" y="338.4" text-anchor="start" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">3 CROSSING</text><text class="hj-sta" x="342.4" y="426.6" text-anchor="start" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">4 ADAPTING</text><text class="hj-sta" x="217.6" y="426.6" text-anchor="end" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">5 GETTING IT</text><text class="hj-sta" x="129.4" y="338.4" text-anchor="end" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">6 THE PRICE</text><text class="hj-sta" x="129.4" y="213.6" text-anchor="end" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">7 COMING BACK</text><text class="hj-sta" x="217.6" y="125.4" text-anchor="end" font-family="Oswald,sans-serif" font-size="12.5" letter-spacing="1.4">8 CHANGED</text><circle class="hj-glow" cx="0" cy="0" r="40"></circle><g class="hj-fig"><circle class="hj-head" cx="0" cy="-57" r="9"></circle><path class="hj-limb hj-torso" d=""></path><path class="hj-limb hj-al" d=""></path><path class="hj-limb hj-ar" d=""></path><path class="hj-limb hj-ll" d=""></path><path class="hj-limb hj-lr" d=""></path></g><path class="hj-hit" data-go="0" d="M280.0 272.0 L280.0 132.0 A140.0 140.0 0 0 1 379.0 173.0 Z"></path><path class="hj-hit" data-go="1" d="M280.0 272.0 L379.0 173.0 A140.0 140.0 0 0 1 420.0 272.0 Z"></path><path class="hj-hit" data-go="2" d="M280.0 272.0 L420.0 272.0 A140.0 140.0 0 0 1 379.0 371.0 Z"></path><path class="hj-hit" data-go="3" d="M280.0 272.0 L379.0 371.0 A140.0 140.0 0 0 1 280.0 412.0 Z"></path><path class="hj-hit" data-go="4" d="M280.0 272.0 L280.0 412.0 A140.0 140.0 0 0 1 181.0 371.0 Z"></path><path class="hj-hit" data-go="5" d="M280.0 272.0 L181.0 371.0 A140.0 140.0 0 0 1 140.0 272.0 Z"></path><path class="hj-hit" data-go="6" d="M280.0 272.0 L140.0 272.0 A140.0 140.0 0 0 1 181.0 173.0 Z"></path><path class="hj-hit" data-go="7" d="M280.0 272.0 L181.0 173.0 A140.0 140.0 0 0 1 280.0 132.0 Z"></path>
+      </svg>
+      <ol class="hj-paper print-only">
+        <li><b>Comfort</b><span>“A character is in a zone of comfort.” Whatever counts as normal for him, put there so the ending has something to be measured against.</span></li>
+        <li><b>Want</b><span>“But they want something.” The thing that will not let him stay where he is.</span></li>
+        <li><b>Crossing</b><span>“They enter an unfamiliar situation.” Past this line the rules are different and he cannot simply go back.</span></li>
+        <li><b>Adapting</b><span>“Adapt to it.” The new world teaches him what it wants by putting him through it.</span></li>
+        <li><b>Getting it</b><span>“Get what they wanted.” Usually somewhere near the middle, and never quite the thing he thought he was after.</span></li>
+        <li><b>The price</b><span>“Pay a heavy price for it.” The low point. Something is lost here, and it is not always a person.</span></li>
+        <li><b>Coming back</b><span>“Then return to their familiar situation.” The same road, walked the other way, carrying whatever he took.</span></li>
+        <li><b>Changed</b><span>“Having changed.” Same doorway, same street, same people. The only thing the journey altered is the man walking through it.</span></li>
+      </ol>
+      <p class="dnote screen-only">Tap any station to read that step.</p>
+      <p class="dnote print-only">Eight moves, after Dan Harmon&rsquo;s compression of Campbell. The quoted lines are his.</p>
+    </div>
     <h3>The rule it created</h3>
     <p>The checklist brought an assumption with it: a main character must change. Want something, learn what they really need, come out different. A story where nobody changes started to look, to a development executive, like a story that was not finished.</p>
     <h3>Three ways a character can move</h3>
@@ -821,7 +896,7 @@ details.road.voted-road .notsel{display:none}
     <div class="fline">Film Forum &middot; Part Three &middot; People &middot; Chapter 7 &middot; Field Guide &middot; <a href="/">All chapters</a></div>
     <div class="contact">Questions, arguments, films you want on the ballot:
       <a href="mailto:heyilliteratewriter@gmail.com">heyilliteratewriter@gmail.com</a></div>
-    <div class="fsrc">Facts in this guide are drawn from the AFI Catalog, the Academy&rsquo;s awards database, the Museum of the Moving Image, American Cinematographer, Variety and MovieMaker. Where sources disagree, the disagreement is printed rather than resolved.</div>
+    <div class="fsrc">The circle of eight follows Dan Harmon&rsquo;s compression of Joseph Campbell, <i>The Hero with a Thousand Faces</i> (1949); the quoted line for each step is Harmon&rsquo;s own. Other facts in this guide are drawn from the AFI Catalog, the Academy&rsquo;s awards database, the Museum of the Moving Image, American Cinematographer, Variety and MovieMaker. Where sources disagree, the disagreement is printed rather than resolved.</div>
     <div class="fcr">&copy; 2026 R. Julian Tuttle &middot; The Illiterate Writer&rsquo;s Film Forum</div>
   </footer>
 </div>
@@ -892,6 +967,186 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The story circle.
+ *
+ * One unbroken lap. He starts at the top, walks clockwise, and the lap ends at
+ * the top — the same point — so nothing ever cuts back to a beginning. The time
+ * he takes to cross a wedge is the time that step's words are on screen.
+ *
+ * Wedge six, where he pays the price, runs long: he slows almost to a stop,
+ * goes over, and has to get back up before the walk carries on. That stretch is
+ * deliberate. It is the only place in the lap where the circle costs him time.
+ *
+ * At the top his arms go up and he glows; then the arms come down, the glow
+ * goes out and the wedges empty together, and the next lap starts from where he
+ * is already standing.
+ */
+(function () {
+  var box = document.querySelector('[data-hj]');
+  if (!box) return;
+  var CX = 280, CY = 272, R = 140, N = 8, SEG = 360 / N;
+  var STEPS = [["Comfort", "“A character is in a zone of comfort.” Whatever counts as normal for him, put there so the ending has something to be measured against."], ["Want", "“But they want something.” The thing that will not let him stay where he is."], ["Crossing", "“They enter an unfamiliar situation.” Past this line the rules are different and he cannot simply go back."], ["Adapting", "“Adapt to it.” The new world teaches him what it wants by putting him through it."], ["Getting it", "“Get what they wanted.” Usually somewhere near the middle, and never quite the thing he thought he was after."], ["The price", "“Pay a heavy price for it.” The low point. Something is lost here, and it is not always a person."], ["Coming back", "“Then return to their familiar situation.” The same road, walked the other way, carrying whatever he took."], ["Changed", "“Having changed.” Same doorway, same street, same people. The only thing the journey altered is the man walking through it."]], PRICE = 5;
+
+  var fig = box.querySelector('.hj-fig');
+  var glow = box.querySelector('.hj-glow');
+  var head = box.querySelector('.hj-head');
+  var torso = box.querySelector('.hj-torso');
+  var al = box.querySelector('.hj-al'), ar = box.querySelector('.hj-ar');
+  var ll = box.querySelector('.hj-ll'), lr = box.querySelector('.hj-lr');
+  var wedges = [].slice.call(box.querySelectorAll('.hj-wedge'));
+  var elStep = box.querySelector('.hj-step'), elName = box.querySelector('.hj-name'),
+      elNote = box.querySelector('.hj-note');
+
+  var READ = 3400;          /* one wedge crossed = one step read, all of them equal */
+  var SHINE = 2600, RESUME = 2600;
+  var HIP = -22, SHO = -47, LEG = 23, ARM = 21;
+
+  var pose = { a: -90, tilt: 0, raise: 0, jog: 1, hurt: 0 };
+  var phase = 0, shown = -1;
+  var leg = 0, tIn = 0, mode = 'walk', tMode = 0;
+  var held = false, idle = null, raf = null, last = 0, off = false;
+
+  function span() { return READ; }
+  function pol(deg, r) { var t = deg * Math.PI / 180; return [CX + r * Math.cos(t), CY + r * Math.sin(t)]; }
+  /* an arm drawn shoulder, elbow, hand — so it can bend. Straight out when the
+     elbow sits on the midpoint; folded when it is pulled in to the chest. */
+  function arm(deg, hz, ex, ey, hx, hy) {
+    var t = deg * Math.PI / 180;
+    var hX = ARM * Math.sin(t), hY = SHO + ARM * Math.cos(t);
+    var eX = hX / 2, eY = SHO + (hY - SHO) / 2;
+    var EX = eX + (ex - eX) * hz, EY = eY + (ey - eY) * hz;
+    var HX = hX + (hx - hX) * hz, HY = hY + (hy - hY) * hz;
+    return 'M0 ' + SHO + ' L' + EX.toFixed(1) + ' ' + EY.toFixed(1) +
+           ' L' + HX.toFixed(1) + ' ' + HY.toFixed(1);
+  }
+
+  function limb(ox, oy, len, deg) {
+    var t = deg * Math.PI / 180;
+    return 'M' + ox + ' ' + oy + ' L' + (ox + len * Math.sin(t)).toFixed(1) +
+           ' ' + (oy + len * Math.cos(t)).toFixed(1);
+  }
+
+  /* the price is walked at the same pace as everything else. What changes is
+     how he carries himself: head down, one arm across the chest, wounded but
+     still going. Nothing about the timing announces it, which is the point. */
+  function hurtAt(u) { return Math.min(1, u / .18) * Math.min(1, (1 - u) / .18); }
+
+  function draw() {
+    var pt = pol(pose.a, R);
+    var sw = Math.sin(phase) * 34 * pose.jog;
+    var aw = Math.sin(phase + 1.9) * 27 * pose.jog;
+    var bob = -Math.abs(Math.sin(phase)) * 2.6 * pose.jog;
+    var hz = pose.hurt || 0;
+    /* upright, chin level: a lean of any size reads as trudging */
+    var lean = (2.2 + 9 * hz) * pose.jog * (1 - pose.raise);   /* head goes down when hurt */
+
+    var lF = sw, lB = -sw;                      /* the walk never changes pace */
+    /* hands up at the end sit wide rather than straight overhead, so they clear
+       the head and read as a shape */
+    var aF = -aw + (-138 + aw) * pose.raise;
+    var aB = aw + (138 - aw) * pose.raise;
+    ll.setAttribute('d', limb(0, HIP, LEG, lF));
+    lr.setAttribute('d', limb(0, HIP, LEG, lB));
+    /* the hurt arm bends at the elbow and the hand rests on the upper chest */
+    al.setAttribute('d', arm(aF, hz, 14, -33, 0.5, -38));
+    ar.setAttribute('d', arm(aB, 0, 0, 0, 0, 0));
+    torso.setAttribute('d', 'M0 ' + SHO + ' L0 ' + HIP);
+    head.setAttribute('cy', (-60 + 4 * hz).toFixed(1));
+    head.setAttribute('cx', (2.5 * hz).toFixed(1));
+
+    fig.setAttribute('transform', 'translate(' + pt[0].toFixed(1) + ' ' + (pt[1] + bob).toFixed(1) +
+      ') rotate(' + (pose.tilt + lean).toFixed(1) + ') scale(1.55)');
+    glow.setAttribute('cx', pt[0].toFixed(1));
+    glow.setAttribute('cy', (pt[1] - 30).toFixed(1));
+  }
+
+  function say(i) {
+    if (i === shown) return;
+    shown = i;
+    elStep.textContent = 'Step ' + (i + 1) + ' of ' + N;
+    elName.textContent = STEPS[i][0];
+    elNote.textContent = STEPS[i][1];
+    wedges.forEach(function (w, k) { w.classList.toggle('now', k === i); });
+  }
+
+  function tick(now) {
+    if (off) { raf = null; return; }
+    var dt = last ? Math.min(64, now - last) : 16;
+    last = now;
+    phase += dt / 1000 * 7.2;
+
+    if (!held) {
+      if (mode === 'walk') {
+        tIn += dt;
+        var d = span(), u = Math.min(1, tIn / d), frac = u, tilt = 0, jog = 1;
+        pose.hurt = leg === PRICE ? hurtAt(u) : 0;
+        pose.a = -90 + (leg + frac) * SEG;
+        pose.tilt = 0; pose.jog = 1;
+        say(leg);
+        wedges[leg].classList.add('done');
+        if (u >= 1) {
+          tIn = 0; leg++;
+          if (leg >= N) { mode = 'shine'; tMode = 0; pose.a = -90; }
+        }
+      } else {
+        tMode += dt;
+        var k = Math.min(1, tMode / SHINE);
+        var up = Math.min(1, k / .26);
+        var down = k < .58 ? 0 : (k - .58) / .42;
+        pose.raise = up * (1 - down);
+        pose.jog = 1 - pose.raise;
+        pose.tilt = 0; pose.hurt = 0;
+        glow.style.opacity = (.62 * (k < .5 ? Math.min(1, k / .2) : Math.max(0, 1 - (k - .5) / .5))).toFixed(3);
+        var fade = k < .62 ? 1 : Math.max(0, 1 - (k - .62) / .38);
+        wedges.forEach(function (w) { w.style.opacity = fade.toFixed(3); });
+        if (k >= 1) {
+          glow.style.opacity = 0;
+          wedges.forEach(function (w) { w.classList.remove('done', 'now'); w.style.opacity = ''; });
+          shown = -1; leg = 0; tIn = 0; mode = 'walk';
+        }
+      }
+    }
+    draw();
+    raf = requestAnimationFrame(tick);
+  }
+
+  function spin() { if (!raf && !off) { last = 0; raf = requestAnimationFrame(tick); } }
+  function still() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  box.querySelectorAll('.hj-hit').forEach(function (h) {
+    h.addEventListener('click', function () {
+      var i = +h.getAttribute('data-go');
+      held = true;
+      mode = 'walk'; leg = i; tIn = span() * .5;
+      pose.a = -90 + (i + .5) * SEG; pose.tilt = 0; pose.jog = 1; pose.raise = 0; pose.hurt = 0;
+      glow.style.opacity = 0;
+      wedges.forEach(function (w, k) {
+        w.classList.toggle('done', k <= i); w.style.opacity = '';
+      });
+      shown = -1; say(i);
+      if (idle) clearTimeout(idle);
+      idle = setTimeout(function () { idle = null; held = false; }, RESUME);
+      spin();
+    });
+  });
+
+  say(0); wedges[0].classList.add('done'); draw();
+
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) off = true;
+  if (window.matchMedia('print').matches) off = true;
+  addEventListener('beforeprint', function () { off = true; still(); });
+
+  if (!off) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) { en.isIntersecting ? spin() : still(); });
+      }, { threshold: .25 }).observe(box);
+    } else spin();
+  }
 })();
 </script>
 </body>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
@@ -30,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+:root{color-scheme:dark;--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
   --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
   /* the chosen film's own colour, from its poster */
   --film:#7fb3de;--film-deep:#2b5f8c}
@@ -192,7 +193,48 @@ section{padding:40px 0}
 .diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
-.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.dnote{font-size:13.5px;color:var(--text-faint);margin:10px auto 0;max-width:66ch;text-align:center}
+/* ---- the magnet ----------------------------------------------------------
+   A straight bar with opposite poles, bent until the poles touch. Chapter eight
+   has no colour of its own on the contents page, so it gets one here: a rose for
+   the pole that transforms, bone for the pole that simply is. */
+.magx{padding:20px 16px 12px}
+.mg-poles{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 0 14px}
+.mg-p{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;
+  padding:7px 14px;border-radius:999px}
+.mg-a{background:#de3f58;color:#fdf6f7}
+.mg-b{border:1px solid #cfc3cc;color:#e6dce2}
+.mg-gap{flex:0 0 auto;width:52px;height:1px;background:linear-gradient(90deg,#de3f58,#cfc3cc)}
+.mg-aside{fill:#8f5f6c}
+.diagram.magx svg{min-width:0;display:block;width:100%;height:auto}
+.mg-core{fill:none;stroke:#5e5366;stroke-width:9;stroke-linecap:butt}
+.mg-a-pole{fill:none;stroke:#de3f58;stroke-width:9;stroke-linecap:round}
+.mg-b-pole{fill:none;stroke:#cfc3cc;stroke-width:9;stroke-linecap:round}
+/* the skin tone walks from made to real along the bar; each face needs its own
+   class because a descendant selector cannot reach inside a <use> */
+/* one ramp across the four, so no two faces are the same colour */
+.mg-skin,.mgs0{fill:#de3f58}
+.mgs1{fill:#ec8592}
+.mgs2{fill:#dcadb6}
+.mgs3{fill:#efe6ea}
+.mg-skin2{fill:#95293e}
+.mg-edge{fill:none;stroke:#17101a;stroke-width:1.6}
+.mg-ink{fill:#17101a}
+.mg-line{fill:none;stroke:#17101a;stroke-width:2;stroke-linecap:round}
+.mg-key{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:20px 0 4px}
+.mg-k{font-size:12.5px;line-height:1.5;color:var(--text-faint)}
+.mg-k b{display:block;font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;font-weight:500}
+.mg-k1 b{color:#de3f58}
+.mg-k2 b{color:#ec8592}
+.mg-k3 b{color:#dcadb6}
+.mg-k4 b{color:#efe6ea}
+@media(max-width:700px){.mg-key{grid-template-columns:1fr 1fr}}
+.mg-spark{fill:#e8697a;opacity:0;filter:blur(13px)}
+.mg-say{margin:14px auto 0;max-width:54ch;text-align:center;font-family:'Playfair Display',Georgia,serif;
+  font-style:italic;font-size:17.5px;line-height:1.5;color:var(--text);min-height:54px}
+@media(max-width:600px){.mg-say{font-size:16px;min-height:78px}.mg-k{font-size:12px}
+  .mg-p{font-size:10.5px;letter-spacing:.16em;padding:6px 11px}.mg-gap{width:26px}}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -521,6 +563,34 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .diagram svg{min-width:0}
   .dnote{color:#776e88}
 
+  .dnote{margin-left:auto;margin-right:auto}
+  .screen-only{display:none !important}
+  .mg-a{background:#a8324a;color:#fdfcfa}
+  .mg-b{border-color:#8d8494;color:#3a3145}
+  .mg-gap{background:#a8324a}
+  .mg-aside{fill:#c2a3ac}
+  .mg-core{stroke:#cfc7d2}
+  .mg-skin,.mgs0{fill:#8e1f36}
+  .mgs1{fill:#b8566a}
+  .mgs2{fill:#c08e9a}
+  .mgs3{fill:#8d8494}
+  .mg-skin2{fill:#6b1528}
+  .mg-edge{stroke:#fdfcfa}
+  .mg-ink{fill:#fdfcfa}
+  .mg-line{stroke:#fdfcfa}
+  .mg-k{color:#3a3145}
+  .mg-k b{color:#241d2b}
+  .mg-k1 b{color:#8e1f36}
+  .mg-k2 b{color:#b8566a}
+  .mg-k3 b{color:#a8808c}
+  .mg-k4 b{color:#6d6480}
+  .mg-a-pole{stroke:#a8324a}
+  .mg-b-pole{stroke:#8d8494}
+  .mg-key{grid-template-columns:repeat(4,1fr)}
+  .mg-spark{display:none}
+  .mg-say{display:none !important}
+  .mg-say-print{display:block !important;color:#241d2b;margin:14px auto 0;max-width:62ch;text-align:center}
+
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
   html[data-pdf="sb"] details.road[data-road="hb"],
@@ -801,6 +871,22 @@ details.road.voted-road .notsel{display:none}
       <div class="kind"><div class="n">Three</div><h4>Be a star</h4><p>The actor brings the same persona to every role and the film uses it.</p><div class="eg">Cary Grant &middot; Tom Cruise &middot; Keanu Reeves</div></div>
     </div>
     <p class="dnote">None of the three is cheating. The question is which one the film needed.</p>
+    <h3>Bend the line</h3>
+    <p>Lay the ways of putting a person on screen along a line, from the most made to the least: an actor who rebuilds himself entirely, an actor stretching outside his usual register, an actor who brings the same self to every part, and someone who was never trained at all. Most films live in the middle, and none of these is the right answer. Then bend the line.</p>
+    <div class="diagram magx" data-mag>
+      <div class="mg-poles">
+        <span class="mg-p mg-a">Becoming</span>
+        <span class="mg-gap"></span>
+        <span class="mg-p mg-b">Being</span>
+      </div>
+      <svg viewBox="0 0 560 388" role="img" aria-label="Four faces along a bar, from two theatre masks at one end through a single mask and a lightly worn one to a bare face at the other. The bar bends downward until the two end faces meet.">
+        <defs><g id="mgf0"><g transform="translate(6 1)"><path class="mg-skin2" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><path class="mg-edge" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><circle class="mg-ink" cx="-5" cy="-3" r="1.7"></circle><circle class="mg-ink" cx="5" cy="-3" r="1.7"></circle><path class="mg-line" d="M-6 7.6 Q0 2.6 6 7.6"></path></g><g transform="translate(-7 -1)"><path class="mg-skin" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><path class="mg-edge" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><circle class="mg-ink" cx="-5.6" cy="-3" r="1.9"></circle><circle class="mg-ink" cx="5.6" cy="-3" r="1.9"></circle><path class="mg-line" d="M-6.4 4.4 Q0 9.6 6.4 4.4"></path></g></g><g id="mgf1"><path class="mgs1" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><path class="mg-edge" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path><circle class="mg-ink" cx="-5.6" cy="-3" r="1.9"></circle><circle class="mg-ink" cx="5.6" cy="-3" r="1.9"></circle><path class="mg-line" d="M-6.4 4.4 Q0 9.6 6.4 4.4"></path></g><g id="mgf2"><g transform="translate(11 2) scale(.82)"><path class="mg-aside" d="M-13 -11 Q0 -17.6 13 -11 Q14.8 3.6 0 15.6 Q-14.8 3.6 -13 -11 Z"></path></g><circle class="mgs2" cx="0" cy="0" r="15.6"></circle><circle class="mg-edge" cx="0" cy="0" r="15.6"></circle><circle class="mg-ink" cx="-5.6" cy="-3" r="1.9"></circle><circle class="mg-ink" cx="5.6" cy="-3" r="1.9"></circle><path class="mg-line" d="M-6.4 4.4 Q0 9.6 6.4 4.4"></path></g><g id="mgf3"><circle class="mgs3" cx="0" cy="0" r="15.6"></circle><circle class="mg-edge" cx="0" cy="0" r="15.6"></circle><circle class="mg-ink" cx="-5.6" cy="-3" r="1.9"></circle><circle class="mg-ink" cx="5.6" cy="-3" r="1.9"></circle><path class="mg-line" d="M-6.4 4.4 Q0 9.6 6.4 4.4"></path></g></defs><g class="mg-shape"><path class="mg-core" d=""></path><path class="mg-a-pole" d=""></path><path class="mg-b-pole" d=""></path></g><circle class="mg-spark" cx="280" cy="300" r="34"></circle><g class="mg-face" data-f="0"><use href="#mgf0"></use></g><g class="mg-face" data-f="1"><use href="#mgf1"></use></g><g class="mg-face" data-f="2"><use href="#mgf2"></use></g><g class="mg-face" data-f="3"><use href="#mgf3"></use></g>
+      </svg>
+      <p class="mg-say">Four ways to put a person on screen, from the most made to the least.</p>
+      <p class="mg-say mg-say-print print-only">Four ways to put a person on screen, from the most made to the least. Bend the line and the two ends meet: all four are after the same thing, getting rid of whatever feels false.</p>
+      <div class="mg-key"><span class="mg-k mg-k1"><b>The Method</b>Rebuilds body, voice and mind until there is nobody left in there to find.</span><span class="mg-k mg-k2"><b>Stretching</b>A trained actor reaching outside their usual register, still recognisably themselves.</span><span class="mg-k mg-k3"><b>Themselves</b>The same person in every part, and the film is built to use exactly that.</span><span class="mg-k mg-k4"><b>The non-actor</b>Never trained, cast because they already are what the part needs.</span></div>
+      <p class="dnote">Not all acting requires an actor to disappear, and most of it does not. But when a film wants you to believe a character completely, what it needs is authenticity. Sometimes a director finds it by casting someone who already embodies the role&rsquo;s reality. More often it comes from an actor finding the exact point where their own emotional truth meets the character&rsquo;s fictional one. The goal is not to destroy the self, and not to copy reality. It is to eliminate anything that feels fake.</p>
+    </div>
     <h3>One piece of vocabulary</h3>
     <p><b>Neorealism</b>: the Italian postwar movement that shot in real streets with non-professional actors. <i>Bicycle Thieves</i> (1948) cast Lamberto Maggiorani, a factory worker, as its lead &mdash; and then he was laid off from the factory, never built a career, and ended up in bit parts. City of God is one of that movement&rsquo;s great descendants, and it raises the same question about what happens to people after the film.</p>
     <h3>Why these films</h3>
@@ -892,6 +978,127 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The spectrum, bent.
+ *
+ * A bar of fixed length wound onto a circle whose radius shrinks as the bend
+ * grows: straight at no bend, a closed horseshoe at full bend. Four faces ride
+ * along it at fixed distances, so they keep their spacing the whole way round
+ * and the two ends arrive next to each other.
+ *
+ * It runs on its own and nothing here is draggable. The pacing is the argument:
+ * long enough flat to read the four, then the bend, then a rest at the bottom.
+ */
+(function () {
+  var box = document.querySelector('[data-mag]');
+  if (!box) return;
+  var svg = box.querySelector('svg');
+  var core = box.querySelector('.mg-core');
+  var pa = box.querySelector('.mg-a-pole'), pb = box.querySelector('.mg-b-pole');
+  var spark = box.querySelector('.mg-spark');
+  var say = box.querySelector('.mg-say');
+  var faces = [].slice.call(box.querySelectorAll('.mg-face'));
+
+  var H = 388, CX = 280, L = 452, N = 96, POLE = .12, MAXT = 330;
+  var LINES = [
+    'Four ways to put a person on screen, from the most made to the least.',
+    'None of them is the right one. Most films live in the middle two.',
+    'Bend the line…',
+    '\u2026and all four are after the same thing: getting rid of whatever feels false.'
+  ];
+
+  var k = 0, raf = null, last = 0, t = 0, off = false;
+  var FLAT = 4800, BEND = 3400, REST = 2800;
+  var CYCLE = FLAT + BEND + REST + BEND;
+
+  function shape(bend) {
+    var th = Math.max(.0001, bend * MAXT) * Math.PI / 180;
+    var r = L / th, pts = [];
+    for (var i = 0; i <= N; i++) {
+      var ph = -th / 2 + (i / N) * th;
+      pts.push([CX + r * Math.sin(ph), -r * Math.cos(ph)]);
+    }
+    var lo = Infinity, hi = -Infinity;
+    for (var j = 0; j <= N; j++) { lo = Math.min(lo, pts[j][1]); hi = Math.max(hi, pts[j][1]); }
+    var dy = H / 2 - (lo + hi) / 2;
+    for (var m = 0; m <= N; m++) pts[m][1] += dy;
+    return pts;
+  }
+  function seg(pts, from, to) {
+    var d = '';
+    for (var i = from; i <= to; i++) d += (i === from ? 'M' : 'L') + pts[i][0].toFixed(1) + ' ' + pts[i][1].toFixed(1);
+    return d;
+  }
+
+  function paint() {
+    var pts = shape(k), e = Math.round(N * POLE);
+    pa.setAttribute('d', seg(pts, 0, e));
+    core.setAttribute('d', seg(pts, e, N - e));
+    pb.setAttribute('d', seg(pts, N - e, N));
+    faces.forEach(function (g, i) {
+      var p = pts[Math.round((i / (faces.length - 1)) * N)];
+      g.setAttribute('transform', 'translate(' + p[0].toFixed(1) + ' ' + p[1].toFixed(1) + ')');
+    });
+    var a = pts[0], b = pts[N];
+    var close = Math.max(0, 1 - Math.hypot(a[0] - b[0], a[1] - b[1]) / 110);
+    spark.setAttribute('cx', ((a[0] + b[0]) / 2).toFixed(1));
+    spark.setAttribute('cy', ((a[1] + b[1]) / 2).toFixed(1));
+    spark.style.opacity = (close * close * .7).toFixed(3);
+  }
+
+  function line(i) {
+    if (say.getAttribute('data-i') === String(i)) return;
+    say.setAttribute('data-i', i);
+    say.textContent = LINES[i];
+  }
+
+  function tick(now) {
+    if (off) { raf = null; return; }
+    var dt = last ? Math.min(64, now - last) : 16;
+    last = now;
+    t = (t + dt) % CYCLE;
+    var u;
+    if (t < FLAT) { k = 0; line(t < FLAT * .48 ? 0 : 1); }
+    else if (t < FLAT + BEND) {
+      u = (t - FLAT) / BEND;
+      k = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+      line(2);
+    } else if (t < FLAT + BEND + REST) { k = 1; line(3); }
+    else {
+      /* the conclusion stays up while it unbends: the read matters more than
+         narrating a move the eye can already see */
+      u = 1 - (t - FLAT - BEND - REST) / BEND;
+      k = u < .5 ? 4 * u * u * u : 1 - Math.pow(-2 * u + 2, 3) / 2;
+      line(3);
+    }
+    paint();
+    raf = requestAnimationFrame(tick);
+  }
+  function spin() { if (!raf && !off) { last = 0; raf = requestAnimationFrame(tick); } }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = null; } }
+
+  paint();
+  if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) { off = true; k = 1; line(3); paint(); }
+  /* Paper freezes the line flat, not bent. Bent, the four faces crowd the gap at the
+     bottom and the key beneath them stops matching left to right; flat, the picture
+     reads in the same order as the words. The bend is made in a sentence instead. */
+  /* The frame is tall because the bend needs the room. Flat, that height is half a
+     blank page, so paper gets a crop around the line itself. */
+  function flat() { off = true; stop(); k = 0; paint(); svg.setAttribute('viewBox', '0 146 560 96'); }
+  if (window.matchMedia('print').matches) flat();
+  addEventListener('beforeprint', flat);
+  addEventListener('afterprint', function () { svg.setAttribute('viewBox', '0 0 560 388'); });
+
+  if (!off) {
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (en) { en.isIntersecting ? spin() : stop(); });
+      }, { threshold: .3 }).observe(box);
+    } else spin();
+  }
 })();
 </script>
 </body>

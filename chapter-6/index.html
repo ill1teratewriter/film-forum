@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="color-scheme" content="dark">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Film Forum &middot; The Illiterate Writer">
@@ -30,7 +31,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
+:root{color-scheme:dark;--ink:#0c0a12;--ink-2:#141020;--line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.18);
   --text:#efe9f5;--text-dim:#a99fbd;--text-faint:#7a7090;--hb:#ff5c7a;--sb:#ff9d2e;
   /* the chosen film's own colour, from its poster */
   --film:#7fb3de;--film-deep:#2b5f8c}
@@ -192,7 +193,104 @@ section{padding:40px 0}
 .diagram{border:1px solid var(--line);border-radius:14px;padding:22px 20px 14px;margin:26px 0 10px;
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
-.dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+.dnote{font-size:13.5px;color:var(--text-faint);margin:10px auto 0;max-width:66ch;text-align:center}
+/* ---- chapter six: where the sound comes from -----------------------------
+   One twelve second cycle drives everything, the html signs included, so the
+   lamp above always names whatever is sounding below it. No javascript: the
+   whole thing is keyframes, which means it also stops dead for anyone who has
+   asked their machine to stop things moving. */
+.sndx{padding:18px 18px 14px}
+.diagram.sndx svg{min-width:0}
+.sx-signs{display:flex;gap:10px;justify-content:center;margin:0 0 14px}
+.sx-sign{font-family:'Oswald',sans-serif;font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;
+  padding:7px 15px;border-radius:999px;border:1px solid rgba(201,163,255,.3);color:#7d7597;
+  animation:sxSignD 12s linear infinite}
+.sx-sign.sx-sn{animation-name:sxSignN}
+@keyframes sxSignD{0%,2%{color:#7d7597;border-color:rgba(201,163,255,.3);background:none}
+  6%,44%{color:#14101f;border-color:#c9a3ff;background:#c9a3ff}
+  48%,100%{color:#7d7597;border-color:rgba(201,163,255,.3);background:none}}
+@keyframes sxSignN{0%,52%{color:#7d7597;border-color:rgba(201,163,255,.3);background:none}
+  56%,94%{color:#14101f;border-color:#c9a3ff;background:#c9a3ff}
+  98%,100%{color:#7d7597;border-color:rgba(201,163,255,.3);background:none}}
+
+.sx-sign{cursor:pointer;font-family:inherit}
+.sx-sign:focus-visible{outline:2px solid #c9a3ff;outline-offset:3px}
+/* the stage itself */
+.sx-void{fill:#0a0814}
+.sx-back{fill:#181228}
+.sx-side{fill:#120d20}
+.sx-stagefloor{fill:#221936}
+.sx-board{stroke:#2e2448;stroke-width:1.2;fill:none}
+.sx-panel{fill:#241c3c}
+.sx-mic path{stroke:#8f80b5;stroke-width:1.6;fill:none}
+.sx-mic-in{animation:sxMicIn 12s linear infinite}
+.sx-mic ellipse{fill:#8f80b5}
+/* the radio */
+.sx-set{fill:#6f5f96}
+.sx-grille{fill:#2a2142}
+.sx-grille2{fill:#c9a3ff;fill-opacity:.55}
+.sx-dial{fill:#c9a3ff;fill-opacity:.8}
+.sx-knob{fill:#2a2142}
+.sx-aerial{stroke:#c9a3ff;stroke-width:1.8;fill:none;stroke-linecap:round}
+/* the band */
+.sx-inst{fill:#efe4ff;stroke:#241c3c;stroke-width:1.2}
+.sx-head{fill:#efe4ff;stroke:#241c3c;stroke-width:1.2}
+.sx-harp{fill:none;stroke:#efe4ff;stroke-width:2.6;stroke-linejoin:round}
+.sx-string{stroke:#efe4ff;stroke-opacity:.6;stroke-width:1}
+.sx-neck,.sx-bow{stroke:#efe4ff;stroke-width:2.2;fill:none;stroke-linecap:round}
+.sx-room{fill:#1c1630}
+.sx-filmfloor{fill:#251d3e}
+.sx-sky{fill:#3a2f5e}
+.sx-pane{fill:#2d2449;stroke:#c9a3ff;stroke-opacity:.5}
+.sx-frameline{fill:none;stroke:#c9a3ff;stroke-opacity:.5;stroke-width:1.4}
+.sx-fig,.sx-cond{fill:#c9a3ff}
+.sx-play{fill:#8a74b8}
+.sx-obj{fill:#7b6aa3}
+.sx-bird{fill:none;stroke:#c9a3ff;stroke-width:1.8;stroke-linecap:round}
+.sx-podium{fill:#7b6aa3}
+.sx-baton{stroke:#c9a3ff;stroke-width:2;stroke-linecap:round;
+  transform-origin:334px 358px;animation:sxBaton 12s ease-in-out infinite}
+.sx-border{fill:none;stroke:#c9a3ff;stroke-width:3}
+.sx-note{animation:sxNote 12s linear infinite;animation-delay:var(--d,0s);opacity:0}
+.sx-nh{fill:#c9a3ff}
+.sx-ns{fill:none;stroke:#c9a3ff;stroke-width:2.2;stroke-linecap:round}
+.sx-arc{fill:none;stroke:#c9a3ff;stroke-width:2.2;stroke-linecap:round}
+.sx-w{opacity:0}
+.sx-w .sx-arc{animation:sxArc 1.9s ease-out infinite;animation-delay:calc(var(--i) * .16s)}
+/* the record never stops, so its ring never stops either */
+.sx-radiow{animation:sxRadio 12s linear infinite;animation-delay:var(--d,0s)}
+.sx-speech{animation:sxTalk 12s linear infinite}
+.sx-birdw{animation:sxChirp 12s linear infinite;animation-delay:var(--d,0s)}
+.sx-orchw{animation:sxOrch 12s linear infinite;animation-delay:var(--d,0s)}
+.sx-in,.sx-dieg{animation:sxDim 12s linear infinite}
+.sx-non{animation:sxDimN 12s linear infinite}
+
+@keyframes sxArc{0%{opacity:0;transform:scale(.55)}18%{opacity:1}100%{opacity:0;transform:scale(1.5)}}
+@keyframes sxMicIn{0%{opacity:.85}6%,44%{opacity:.15}54%,96%{opacity:.85}100%{opacity:.85}}
+@keyframes sxRadio{0%,2%{opacity:0}6%,42%{opacity:.85}46%,100%{opacity:0}}
+@keyframes sxTalk{0%,4%{opacity:0}8%,17%{opacity:1}19%,23%{opacity:0}
+  26%,36%{opacity:1}38%,100%{opacity:0}}
+@keyframes sxChirp{0%,12%{opacity:0}15%,22%{opacity:1}25%,100%{opacity:0}}
+@keyframes sxOrch{0%,54%{opacity:0}58%,90%{opacity:1}94%,100%{opacity:0}}
+@keyframes sxDim{0%,2%{opacity:1}44%{opacity:1}52%,94%{opacity:.4}100%{opacity:1}}
+@keyframes sxDimN{0%,44%{opacity:.32}52%,92%{opacity:1}100%{opacity:.32}}
+@keyframes sxBaton{0%,50%{transform:rotate(0deg)}58%{transform:rotate(-26deg)}
+  66%{transform:rotate(14deg)}74%{transform:rotate(-20deg)}82%{transform:rotate(10deg)}
+  90%,100%{transform:rotate(0deg)}}
+/* the score climbs out of the pit and over the border, which is the whole point */
+@keyframes sxNote{0%,52%{opacity:0;transform:translateY(0)}
+  57%{opacity:.95}
+  86%{opacity:.55;transform:translateY(-268px)}
+  92%,100%{opacity:0;transform:translateY(-300px)}}
+
+@media(prefers-reduced-motion:reduce){
+  .sx-sign,.sx-baton,.sx-note,.sx-in,.sx-dieg,.sx-non,.sx-w,.sx-w .sx-arc,.sx-mic-in{animation:none}
+  .sx-w{opacity:.8}.sx-note{opacity:.8}
+  .sx-sign{color:#14101f;border-color:#c9a3ff;background:#c9a3ff}
+}
+@media(max-width:600px){
+  .sx-sign{font-size:10.5px;letter-spacing:.14em;padding:6px 11px}
+}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -519,7 +617,40 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .eg{color:#776e88}
   .diagram{border:.5pt solid #ded7e4 !important;background:none !important;page-break-inside:avoid;overflow:visible}
   .diagram svg{min-width:0}
-  .dnote{color:#776e88}
+  .dnote{color:#776e88;margin-left:auto;margin-right:auto}
+
+  /* on paper nothing moves, so everything sounds at once and both lamps are lit */
+  .sx-sign,.sx-baton,.sx-note,.sx-in,.sx-dieg,.sx-non,.sx-w,.sx-w .sx-arc,.sx-mic-in{animation:none !important}
+  .sx-w{opacity:1}
+  .sx-note{opacity:.85}
+  .sx-signs{gap:8px}
+  .sx-sign{color:#fdfcfa;background:#4b2f7a;border-color:#4b2f7a}
+  .sx-void{fill:none}
+  .sx-back{fill:#efecf6}
+  .sx-side{fill:#e4dff0}
+  .sx-stagefloor{fill:#ded8ec}
+  .sx-board{stroke:#cfc7e2}
+  .sx-panel{fill:#d8d2e8}
+  .sx-mic path{stroke:#6d6285}
+  .sx-mic ellipse{fill:#6d6285}
+  .sx-room{fill:#f7f5fc}
+  .sx-filmfloor{fill:#e9e4f4}
+  .sx-sky{fill:#d6cdea}
+  .sx-pane{fill:#cfc5e6;stroke:#4b2f7a}
+  .sx-frameline{stroke:#4b2f7a}
+  .sx-fig,.sx-cond,.sx-play,.sx-podium{fill:#4b2f7a}
+  .sx-obj{fill:#8d80ad}
+  .sx-set{fill:#6b5b93}
+  .sx-grille{fill:#efecf6}
+  .sx-grille2{fill:#4b2f7a}
+  .sx-dial{fill:#efecf6}
+  .sx-knob{fill:#efecf6}
+  .sx-aerial{stroke:#4b2f7a}
+  .sx-inst,.sx-head{fill:#efecf6;stroke:#4b2f7a;stroke-width:1.5}
+  .sx-harp,.sx-string,.sx-neck,.sx-bow{stroke:#4b2f7a}
+  .sx-bird,.sx-arc,.sx-border,.sx-baton{stroke:#4b2f7a}
+  .sx-nh{fill:#4b2f7a}
+  .sx-ns{stroke:#4b2f7a}
 
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
@@ -800,9 +931,19 @@ details.road.voted-road .notsel{display:none}
       <div class="kind"><div class="n">Two</div><h4>Take it away</h4><p>Little or no score, so small sounds and silence carry the tension.</p><div class="eg">No Country for Old Men &middot; A Quiet Place &middot; The Birds</div></div>
       <div class="kind"><div class="n">Three</div><h4>Let it drive</h4><p>The music comes first and the picture is cut to it.</p><div class="eg">Baby Driver &middot; Whiplash &middot; Guardians of the Galaxy</div></div>
     </div>
-    <p class="dnote">The third one is rare because it costs money: the songs have to be cleared before a frame is shot.</p>
-    <h3>Two pieces of vocabulary</h3>
-    <p><b>Diegetic</b> sound exists inside the story &mdash; the characters can hear it. <b>Non-diegetic</b> sound, like most scores, is only for you. Almost all of Baby Driver&rsquo;s music is diegetic, because Baby is playing it. <b>Room tone</b> is the sound of a space when nobody is talking; every set records it, and No Country is practically built out of it.</p>
+    <p class="dnote">The third one is rare: it requires obtaining song rights before a frame is shot.</p>
+    <h3>In the Scene vs. In the Screen</h3>
+    <div class="diagram sndx">
+      <div class="sx-signs">
+        <button type="button" class="sx-sign sx-sd" data-jump="300">Diegetic</button>
+        <button type="button" class="sx-sign sx-sn" data-jump="6500">Non-diegetic</button>
+      </div>
+      <svg viewBox="0 0 640 544" role="img" aria-label="A scoring stage: panelled walls, a wooden floor, microphone stands and an orchestra with a conductor, all facing a screen at the front. On the screen, a man in a room with a radio and an open window — sound he could switch off. The orchestra’s music climbs over the edge of the screen into the picture, and nobody in that room can hear it.">
+        <rect class="sx-void" x="0" y="0" width="640" height="544"></rect><rect class="sx-back" x="30" y="10" width="580" height="258"></rect><path class="sx-side" d="M0 0 L30 10 L30 268 L0 544 Z"></path><path class="sx-side" d="M640 0 L610 10 L610 268 L640 544 Z"></path><path class="sx-stagefloor" d="M30 268 L610 268 L640 544 L0 544 Z"></path><rect class="sx-panel" x="50" y="58" width="12" height="152" rx="3"></rect><rect class="sx-panel" x="70" y="58" width="12" height="152" rx="3"></rect><rect class="sx-panel" x="550" y="58" width="12" height="152" rx="3"></rect><rect class="sx-panel" x="570" y="58" width="12" height="152" rx="3"></rect><path class="sx-board" d="M112.8 268 L91.4 544"></path><path class="sx-board" d="M195.6 268 L182.9 544"></path><path class="sx-board" d="M278.4 268 L274.3 544"></path><path class="sx-board" d="M361.2 268 L365.7 544"></path><path class="sx-board" d="M444.0 268 L457.1 544"></path><path class="sx-board" d="M526.8 268 L548.6 544"></path><g class="sx-in"><rect class="sx-room" x="116" y="34" width="408" height="190"></rect><rect class="sx-filmfloor" x="116" y="196.0" width="408" height="28.0"></rect><rect class="sx-sky" x="150" y="68" width="74" height="68"></rect><path class="sx-frameline" d="M150 68 h74 v68 h-74 z M187 68 v68 M150 102 h74"></path><path class="sx-pane" d="M224 68 L252 59 L252 129 L224 136 Z"></path><g class="sx-bird" transform="translate(170 88)"><path d="M-7 0 q3.5 -5 7 0 q3.5 -5 7 0"></path></g><g class="sx-fig"><circle cx="312.0" cy="116.0" r="12.0"></circle><path d="M295.4 196.0 L295.4 142.6 Q296.4 129.8 305.6 126.1 L318.4 126.1 Q327.6 129.8 328.6 142.6 L328.6 196.0 Z"></path></g><g class="sx-obj"><rect x="396.0" y="196.0" width="92" height="7" rx="2"></rect><rect x="405.0" y="203.0" width="5" height="34"></rect><rect x="474.0" y="203.0" width="5" height="34"></rect></g><path class="sx-aerial" d="M458.0 156.0 L474.0 126.0"></path><g class="sx-set"><rect x="406.0" y="156.0" width="72" height="40" rx="5"></rect></g><circle class="sx-grille" cx="426.0" cy="176.0" r="12"></circle><circle class="sx-grille2" cx="426.0" cy="176.0" r="6.5"></circle><rect class="sx-dial" x="444.0" y="165.0" width="24" height="7" rx="3"></rect><circle class="sx-knob" cx="448.0" cy="184.0" r="3.4"></circle><circle class="sx-knob" cx="461.0" cy="184.0" r="3.4"></circle></g><g class="sx-dieg"><g class="sx-w sx-speech" transform="translate(328.8 119.5) rotate(0.0)" style="--d:0.00s"><path class="sx-arc" style="--i:0" d="M7.1 -5.5 A9.0 9.0 0 0 1 7.1 5.5"></path><path class="sx-arc" style="--i:1" d="M12.6 -9.9 A16.0 16.0 0 0 1 12.6 9.9"></path><path class="sx-arc" style="--i:2" d="M18.1 -14.2 A23.0 23.0 0 0 1 18.1 14.2"></path></g><g class="sx-w sx-birdw" transform="translate(232.0 100.0) rotate(0.0)" style="--d:1.10s"><path class="sx-arc" style="--i:0" d="M7.1 -5.5 A9.0 9.0 0 0 1 7.1 5.5"></path><path class="sx-arc" style="--i:1" d="M12.6 -9.9 A16.0 16.0 0 0 1 12.6 9.9"></path><path class="sx-arc" style="--i:2" d="M18.1 -14.2 A23.0 23.0 0 0 1 18.1 14.2"></path></g><g class="sx-w sx-radiow" transform="translate(426.0 130.0) rotate(-90.0)" style="--d:0.30s"><path class="sx-arc" style="--i:0" d="M7.1 -5.5 A9.0 9.0 0 0 1 7.1 5.5"></path><path class="sx-arc" style="--i:1" d="M12.6 -9.9 A16.0 16.0 0 0 1 12.6 9.9"></path><path class="sx-arc" style="--i:2" d="M18.1 -14.2 A23.0 23.0 0 0 1 18.1 14.2"></path></g></g><rect class="sx-border" x="116" y="34" width="408" height="190"></rect><g class="sx-mic sx-mic-in"><path d="M150.0 194.0 L150.0 224.0"></path><ellipse cx="150.0" cy="186.0" rx="4.2" ry="7"></ellipse></g><g class="sx-mic"><path d="M150.0 224.0 L150.0 300.0 M139.0 300.0 h22"></path></g><g class="sx-mic sx-mic-in"><path d="M492.0 194.0 L492.0 224.0"></path><ellipse cx="492.0" cy="186.0" rx="4.2" ry="7"></ellipse></g><g class="sx-mic"><path d="M492.0 224.0 L492.0 300.0 M481.0 300.0 h22"></path></g><g class="sx-non"><rect class="sx-podium" x="286" y="336" width="68" height="11" rx="2"></rect><g class="sx-cond"><circle cx="320.0" cy="278.6" r="8.6"></circle><path d="M308.1 336.0 L308.1 297.7 Q308.8 288.5 315.4 285.8 L324.6 285.8 Q331.2 288.5 331.9 297.7 L331.9 336.0 Z"></path></g><path class="sx-baton" d="M334 302 L368 284"></path><g transform="translate(129.4 365.2) rotate(-30)"><ellipse class="sx-inst" cx="0.0" cy="-6.5" rx="6.2" ry="4.8"></ellipse><rect class="sx-inst" x="-4.4" y="-2.7" width="8.9" height="5.6"></rect><ellipse class="sx-inst" cx="0.0" cy="5.9" rx="8.1" ry="6.5"></ellipse></g><path class="sx-bow" d="M105.0 381.8 L160.1 351.1"></path><path class="sx-play" d="M126.8 410.0 L128.7 380.6 Q146.0 367.8 163.3 380.6 L165.2 410.0 Z"></path><circle class="sx-play" cx="146.0" cy="358.2" r="12.2"></circle><path class="sx-neck" d="M502.4 365.2 L535.7 342.2"></path><path class="sx-inst" d="M533.3 338.8 L538.0 345.5 L556.6 343.2 L542.1 322.2 Z"></path><circle class="sx-inst" cx="513.7" cy="357.4" r="2.9"></circle><circle class="sx-inst" cx="519.7" cy="353.2" r="2.9"></circle><path class="sx-play" d="M476.8 410.0 L478.7 380.6 Q496.0 367.8 513.3 380.6 L515.2 410.0 Z"></path><circle class="sx-play" cx="496.0" cy="358.2" r="12.2"></circle><ellipse class="sx-inst" cx="120.6" cy="449.5" rx="17.0" ry="13.3"></ellipse><rect class="sx-inst" x="108.4" y="459.9" width="24.4" height="15.5"></rect><ellipse class="sx-inst" cx="120.6" cy="483.5" rx="22.2" ry="17.7"></ellipse><path class="sx-neck" d="M120.6 436.2 L115.5 397.6"></path><circle class="sx-inst" cx="115.5" cy="397.6" r="4.6"></circle><path class="sx-neck" d="M120.6 501.3 L120.6 524.4"></path><path class="sx-bow" d="M81.9 459.1 L154.2 466.5"></path><path class="sx-play" d="M66.8 516.0 L69.3 477.4 Q92.0 460.6 114.7 477.4 L117.2 516.0 Z"></path><circle class="sx-play" cx="92.0" cy="448.0" r="16.0"></circle><path class="sx-harp" d="M289.4 516.0 L289.4 421.9 Q311.3 413.5 349.9 487.4 L289.4 516.0 Z"></path><path class="sx-string" d="M298.1 431.3 L298.1 511.9"></path><path class="sx-string" d="M306.7 440.6 L306.7 507.8"></path><path class="sx-string" d="M315.4 450.0 L315.4 503.8"></path><path class="sx-string" d="M324.0 459.4 L324.0 499.7"></path><path class="sx-string" d="M332.6 468.7 L332.6 495.6"></path><path class="sx-string" d="M341.3 478.1 L341.3 491.5"></path><path class="sx-play" d="M292.8 516.0 L295.3 477.4 Q318.0 460.6 340.7 477.4 L343.2 516.0 Z"></path><circle class="sx-play" cx="318.0" cy="448.0" r="16.0"></circle><ellipse class="sx-inst" cx="570.6" cy="424.6" rx="23.2" ry="18.1"></ellipse><rect class="sx-inst" x="553.9" y="438.7" width="33.3" height="21.2"></rect><ellipse class="sx-inst" cx="570.6" cy="471.0" rx="30.2" ry="24.2"></ellipse><path class="sx-neck" d="M570.6 406.5 L565.5 354.4"></path><circle class="sx-inst" cx="565.5" cy="354.4" r="4.6"></circle><path class="sx-neck" d="M570.6 495.2 L570.6 524.4"></path><path class="sx-bow" d="M531.9 437.7 L604.2 447.8"></path><path class="sx-play" d="M516.8 516.0 L519.3 477.4 Q542.0 460.6 564.7 477.4 L567.2 516.0 Z"></path><circle class="sx-play" cx="542.0" cy="448.0" r="16.0"></circle><g class="sx-w sx-orchw" transform="translate(214.0 440.0) rotate(-90.0)" style="--d:0.00s"><path class="sx-arc" style="--i:0" d="M9.5 -7.4 A12.0 12.0 0 0 1 9.5 7.4"></path><path class="sx-arc" style="--i:1" d="M16.5 -12.9 A21.0 21.0 0 0 1 16.5 12.9"></path><path class="sx-arc" style="--i:2" d="M23.6 -18.5 A30.0 30.0 0 0 1 23.6 18.5"></path></g><g class="sx-w sx-orchw" transform="translate(424.0 440.0) rotate(-90.0)" style="--d:0.45s"><path class="sx-arc" style="--i:0" d="M9.5 -7.4 A12.0 12.0 0 0 1 9.5 7.4"></path><path class="sx-arc" style="--i:1" d="M16.5 -12.9 A21.0 21.0 0 0 1 16.5 12.9"></path><path class="sx-arc" style="--i:2" d="M23.6 -18.5 A30.0 30.0 0 0 1 23.6 18.5"></path></g><g transform="translate(252.0 462)"><g class="sx-note" style="--d:0.00s"><ellipse class="sx-nh" rx="5.2" ry="3.9" transform="rotate(-20)"></ellipse><path class="sx-ns" d="M4.8 -1.7 v-16.5 q7.2 2.4 9.2 6.6"></path></g></g><g transform="translate(330.0 462)"><g class="sx-note" style="--d:0.90s"><ellipse class="sx-nh" rx="5.2" ry="3.9" transform="rotate(-20)"></ellipse><path class="sx-ns" d="M4.8 -1.7 v-16.5 q7.2 2.4 9.2 6.6"></path></g></g><g transform="translate(408.0 462)"><g class="sx-note" style="--d:1.80s"><ellipse class="sx-nh" rx="5.2" ry="3.9" transform="rotate(-20)"></ellipse><path class="sx-ns" d="M4.8 -1.7 v-16.5 q7.2 2.4 9.2 6.6"></path></g></g></g>
+      </svg>
+      <p class="dnote">Diegetic sound has a source inside the world: the radio playing, the bird through the open window, the man&rsquo;s own voice. He could switch any of it off. Non-diegetic sound is laid over that world from outside it &mdash; a score played by musicians who are not in the room and never will be. To tell them apart, ask whether anything in the shot could stop the sound.</p>
+      <p class="dnote">The frame is the border, which is why Baby Driver is such a strange case: its songs are diegetic, playing in Baby&rsquo;s earbuds, and they do the job of a score at the same time. <b>Room tone</b> is a third thing again &mdash; the sound of a space with nobody talking. Every set records it, and No Country for Old Men is practically built out of it.</p>
+    </div>
     <h3>Why these films</h3>
     <p>This closes Part Two. The frame decides what you see, the cut decides when, and sound decides how it feels. One film proves how loud silence is. The other proves a film can be edited like a song.</p>
   </section>
@@ -891,6 +1032,32 @@ details.road.voted-road .notsel{display:none}
       var tag = document.createElement('span'); tag.className = 'voted'; tag.textContent = 'Voted';
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
+  });
+})();
+</script>
+
+<script>
+/* The signs skip the cycle.
+ *
+ * Everything in the figure runs off one twelve second css animation, so the
+ * lamp above always names whatever is sounding below it. Pressing a sign does
+ * not stop that cycle or take it over — it just moves the whole thing's clock
+ * to the start of that half and lets it carry on. Wherever you last sent it,
+ * the rotation picks up from there and keeps going on its own.
+ */
+(function () {
+  var box = document.querySelector('.sndx');
+  if (!box || !box.getAnimations) return;
+  box.querySelectorAll('.sx-sign').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var to = +b.getAttribute('data-jump');
+      box.getAnimations({ subtree: true }).forEach(function (a) {
+        var d = a.effect && a.effect.getComputedTiming().duration;
+        if (!d) return;
+        a.currentTime = d >= 11000 ? to : a.currentTime;   /* only the master cycle jumps */
+        a.play();
+      });
+    });
   });
 })();
 </script>

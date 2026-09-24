@@ -7,11 +7,11 @@ X-WR-CALNAME:Film Forum · Chapter 3
 X-WR-TIMEZONE:America/Los_Angeles
 BEGIN:VEVENT
 UID:ff-elements-ch3@illiterate-film-forum.netlify.app
-DTSTAMP:20260923T203700Z
+DTSTAMP:20260923T212300Z
 DTSTART:20261012T010000Z
 DTEND:20261012T020000Z
 SUMMARY:Film Forum · Chapter 3 · Who’s Watching
-LOCATION:https://meet.google.com/caw-wosy-mvn
+LOCATION:https://illiterate-film-forum.netlify.app/chapter-3/
 URL:https://illiterate-film-forum.netlify.app/chapter-3/
 DESCRIPTION:The Illiterate Writer's Film Forum · chapter 3\, Who’s Wat
  ching. We watch\, then we talk it through. The field guide\, both roads 

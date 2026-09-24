@@ -39,7 +39,7 @@
       rule: 'The three act rulebook was published in 1979, thirty seven years after Casablanca was shot without one.',
       hb: ['Casablanca', '1942 · 102 min · dir. Michael Curtiz'],
       sb: ['Sullivan’s Travels', '1941 · 90 min · dir. Preston Sturges'],
-      voted: 'hb', color: '#e8bd5c' },
+      voted: 'hb', color: '#e8bd5c', split: { hb: 63, sb: 37 } },  /* 5 to 3, counted by hand */
     { n: 2, part: 1, slug: 'chapter-2', page: true,
       /* the question the next chapter opens with, used to end the one before */
       hook: 'What happens to a story once the clock is running?',
@@ -48,7 +48,7 @@
       rule: 'That a story must fit inside one day began as an Italian scholar’s commentary in 1570, and France enforced it for a century and a half under Aristotle’s name.',
       hb: ['Dunkirk', '2017 · 106 min · dir. Christopher Nolan'],
       sb: ['Run Lola Run', '1998 · 80 min · dir. Tom Tykwer'],
-      voted: 'hb', color: '#7fb3de' },
+      voted: 'hb', color: '#7fb3de', split: { hb: 60, sb: 40 } },  /* 6 to 4, counted by hand */
     { n: 3, part: 1, slug: 'chapter-3', title: 'Who\u2019s Watching', subj: 'Point of View', line: 'whose eyes the story lends you',
       /* the question the next chapter opens with, used to end the one before */
       hook: 'Whose eyes does a film lend you — and can the camera lie?',
