@@ -193,6 +193,73 @@ section{padding:40px 0}
   background:rgba(255,255,255,.02);overflow-x:auto}
 .diagram svg{display:block;min-width:620px;width:100%;height:auto}
 .dnote{font-size:13.5px;color:var(--text-faint);margin-top:10px;text-align:center}
+/* ---- the viewfinder ------------------------------------------------------
+   Six compositions, one on screen at a time, stepped through with the arrows,
+   the dots, a swipe or the keyboard. The blue is the one chapter four's mark
+   blinks in on the contents page.
+   Without javascript every card simply stays on the page, stacked, which is
+   also exactly what the paper edition wants. */
+.vfind{padding:20px 18px 16px}
+.vf-card{margin:0}
+.vfind.vf-on .vf-card{display:none}
+.vfind.vf-on .vf-card.is-on{display:block}
+.vf-stagewrap{position:relative}
+.diagram.vfind svg{min-width:0;border-radius:6px;background:#0a0814}
+.vf-sky{fill:#1b1630}
+.vf-ground{fill:#241d3c}
+.vf-wall{fill:#151027}
+.vf-door{fill:#2c2447}
+.vf-sun{fill:#6ea8ff;fill-opacity:.30}
+.vf-fig{fill:#6ea8ff}
+.vf-space{fill:#6ea8ff;fill-opacity:.07}
+.vf-rule{stroke:#6ea8ff;stroke-opacity:.45;stroke-width:1.2;fill:none}
+.vf-axis{stroke-dasharray:6 6}
+.vf-inner{stroke-opacity:.9;stroke-width:2}
+.vf-spiral{stroke:#6ea8ff;stroke-width:2;fill:none}
+.vf-node{fill:#6ea8ff;fill-opacity:.5}
+.vf-node.vf-on{fill-opacity:1}
+.vf-crop{stroke:#6ea8ff;stroke-opacity:.75;stroke-width:2;fill:none}
+.vf-no{fill:#6ea8ff;fill-opacity:.75}
+.vf-arrow-l{stroke:#6ea8ff;stroke-width:1.6;fill:none}
+.vf-tag{fill:#6ea8ff}
+.vf-small{fill-opacity:.7}
+/* stepping sideways should feel sideways: the arriving card slides in from the
+   direction you asked for. The deck clips so nothing leans out of the box. */
+.vf-deck{overflow:hidden}
+@keyframes vfFromR{from{opacity:0;transform:translateX(9%)}to{opacity:1;transform:none}}
+@keyframes vfFromL{from{opacity:0;transform:translateX(-9%)}to{opacity:1;transform:none}}
+.vf-card.from-r{animation:vfFromR .34s cubic-bezier(.22,.7,.3,1) both}
+.vf-card.from-l{animation:vfFromL .34s cubic-bezier(.22,.7,.3,1) both}
+@media(prefers-reduced-motion:reduce){.vf-card.from-r,.vf-card.from-l{animation:none}}
+.vf-card figcaption{margin-top:14px}
+.vf-card figcaption h4{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:.22em;
+  text-transform:uppercase;color:#6ea8ff;margin:0 0 7px}
+.vf-card figcaption p{margin:0;font-size:14.5px;line-height:1.62;color:var(--text-dim);max-width:62ch}
+.vf-card figcaption .eg{margin-top:11px;padding-top:10px;border-top:1px solid var(--line);
+  font-size:13px;color:var(--text-faint);max-width:62ch}
+/* the control strip, built to look like the bottom of a viewfinder */
+.vf-bar{display:flex;align-items:center;gap:10px;margin-top:14px;padding:7px 8px;
+  border:1px solid rgba(110,168,255,.28);border-radius:10px;background:rgba(110,168,255,.05)}
+.vf-step{flex:0 0 auto;width:34px;height:30px;border:1px solid rgba(110,168,255,.3);border-radius:7px;
+  background:none;color:#6ea8ff;font-size:16px;line-height:1;cursor:pointer;transition:.16s}
+.vf-step:hover{background:rgba(110,168,255,.16)}
+.vf-step:focus-visible{outline:2px solid #6ea8ff;outline-offset:2px}
+.vf-names{flex:1 1 auto;display:flex;justify-content:center;flex-wrap:wrap;gap:4px}
+.vf-names button{border:0;background:none;cursor:pointer;padding:6px 9px;border-radius:6px;
+  font-family:'Oswald',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#7d7597;transition:.16s}
+.vf-names button:hover{color:#bcd6ff}
+.vf-names button[aria-current="true"]{color:#0a0814;background:#6ea8ff}
+.vf-now{flex:1 1 auto;display:none;align-items:center;justify-content:center;gap:10px;
+  font-family:'Oswald',sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#6ea8ff}
+.vf-dots{display:flex;gap:5px}
+.vf-dots i{width:5px;height:5px;border-radius:50%;background:#6ea8ff;opacity:.3}
+.vf-dots i.on{opacity:1}
+@media(max-width:600px){
+  .vf-names{display:none}
+  .vf-now{display:flex}
+  .vf-card figcaption p{font-size:14px}
+}
 .pull{border:1px solid var(--line-2);border-left:3px solid var(--sb);border-radius:0 12px 12px 0;
   padding:20px 24px;margin:28px 0;background:rgba(255,157,46,.05)}
 .pull p{margin:0;color:#d8cfe6;max-width:none}
@@ -521,6 +588,27 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
   .diagram svg{min-width:0}
   .dnote{color:#776e88}
 
+  /* paper gets the whole set, stacked, with the controls stripped away */
+  .vfind .vf-bar{display:none !important}
+  .vfind.vf-on .vf-card{display:block !important;page-break-inside:avoid;margin-bottom:7mm}
+  .diagram.vfind svg{background:none !important;border:.5pt solid #ded7e4}
+  .vf-sky{fill:#f2f0f7}
+  .vf-ground{fill:#e4e0ee}
+  .vf-wall{fill:#ebe8f2}
+  .vf-door{fill:#d8d3e6}
+  .vf-sun{fill:#24557f;fill-opacity:.22}
+  .vf-fig{fill:#24557f}
+  .vf-space{fill:#24557f;fill-opacity:.08}
+  .vf-rule{stroke:#24557f;stroke-opacity:.6}
+  .vf-spiral{stroke:#24557f}
+  .vf-node{fill:#24557f}
+  .vf-crop{stroke:#24557f;stroke-opacity:.8}
+  .vf-no,.vf-tag{fill:#24557f}
+  .vf-arrow-l{stroke:#24557f}
+  .vf-card figcaption h4{color:#24557f}
+  .vf-card figcaption p{color:#3a3145}
+  .vf-card figcaption .eg{color:#776e88;border-top:.5pt solid #ded7e4}
+
   /* one film per paper edition, chosen with data-pdf on <html> */
   html[data-pdf="hb"] details.road[data-road="sb"],
   html[data-pdf="sb"] details.road[data-road="hb"],
@@ -794,15 +882,49 @@ details.road.voted-road .notsel{display:none}
     <p>Photography manuals picked it up, film schools taught it, and eventually cameras and phones drew the grid onto the screen itself. Put the subject on a line, never in the middle. A tentative note about landscape painting became the first thing every beginner is told about the frame.</p>
     <h3>And the screen itself got a shape</h3>
     <p>The American studios adopted the Academy aperture in 1931 and the Academy codified it the next year, giving the near-square 1.37:1 frame. When television arrived in the 1950s, cinema went wide to compete, and the frame has been changing shape ever since. The Grand Budapest Hotel uses that history as a clock.</p>
-    <h3>Three ways to fill a frame</h3>
-    <div class="kinds">
-      <div class="kind"><div class="n">One</div><h4>Thirds</h4><p>The subject sits off-centre with room to look or move into. It feels natural and balanced, which is why it became the rule.</p><div class="eg">Almost everything</div></div>
-      <div class="kind"><div class="n">Two</div><h4>Dead centre</h4><p>The subject sits in the middle, the world arranged symmetrically around it. Formal, controlled, a little unreal.</p><div class="eg">The Shining &middot; Moonrise Kingdom &middot; Mommy</div></div>
-      <div class="kind"><div class="n">Three</div><h4>Frames within frames</h4><p>Doorways, windows and mirrors cut the picture into smaller boxes and push people to the edges. Watched, hemmed in.</p><div class="eg">The Searchers &middot; Carol &middot; In the Mood for Love</div></div>
+    <h3>Six ways to arrange a frame</h3>
+    <p>Centuries of painting and a century of cinema have trained the eye to read some arrangements as natural and others as deliberate, and how much of that is culture and how much is instinct is a different debate. Altering any of them is not a mistake, it is a different effect. The one thing worth holding onto is that where a film puts things changes what you feel about them, whether anyone meant it to or not.</p>
+    <div class="diagram vfind" data-vf>
+      <div class="vf-deck">
+        <figure class="vf-card" data-name="THIRDS">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Thirds: Two vertical lines and two horizontal lines divide the frame into a three by three grid">
+            <rect class="vf-sky" x="0" y="0" width="640" height="240.0"></rect><rect class="vf-ground" x="0" y="240.0" width="640" height="120.0"></rect><circle class="vf-sun" cx="426.7" cy="120.0" r="26"></circle><g class="vf-fig"><circle cx="213.3" cy="137.9" r="13.9"></circle><path d="M193.6 240.0 L193.6 170.4 Q194.8 154.2 205.2 149.5 L221.5 149.5 Q231.9 154.2 233.1 170.4 L233.1 240.0 Z"></path><path d="M202.5 134.9 l-7.0 3.1 l7.0 3.1 Z"></path></g><line class="vf-rule" x1="213.3" y1="0" x2="213.3" y2="360"></line><line class="vf-rule" x1="426.7" y1="0" x2="426.7" y2="360"></line><line class="vf-rule" x1="0" y1="120.0" x2="640" y2="120.0"></line><line class="vf-rule" x1="0" y1="240.0" x2="640" y2="240.0"></line><circle class="vf-node" cx="213.3" cy="120.0" r="3.0"></circle><circle class="vf-node vf-on" cx="213.3" cy="240.0" r="5.0"></circle><circle class="vf-node vf-on" cx="426.7" cy="120.0" r="5.0"></circle><circle class="vf-node" cx="426.7" cy="240.0" r="3.0"></circle><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">01 / 06</text>
+          </svg>
+          <figcaption><h4>Thirds</h4><p>Two vertical lines and two horizontal lines divide the frame into a three by three grid. Whatever matters sits on one of those lines, or on one of the four points where they cross. To spot it, look at where a face or a horizon lands: on a line, not in the middle.</p><div class="eg">Almost everything</div></figcaption>
+        </figure>
+        <figure class="vf-card" data-name="DEAD CENTRE">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Dead centre: The subject sits on the frame's vertical axis and the picture is built to match on both sides of it">
+            <rect class="vf-sky" x="0" y="0" width="640" height="360"></rect><path class="vf-wall" d="M0 0 L320.0 188.0 L0 360 Z"></path><path class="vf-wall" d="M640 0 L320.0 188.0 L640 360 Z"></path><rect class="vf-door" x="277.0" y="142.0" width="86" height="118"></rect><g class="vf-fig"><circle cx="320.0" cy="162.5" r="12.5"></circle><path d="M302.3 254.0 L302.3 191.6 Q303.4 177.0 312.7 172.9 L327.3 172.9 Q336.6 177.0 337.7 191.6 L337.7 254.0 Z"></path><path d="M329.7 159.7 l6.2 2.7 l-6.2 2.7 Z"></path></g><line class="vf-rule vf-axis" x1="320.0" y1="0" x2="320.0" y2="360"></line><line class="vf-rule" x1="0" y1="188.0" x2="640" y2="188.0"></line><circle class="vf-node vf-on" cx="320.0" cy="188.0" r="5"></circle><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">02 / 06</text>
+          </svg>
+          <figcaption><h4>Dead centre</h4><p>The subject sits on the frame's vertical axis and the picture is built to match on both sides of it. To spot it, find the vanishing point — where the lines of the room run to — and check whether it is dead in the middle with the same shapes left and right.</p><div class="eg">The Shining &middot; Moonrise Kingdom &middot; Mommy</div></figcaption>
+        </figure>
+        <figure class="vf-card" data-name="GOLDEN SPIRAL">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Golden spiral: A rectangle is cut so the smaller part stands to the larger as the larger stands to the whole, a ratio of about 1 to 1">
+            <rect class="vf-sky" x="0" y="0" width="640" height="250.0"></rect><rect class="vf-ground" x="0" y="250.0" width="640" height="110.0"></rect><g class="vf-fig"><circle cx="439.0" cy="253.5" r="9.4"></circle><path d="M425.7 322.1 L425.7 275.3 Q426.5 264.4 433.5 261.3 L444.4 261.3 Q451.5 264.4 452.2 275.3 L452.2 322.1 Z"></path><path d="M431.7 251.4 l-4.7 2.1 l4.7 2.1 Z"></path></g><rect class="vf-rule" x="48.2" y="12.0" width="543.7" height="336.0" fill="none"></rect><rect class="vf-rule" x="384.2" y="12.0" width="207.7" height="336.0" fill="none"></rect><rect class="vf-rule" x="384.2" y="219.7" width="207.7" height="128.3" fill="none"></rect><rect class="vf-rule" x="384.2" y="219.7" width="79.3" height="128.3" fill="none"></rect><rect class="vf-rule" x="384.2" y="219.7" width="79.3" height="49.0" fill="none"></rect><path class="vf-spiral" d="M48.2 348.0 A336.0 336.0 0 0 1 384.2 12.0 M384.2 12.0 A207.7 207.7 0 0 1 591.8 219.7 M591.8 219.7 A128.3 128.3 0 0 1 463.5 348.0 M463.5 348.0 A79.3 79.3 0 0 1 384.2 268.7 M384.2 268.7 A49.0 49.0 0 0 1 433.2 219.7 M433.2 219.7 A30.3 30.3 0 0 1 463.5 250.0 M463.5 250.0 A18.7 18.7 0 0 1 444.8 268.7 M444.8 268.7 A11.6 11.6 0 0 1 433.2 257.1"></path><circle class="vf-node vf-on" cx="439.0" cy="253.5" r="5"></circle><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">03 / 06</text>
+          </svg>
+          <figcaption><h4>Golden spiral</h4><p>A rectangle is cut so the smaller part stands to the larger as the larger stands to the whole, a ratio of about 1 to 1.618. Square off the larger part, repeat inside what remains, and the corners trace a spiral tightening to a point where the subject sits. Painters have used the proportion for centuries; whether filmmakers aim for it or simply land near it is an argument nobody has ever won.</p></figcaption>
+        </figure>
+        <figure class="vf-card" data-name="LOOKING ROOM">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Looking room: The subject sits off centre and the empty part of the frame is set on the side they face or move toward">
+            <g transform="translate(34.0 96.0)"><rect class="vf-sky" x="0" y="0" width="272.0" height="196.0"></rect><rect class="vf-ground" x="0" y="145.0" width="272.0" height="51.0"></rect><rect class="vf-space" x="0.0" y="0" width="181.3" height="196.0"></rect><g class="vf-fig"><circle cx="181.3" cy="55.4" r="12.2"></circle><path d="M164.0 145.0 L164.0 83.9 Q165.0 69.6 174.2 65.5 L188.5 65.5 Q197.6 69.6 198.7 83.9 L198.7 145.0 Z"></path><path d="M171.8 52.7 l-6.1 2.7 l6.1 2.7 Z"></path></g><line class="vf-rule" x1="181.3" y1="0" x2="181.3" y2="196.0"></line><rect class="vf-rule" x="0" y="0" width="272.0" height="196.0" fill="none"></rect><text class="vf-tag" x="136.0" y="-12" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.6">SPACE AHEAD</text><text class="vf-tag vf-small" x="136.0" y="222.0" text-anchor="middle" font-family="Oswald,sans-serif" font-size="10.5" letter-spacing="2">ROOM TO MOVE INTO</text></g><g transform="translate(334.0 96.0)"><rect class="vf-sky" x="0" y="0" width="272.0" height="196.0"></rect><rect class="vf-ground" x="0" y="145.0" width="272.0" height="51.0"></rect><rect class="vf-space" x="90.7" y="0" width="181.3" height="196.0"></rect><g class="vf-fig"><circle cx="90.7" cy="55.4" r="12.2"></circle><path d="M73.3 145.0 L73.3 83.9 Q74.4 69.6 83.5 65.5 L97.8 65.5 Q107.0 69.6 108.0 83.9 L108.0 145.0 Z"></path><path d="M81.1 52.7 l-6.1 2.7 l6.1 2.7 Z"></path></g><line class="vf-rule" x1="90.7" y1="0" x2="90.7" y2="196.0"></line><rect class="vf-rule" x="0" y="0" width="272.0" height="196.0" fill="none"></rect><text class="vf-tag" x="136.0" y="-12" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.6">SPACE BEHIND</text><text class="vf-tag vf-small" x="136.0" y="222.0" text-anchor="middle" font-family="Oswald,sans-serif" font-size="10.5" letter-spacing="2">BACKED AGAINST THE EDGE</text></g><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">04 / 06</text>
+          </svg>
+          <figcaption><h4>Looking room</h4><p>The subject sits off centre and the empty part of the frame is set on the side they face or move toward. Reverse it and that space collects behind them instead. To spot it, find which side the gap is on, then which way the head is turned. Ahead reads as room to move into; behind reads as backed against the edge.</p></figcaption>
+        </figure>
+        <figure class="vf-card" data-name="FRAME IN FRAME">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Frame in frame: A second frame is built inside the first out of whatever is in the shot: a doorway, a window, a mirror, an arch, a corridor">
+            <rect class="vf-wall" x="0" y="0" width="640" height="360"></rect><rect class="vf-sky" x="236" y="54" width="168" height="252"></rect><g class="vf-fig"><circle cx="320.0" cy="198.5" r="12.5"></circle><path d="M302.3 290.0 L302.3 227.6 Q303.4 213.0 312.7 208.9 L327.3 208.9 Q336.6 213.0 337.7 227.6 L337.7 290.0 Z"></path><path d="M329.7 195.7 l6.2 2.7 l-6.2 2.7 Z"></path></g><rect class="vf-rule vf-inner" x="236" y="54" width="168" height="252" fill="none"></rect><rect class="vf-door" x="60" y="118" width="92" height="74"></rect><rect class="vf-rule" x="60" y="118" width="92" height="74" fill="none"></rect><rect class="vf-door" x="492" y="150" width="76" height="110"></rect><rect class="vf-rule" x="492" y="150" width="76" height="110" fill="none"></rect><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">05 / 06</text>
+          </svg>
+          <figcaption><h4>Frame in frame</h4><p>A second frame is built inside the first out of whatever is in the shot: a doorway, a window, a mirror, an arch, a corridor. To spot it, look for a hard-edged rectangle of its own around the subject, with the picture outside it darker or cropped away. It makes the person inside smaller and the room tighter.</p><div class="eg">The Searchers &middot; Carol &middot; In the Mood for Love</div></figcaption>
+        </figure>
+        <figure class="vf-card" data-name="NEGATIVE SPACE">
+          <svg viewBox="0 0 640 360" role="img" aria-label="Negative space: The subject takes up a small part of the frame and the rest is left unbroken — sky, wall, water, fog, a bare room">
+            <rect class="vf-sky" x="0" y="0" width="640" height="332.0"></rect><rect class="vf-ground" x="0" y="332.0" width="640" height="28.0"></rect><rect class="vf-space" x="0" y="0" width="640" height="332.0"></rect><g class="vf-fig"><circle cx="236.0" cy="295.0" r="5.0"></circle><path d="M228.9 332.0 L228.9 306.8 Q229.3 300.9 233.1 299.2 L238.9 299.2 Q242.7 300.9 243.1 306.8 L243.1 332.0 Z"></path><path d="M239.9 293.9 l2.5 1.1 l-2.5 1.1 Z"></path></g><text class="vf-tag" x="320" y="60" text-anchor="middle" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.6">ALL OF THIS IS DOING SOMETHING</text><path class="vf-crop" d="M16 16 h34 M16 16 v34"></path><path class="vf-crop" d="M624 16 h-34 M624 16 v34"></path><path class="vf-crop" d="M16 344 h34 M16 344 v-34"></path><path class="vf-crop" d="M624 344 h-34 M624 344 v-34"></path><text class="vf-no" x="578" y="347" text-anchor="end" font-family="Oswald,sans-serif" font-size="12" letter-spacing="2.4">06 / 06</text>
+          </svg>
+          <figcaption><h4>Negative space</h4><p>The subject takes up a small part of the frame and the rest is left unbroken — sky, wall, water, fog, a bare room. To spot it, measure by eye how much of the picture carries no detail at all, and where the subject has been placed inside it. Past a certain point the emptiness stops being background and starts reading as weight.</p></figcaption>
+        </figure>
+      </div>
     </div>
-    <p class="dnote">Most films use all three in a single scene. What marks a filmmaker is which one they reach for when it matters.</p>
-    <h3>Two pieces of vocabulary</h3>
-    <p><b>Aspect ratio</b> is the shape of the frame, width against height: wider feels bigger and lonelier, squarer feels closer and more contained. <b>Negative space</b> is the empty part of the frame, which is never really empty &mdash; it is where the film puts the thing nobody is saying.</p>
+    <p class="dnote">Most films use several of these in a single scene. What marks a filmmaker is which one they reach for when it matters.</p>
     <h3>Why these films</h3>
     <p>Part Two starts with the most basic decision in filmmaking: where to put the camera, and what to leave out. Both films throw away the rule of thirds, one to show you a perfect world, the other to hide a private one.</p>
   </section>
@@ -892,6 +1014,106 @@ details.road.voted-road .notsel{display:none}
       s.insertBefore(tag, s.querySelector('.sfilm'));
     }
   });
+})();
+</script>
+
+<script>
+/* The viewfinder.
+ *
+ * Six cards live in the page; javascript hides five of them and builds the strip
+ * underneath. Arrows step, names jump, the dots show where you are, the keyboard
+ * works once the strip has focus, and a swipe works on a touchscreen. It wraps at
+ * both ends, because a viewfinder has no first or last frame.
+ *
+ * Wide screens get the six names spelled out; narrow ones get the current name and
+ * a row of dots, since six names will not sit on a phone without wrapping into a
+ * paragraph. That switch is pure css — this only keeps the state.
+ *
+ * If this never runs, all six cards stay on the page one under the other, which is
+ * a perfectly good way to read them and is exactly what the printed edition uses.
+ */
+(function () {
+  var box = document.querySelector('[data-vf]');
+  if (!box) return;
+  var cards = [].slice.call(box.querySelectorAll('.vf-card'));
+  if (cards.length < 2) return;
+  var at = 0;
+
+  box.classList.add('vf-on');
+
+  var bar = document.createElement('div');
+  bar.className = 'vf-bar';
+  bar.setAttribute('role', 'group');
+  bar.setAttribute('aria-label', 'Compositions');
+
+  function stepper(dir, glyph, label) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'vf-step'; b.innerHTML = glyph;
+    b.setAttribute('aria-label', label);
+    b.addEventListener('click', function () { go(at + dir, dir); });
+    return b;
+  }
+
+  var names = document.createElement('div');
+  names.className = 'vf-names';
+  var tabs = cards.map(function (c, i) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.textContent = c.getAttribute('data-name');
+    b.addEventListener('click', function () { go(i); });
+    names.appendChild(b);
+    return b;
+  });
+
+  var now = document.createElement('div');
+  now.className = 'vf-now';
+  var nowName = document.createElement('span');
+  var dots = document.createElement('span');
+  dots.className = 'vf-dots';
+  var pips = cards.map(function () { var i = document.createElement('i'); dots.appendChild(i); return i; });
+  now.appendChild(nowName); now.appendChild(dots);
+
+  bar.appendChild(stepper(-1, '&#8249;', 'Previous composition'));
+  bar.appendChild(names);
+  bar.appendChild(now);
+  bar.appendChild(stepper(1, '&#8250;', 'Next composition'));
+  box.appendChild(bar);
+
+  function go(n, dir) {
+    var was = at;
+    at = (n + cards.length) % cards.length;
+    if (dir === undefined) dir = at === was ? 0 : (at > was ? 1 : -1);
+    cards.forEach(function (c, i) {
+      c.classList.remove('from-r', 'from-l');
+      c.classList.toggle('is-on', i === at);
+    });
+    if (dir) {
+      var c = cards[at];
+      void c.offsetWidth;                     /* restart the animation */
+      c.classList.add(dir > 0 ? 'from-r' : 'from-l');
+    }
+    tabs.forEach(function (b, i) { b.setAttribute('aria-current', i === at ? 'true' : 'false'); });
+    pips.forEach(function (d, i) { d.classList.toggle('on', i === at); });
+    nowName.textContent = cards[at].getAttribute('data-name');
+  }
+  go(0, 0);
+
+  bar.setAttribute('tabindex', '0');
+  bar.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') { go(at - 1, -1); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { go(at + 1, 1); e.preventDefault(); }
+  });
+
+  /* a swipe across the picture, but only a decisive sideways one — a finger on
+     its way down the page is scrolling, not asking for the next composition */
+  var x0 = 0, y0 = 0;
+  box.addEventListener('touchstart', function (e) {
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY;
+  }, { passive: true });
+  box.addEventListener('touchend', function (e) {
+    var t = e.changedTouches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+    var d = dx < 0 ? 1 : -1;
+    if (Math.abs(dx) > 46 && Math.abs(dx) > Math.abs(dy) * 1.6) go(at + d, d);
+  }, { passive: true });
 })();
 </script>
 </body>
