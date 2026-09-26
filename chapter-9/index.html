@@ -523,6 +523,87 @@ footer .fsrc{margin:18px auto 0;max-width:62ch;font-size:12.5px;color:var(--text
 .contact a:hover{color:#fff;border-bottom-color:#fff}
 @media(max-width:720px){.ballot,.pickrow{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
 @media(max-width:420px){.steps{grid-template-columns:1fr}}
+/* ---- the eighteen title treatments ---------------------------------------
+   Each film wears its own lettering everywhere it appears: on the ballot, after
+   the vote, and on its chapter page, whether it won or lost.
+
+   Two rules make that portable. Nothing below sets a family, a weight or a
+   pixel size unless the poster demands it, so a treatment inherits its context
+   and sizes itself in em — one rule serves a 26px card and a 90px header. And
+   the colour arrives as --tc rather than as an inline style, because an inline
+   colour beats a stylesheet and would quietly kill the three titles that are
+   filled with a gradient instead of a flat colour. */
+.ftx{display:inline-block;max-width:100%;color:var(--tc)}
+/* wherever a treatment takes over, the house gradient on the box underneath it
+   stands down, so the two are not painting the same glyphs at once */
+.f.dressed,.sfilm.dressed{background:none !important;-webkit-background-clip:border-box !important;
+  background-clip:border-box !important;color:inherit !important;-webkit-text-fill-color:currentColor}
+
+.c-cas{font-family:'Kaushan Script','Snell Roundhand',cursive;font-weight:400;text-transform:none;
+  letter-spacing:0;font-size:1.16em;line-height:1.2;padding-bottom:.08em}
+.c-sul{font-family:'Yellowtail','Brush Script MT',cursive;font-weight:400;text-transform:none;
+  letter-spacing:0;font-size:1.08em;line-height:1.26;padding-bottom:.1em}
+.c-lola{font-weight:600;letter-spacing:.01em;line-height:.9;font-size:.86em;
+  text-shadow:.06em .06em 0 rgba(198,205,214,.9)}
+.c-lola span{display:block}
+.c-rear{font-family:'Playfair Display',Georgia,serif;font-weight:700;letter-spacing:.005em;
+  line-height:.92;font-size:.96em}
+.c-rear span{display:block}
+.c-rear span:nth-child(2){padding-left:.16em}
+.c-tru{font-weight:600;line-height:.86;font-size:1.1em}
+.c-tru span{display:block}
+.c-tru .sm{font-size:.3em;letter-spacing:.02em;font-weight:500;padding-bottom:.06em}
+.c-tru .lg{letter-spacing:-.02em}
+.c-tru .rt2{font-size:.34em;letter-spacing:.02em;text-align:right}
+.c-gbh{font-family:'Playfair Display',Georgia,serif;font-weight:400;text-align:center;
+  line-height:1.02;font-size:.74em}
+.c-gbh span{display:block}
+.c-gbh .sm{font-size:.44em;letter-spacing:.26em}
+.c-gbh .lo{text-transform:none;font-size:.56em;letter-spacing:.02em}
+.c-mood{font-family:'Playfair Display',Georgia,serif;font-weight:400;font-style:italic;
+  text-transform:none;font-size:.92em;letter-spacing:0}
+.c-bw{font-weight:400;letter-spacing:.34em;font-size:.4em;white-space:nowrap;
+  text-shadow:0 0 .5em rgba(225,29,36,.85),0 0 1.2em rgba(225,29,36,.45)}
+/* twenty-three tracked capitals are the logo on one line or they are nothing, so
+   on a narrow phone the tracking gives way rather than the line breaking */
+@media(max-width:430px){.c-bw{letter-spacing:.24em}}
+.c-witch{font-family:'Playfair Display',Georgia,serif;font-weight:400;line-height:1.1;font-size:.68em}
+.c-witch span{display:block}
+.c-witch .sm{font-size:.42em;letter-spacing:.42em;text-align:center;padding-bottom:.24em}
+.c-witch .lg{letter-spacing:.2em}
+.c-ncf{font-weight:600;letter-spacing:-.005em;line-height:.88;font-size:.8em}
+.c-ncf span{display:block}
+/* the poster cuts a letter here and there, not a barcode across the whole word:
+   about one narrow slit a letter, thin enough to read as a cut */
+.c-baby{font-weight:600;letter-spacing:-.01em;line-height:.84;font-size:1.02em;
+  background-image:repeating-linear-gradient(90deg,var(--tc) 0 .387em,transparent .387em .42em);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.c-baby span{display:block}
+.c-lit{font-family:'Quicksand','Avenir Next',sans-serif;font-weight:400;text-transform:none;
+  letter-spacing:.005em;font-size:.74em}
+.c-joker{font-weight:600;letter-spacing:-.01em;font-size:1.06em;text-shadow:.02em .02em 0 rgba(0,0,0,.6)}
+/* the two big words want to sit close, so the small one gives up its spacing */
+.c-cog{font-weight:600;letter-spacing:.005em;font-size:.82em}
+.c-cog em{font-style:normal;font-size:.6em;font-weight:500;padding:0;margin:0 -.04em}
+.c-thel{font-weight:600;letter-spacing:.005em;line-height:.88;font-size:.86em}
+.c-thel span{display:block}
+.c-thel em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;
+  color:#3f74c4;font-size:1.05em;padding-right:.04em}
+.c-fdtd{font-weight:600;letter-spacing:-.01em;line-height:.82;font-size:1.02em;
+  background-image:linear-gradient(180deg,#f04a2a 0%,#f04a2a 42%,#f7a531 72%,#f6d23b 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.c-fdtd span{display:block}
+.c-fdtd .sm{font-size:.42em;letter-spacing:.02em}
+.c-fdtd .in{padding-left:.9em}
+
+/* Dunkirk and The Godfather keep the book's own letterforms, so they would be
+   the only colourless titles on the page. They take the card's gradient from the
+   first moment instead of only once the room has picked them: --tc is the card's
+   colour, --tcd the dark end of it. */
+.c-house{font-weight:700;letter-spacing:.005em;font-size:1em;line-height:.92;
+  background-image:linear-gradient(168deg,#ffffff 6%,var(--tc) 62%,var(--tcd,var(--tc)) 108%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+
 .print-only{display:none}
 
 /* ================= the paper edition ================= */
@@ -723,6 +804,15 @@ details.road[open] .notsel{opacity:0}
 details.road.voted-road .notsel{display:none}
 :root{--film:#4f9fd1;--film-deep:#245a7a}
 @media print{html[data-pdf="hb"]{--film:#245a7a;--film-deep:#245a7a}html[data-pdf="sb"]{--film:#741818;--film-deep:#741818}}
+@media print{
+  /* Three of the treatments are filled with a gradient rather than a colour, and
+     a gradient prints as nothing at all. On paper every title falls back to solid
+     ink: the letterforms survive, the glows and the fills do not. */
+  .ftx{color:#171021 !important;-webkit-text-fill-color:#171021 !important;
+    background-image:none !important;text-shadow:none !important;filter:none !important}
+  .c-thel em{color:#171021 !important}
+  .f.dressed,.sfilm.dressed{color:#171021 !important;-webkit-text-fill-color:#171021 !important}
+}
 </style>
 </head>
 
@@ -774,7 +864,7 @@ details.road.voted-road .notsel{display:none}
     <details class="road" id="took" data-road="hb" data-color="#4f9fd1" data-deep="#245a7a" data-ink="#060a0d" data-ink2="#0d1319">
       <summary>
         <span class="road-tag hb">Hollywood Blvd.</span>
-        <span class="sfilm">Thelma &amp; Louise</span>
+        <span class="sfilm dressed"><span class="ftx c-thel" style="--tc:#ef523f"><span>Thelma</span> <span><em>&amp;</em>Louise</span></span></span>
         <span class="notsel">Not selected</span>
         <span class="smeta">1991 &middot; 130 min &middot; dir. Ridley Scott &middot; written by Callie Khouri &middot; MGM</span>
       </summary>
@@ -854,7 +944,7 @@ details.road.voted-road .notsel{display:none}
     <details class="road" id="other" data-road="sb" data-color="#e23b3b" data-deep="#741818" data-ink="#0f0505" data-ink2="#190a0a">
       <summary>
         <span class="road-tag sb">Sunset Blvd.</span>
-        <span class="sfilm">From Dusk Till Dawn</span>
+        <span class="sfilm dressed"><span class="ftx c-fdtd" style="--tc:#f04a2a"><span class="sm">FROM</span> <span>DUSK</span> <span class="sm in">TILL</span> <span class="in">DAWN</span></span></span>
         <span class="notsel">Not selected</span>
         <span class="smeta">1996 &middot; 108 min &middot; dir. Robert Rodriguez &middot; screenplay by Quentin Tarantino &middot; Dimension Films</span>
       </summary>

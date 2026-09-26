@@ -36,6 +36,8 @@
       hook: 'Who decided a story needs three acts, and what were films doing before anybody said so?',
       aw: { hb: { bp: true, t: 'Won 3 Academy Awards in 1944, including Best Picture' } },
       title: 'Rules Before We Break Them', subj: 'Structure', line: 'the shape under every story', date: '2026-09-13',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-cas', 'Casablanca', '--tc:#efe9dd'], sb: ['c-sul', 'Sullivan&rsquo;s Travels', '--tc:#f4cf3c'] },
       rule: 'The three act rulebook was published in 1979, thirty seven years after Casablanca was shot without one.',
       hb: ['Casablanca', '1942 · 102 min · dir. Michael Curtiz'],
       sb: ['Sullivan’s Travels', '1941 · 90 min · dir. Preston Sturges'],
@@ -45,6 +47,8 @@
       hook: 'What happens to a story once the clock is running?',
       aw: { hb: { t: 'Won 3 Academy Awards in 2018: Film Editing, Sound Editing, Sound Mixing' } },
       title: 'Ticking Clock', subj: 'Time', line: 'how a film spends your minutes', date: '2026-09-27',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-house', 'Dunkirk', '--tc:#7fb3de;--tcd:#354b5d'], sb: ['c-lola', '<span>Run</span> <span>Lola</span> <span>Run</span>', '--tc:#ef4a35'] },
       rule: 'That a story must fit inside one day began as an Italian scholar’s commentary in 1570, and France enforced it for a century and a half under Aristotle’s name.',
       hb: ['Dunkirk', '2017 · 106 min · dir. Christopher Nolan'],
       sb: ['Run Lola Run', '1998 · 80 min · dir. Tom Tykwer'],
@@ -53,9 +57,11 @@
       /* the question the next chapter opens with, used to end the one before */
       hook: 'Whose eyes does a film lend you — and can the camera lie?',
       rule: 'That the camera never lies grew out of Percy Lubbock turning Henry James’s habits into law in 1921, and Hitchcock broke it with a lying flashback in 1950.', date: '2026-10-11',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-rear', '<span>Rear</span> <span>Window</span>', '--tc:#f0e3b8'], sb: ['c-tru', '<span class="sm">The</span> <span class="lg">Truman</span> <span class="rt2">Show</span>', '--tc:#ffffff'] },
       /* hidden until the last minutes of chapter 02's call */
       /* the poster colours the winning card takes on the contents page */
-      col: { hb: '#c9433f', sb: '#79b7e8' },
+      col: { hb: '#ff5c7a', sb: '#79b7e8' },
       ballot: {
         opens:  '2026-09-27T18:55:00-07:00',
         closes: '2026-10-04T23:59:00-07:00',
@@ -69,6 +75,8 @@
       hook: 'Where does a film put things, and what is it keeping out of the frame?',
       aw: { hb: { t: 'Won 4 Academy Awards in 2015: Production Design, Costume Design, Makeup and Hairstyling, Original Score' } },
       rule: 'The rule of thirds began as a tentative note in an engraver’s 1797 book on landscape painting.',       date: '2026-10-25',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-gbh', '<span class="sm">THE</span> <span>GRAND</span> <span>BUDAPEST</span> <span class="lo">Hotel</span>', '--tc:#f7cfe0'], sb: ['c-mood', 'In the Mood for Love', '--tc:#f5455a'] },
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#e88fb0', sb: '#cf3b4a' },
       ballot: {
@@ -83,6 +91,8 @@
       /* the question the next chapter opens with, used to end the one before */
       hook: 'What happens in the gap between two shots?',
       rule: 'The invisible cut was written down as law in 1953, thirty years after Kuleshov showed the cut was doing all the work.', date: '2026-11-08', spooky: true,
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-bw', 'The Blair Witch Project', '--tc:#e11d24'], sb: ['c-witch', '<span class="sm">THE</span> <span class="lg">VVITCH</span>', '--tc:#ddd7c9'] },
       /* hidden until the last minutes of chapter 04's call; watched over Halloween */
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#93a08c', sb: '#b9a06a' },
@@ -99,8 +109,10 @@
       hook: 'How much of a film are you hearing rather than watching?',
       aw: { hb: { bp: true, t: 'Won 4 Academy Awards in 2008, including Best Picture' } },
       rule: 'That a score should go unnoticed was Hollywood habit, named decades later, after three Soviet directors warned in 1928 that sound would kill the cut.',       date: '2026-11-22',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-ncf', '<span>No Country</span> <span>for Old Men</span>', '--tc:#e6d5ac'], sb: ['c-baby', '<span>Baby</span> <span>Driver</span>', '--tc:#e6e1d8'] },
       /* the poster colours the winning card takes on the contents page */
-      col: { hb: '#c8a870', sb: '#e8464a' },
+      col: { hb: '#c8a870', sb: '#ee5566' },
       ballot: {
         opens:  '2026-11-08T18:55:00-08:00',
         closes: '2026-11-15T23:59:00-08:00',
@@ -114,6 +126,8 @@
       hook: 'Does anybody really change, or do they just get found out?',
       aw: { hb: { bp: true, t: 'Won 3 Academy Awards in 1973, including Best Picture' }, sb: { t: 'Won Best Original Screenplay in 2004' } },
       rule: 'Joseph Campbell described the world’s myths in 1949, and a seven-page Disney memo in 1985 turned them into a checklist.',   date: '2026-12-06',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-house', 'The Godfather', '--tc:#c9a227;--tcd:#544410'], sb: ['c-lit', 'Lost in Translation', '--tc:#f8ccd4'] },
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#c9a227', sb: '#f28ab2' },
       ballot: {
@@ -129,6 +143,8 @@
       hook: 'Is it acting, or is it being?',
       aw: { hb: { t: 'Won 2 Academy Awards in 2020: Best Actor, Original Score' } },
       rule: 'Lee Strasberg made one piece of Stanislavski’s system into the Method, and Stella Adler came back from Paris saying he had it wrong.', date: '2026-12-20',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-joker', 'Joker', '--tc:#f1f3eb'], sb: ['c-cog', 'City <em>of</em> God', '--tc:#f5bb3c'] },
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#7ab648', sb: '#f0a23c' },
       ballot: {
@@ -144,6 +160,8 @@
       hook: 'What does a film promise you before it starts, and what happens when it breaks that promise?',
       aw: { hb: { t: 'Won Best Original Screenplay in 1992' } },
       rule: 'Nobody in Hollywood called it film noir. A French critic named it in 1946, and Americans started making it on purpose in the 1970s.',       date: '2027-01-03',
+      /* each film's own lettering: class, markup, colour */
+      ty: { hb: ['c-thel', '<span>Thelma</span> <span><em>&amp;</em>Louise</span>', '--tc:#ef523f'], sb: ['c-fdtd', '<span class="sm">FROM</span> <span>DUSK</span> <span class="sm in">TILL</span> <span class="in">DAWN</span>', '--tc:#f04a2a'] },
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#4f9fd1', sb: '#e23b3b' },
       ballot: {
