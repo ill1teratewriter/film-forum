@@ -592,8 +592,18 @@ body.has-bar{padding-bottom:84px}
    less motion, or who has no JavaScript, never sees it: the curtain stays
    invisible until a script in the head decides to raise it. */
 .intro{display:none}
-html.intro-on{overflow:hidden;background:var(--ink)}
+/* two switches, not one: the first shows the curtain, the second holds the page
+   still underneath it. Only the arrival locks the page; asking for the opening
+   again from the masthead leaves the page where you left it. */
+html.intro-on{background:var(--ink)}
+html.intro-lock{overflow:hidden}
 html.intro-on .intro{display:block;position:fixed;inset:0;z-index:200;transition:opacity .72s ease}
+/* the masthead name is the way back in */
+button.brand{background:none;border:0;padding:0;margin:0;font:inherit;font-family:var(--display);
+  font-size:12.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);cursor:pointer;
+  transition:color .2s ease}
+button.brand:hover{color:var(--text)}
+button.brand:focus-visible{color:var(--text);outline:1px solid var(--line-2);outline-offset:5px;border-radius:5px}
 /* the floor of the place: ink, with each lamp's colour pooling at its own corner */
 .backdrop{position:absolute;inset:0;background:
   radial-gradient(120% 78% at 14% 112%,rgba(255,92,122,.30),rgba(255,92,122,0) 58%),
@@ -684,7 +694,10 @@ html.intro-on .intro{display:block;position:fixed;inset:0;z-index:200;transition
 @keyframes ffrun{to{background-position:-1.28em 13%,-1.28em 87%,-1.28em 0,-1.28em 0,0 0}}
 @keyframes inL{from{opacity:0;transform:translateX(-34px)}to{opacity:1;transform:none}}
 @keyframes inR{from{opacity:0;transform:translateX(34px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){.intro{display:none !important}}
+/* nobody gets this without asking twice: it never arrives on its own for a member
+   who has asked for less motion, but if they click the name in the masthead, that
+   is them asking, and it plays */
+@media (prefers-reduced-motion:reduce){html:not(.intro-asked) .intro{display:none !important}}
 
 /* ---------- footer ---------- */
 footer{text-align:center;border-top:1px solid var(--line);margin-top:56px;padding-block:36px 120px;color:var(--faint);font-size:13.5px}
@@ -748,7 +761,7 @@ footer a:hover{border-bottom-color:var(--hb)}
     if (sessionStorage.getItem('ff.intro') === '1') return;
     if (matchMedia('(prefers-reduced-motion:reduce)').matches) return;
     sessionStorage.setItem('ff.intro', '1');
-    document.documentElement.className += ' intro-on';
+    document.documentElement.className += ' intro-on intro-lock';
     var l = document.querySelector('link[rel="stylesheet"][href*="fonts.googleapis.com"]');
     if (l) {
       var on = function () { l.media = 'all'; };
@@ -776,7 +789,7 @@ footer a:hover{border-bottom-color:var(--hb)}
 </div>
 <div class="page">
   <header class="mast">
-    <span class="brand">The Illiterate Writer</span>
+    <button type="button" class="brand" id="brandplay" title="Play the opening">The Illiterate Writer</button>
     <span class="mast-r"><span id="vchip"></span></span>
   </header>
 
@@ -818,35 +831,71 @@ footer a:hover{border-bottom-color:var(--hb)}
 /* The lamps are already working before anything else happens. The name comes up
    once the book's own face is in hand, the film runs through it, the two roads
    come in to meet underneath, and then the whole curtain goes at once, leaving
-   the page that was there all along. */
+   the page that was there all along.
+
+   It runs itself on the first visit of a session. After that it is kept, not
+   spent: the name in the masthead plays it again, from wherever you are on the
+   page, and a click or the escape key closes it early — which the arrival does
+   not offer, because three seconds is not long enough to need a way out, but a
+   replay somebody asked for should let go the moment they are done with it. */
 (function () {
   var html = document.documentElement;
-  if (html.className.indexOf('intro-on') < 0) return;
-  var intro = document.getElementById('intro');
-  var over = false;
+  var source = document.getElementById('intro');
+  if (!source) return;
+  var TEMPLATE = source.outerHTML;   /* kept so the door can be opened again */
+  var live = null, timers = [];
 
-  function done() {
-    if (over) return;
-    over = true;
-    html.className = html.className.replace(/\s*intro-on/, '');
-    if (intro.parentNode) intro.parentNode.removeChild(intro);
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+  function end() {
+    timers.forEach(clearTimeout);
+    timers = [];
+    document.removeEventListener('keydown', onKey);
+    html.className = html.className.replace(/\s*intro-(on|lock|asked)\b/g, '');
+    if (live && live.parentNode) live.parentNode.removeChild(live);
+    live = null;
   }
-  /* whatever happens, the page is not left behind a curtain */
-  setTimeout(done, 5200);
 
-  var started = false;
-  function start() {
-    if (started) return;
-    started = true;
-    intro.className = 'intro ready';        /* everything in the marquee begins here */
-    setTimeout(function () {
-      intro.style.opacity = '0';
-      setTimeout(done, 780);
+  function onKey(e) { if (e.key === 'Escape') end(); }
+
+  function play(asked) {
+    if (live) return;
+    live = document.getElementById('intro');
+    if (!live) {
+      /* the arrival takes its curtain away with it, so a replay builds a fresh one */
+      var box = document.createElement('div');
+      box.innerHTML = TEMPLATE;
+      live = box.firstElementChild;
+      document.body.appendChild(live);
+    }
+    var cls = html.className;
+    if (cls.indexOf('intro-on') < 0) cls += ' intro-on';
+    if (asked) { if (cls.indexOf('intro-asked') < 0) cls += ' intro-asked'; }
+    else if (cls.indexOf('intro-lock') < 0) { cls += ' intro-lock'; }
+    html.className = cls;
+    if (asked) {
+      live.style.cursor = 'pointer';
+      live.addEventListener('click', end);
+      document.addEventListener('keydown', onKey);
+    }
+    void live.offsetWidth;                  /* start the animations from the top */
+    live.className = 'intro ready';         /* everything in the marquee begins here */
+    later(function () {
+      live.style.opacity = '0';
+      later(end, 780);
     }, 2150);
+    later(end, 5200);                       /* the page is never left behind a curtain */
   }
 
-  /* wait for the face the name is set in, not for every font on the page, and
-     give up waiting after a second so a slow network cannot stall the door */
+  var brand = document.getElementById('brandplay');
+  if (brand) brand.addEventListener('click', function () { play(true); });
+
+  /* the arrival: only if the script in the head decided this was the visit for it */
+  if (html.className.indexOf('intro-on') < 0) return;
+  var started = false;
+  function start() { if (!started) { started = true; play(false); } }
+  /* wait for the face the name is set in, not for every font on the page, and give
+     up waiting after a second so a slow network cannot stall the door */
   if (document.fonts && document.fonts.load) {
     document.fonts.load('700 96px Oswald').then(start, start);
     setTimeout(start, 1000);
