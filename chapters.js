@@ -63,7 +63,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#ff5c7a', sb: '#79b7e8' },
       ballot: {
-        opens:  '2026-09-27T18:55:00-07:00',
+        opens:  '2026-09-27T18:30:00-07:00',
         closes: '2026-10-04T23:59:00-07:00',
         hb: ['Rear Window', '1954 \u00b7 112 min \u00b7 dir. Alfred Hitchcock',
              'A photographer stuck at home with a broken leg starts watching his neighbours across the courtyard, and becomes sure one of them has committed murder.'],
@@ -80,7 +80,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#e88fb0', sb: '#cf3b4a' },
       ballot: {
-        opens:  '2026-10-11T18:55:00-07:00',
+        opens:  '2026-10-11T18:30:00-07:00',
         closes: '2026-10-18T23:59:00-07:00',
         hb: ['The Grand Budapest Hotel', '2014 · 99 min · dir. Wes Anderson',
              'A legendary hotel concierge and his teenage lobby boy are framed for murder in a made-up European country, just as war arrives.'],
@@ -97,7 +97,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#93a08c', sb: '#b9a06a' },
       ballot: {
-        opens:  '2026-10-25T18:55:00-07:00',
+        opens:  '2026-10-25T18:30:00-07:00',
         closes: '2026-11-01T23:59:00-08:00',
         hb: ['The Blair Witch Project', '1999 \u00b7 81 min \u00b7 dir. Daniel Myrick & Eduardo S\u00e1nchez',
              'Three film students head into the Maryland woods to make a documentary about a local legend, and their footage is all that\u2019s left.'],
@@ -114,7 +114,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#c8a870', sb: '#ee5566' },
       ballot: {
-        opens:  '2026-11-08T18:55:00-08:00',
+        opens:  '2026-11-08T18:30:00-08:00',
         closes: '2026-11-15T23:59:00-08:00',
         hb: ['No Country for Old Men', '2007 · 122 min · dir. Joel & Ethan Coen',
              'A Texas hunter stumbles on a drug deal gone wrong and walks off with two million dollars, and a killer with a cattle gun comes after him.'],
@@ -131,7 +131,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#c9a227', sb: '#f28ab2' },
       ballot: {
-        opens:  '2026-11-22T18:55:00-08:00',
+        opens:  '2026-11-22T18:30:00-08:00',
         closes: '2026-11-29T23:59:00-08:00',
         hb: ['The Godfather', '1972 · 175 min · dir. Francis Ford Coppola',
              'The youngest son of a New York crime family wants nothing to do with the business. Then someone tries to kill his father.'],
@@ -148,7 +148,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#7ab648', sb: '#f0a23c' },
       ballot: {
-        opens:  '2026-12-06T18:55:00-08:00',
+        opens:  '2026-12-06T18:30:00-08:00',
         closes: '2026-12-13T23:59:00-08:00',
         hb: ['Joker', '2019 · 122 min · dir. Todd Phillips',
              'Gotham, 1981. A failed comedian with a condition that makes him laugh uncontrollably is beaten down by the city, until he stops trying to be ignored.'],
@@ -165,7 +165,7 @@
       /* the poster colours the winning card takes on the contents page */
       col: { hb: '#4f9fd1', sb: '#e23b3b' },
       ballot: {
-        opens:  '2026-12-20T18:55:00-08:00',
+        opens:  '2026-12-20T18:30:00-08:00',
         closes: '2026-12-27T23:59:00-08:00',
         hb: ['Thelma & Louise', '1991 · 130 min · dir. Ridley Scott',
              'Two friends leave for a weekend away from their small lives in Arkansas. One night at a roadside bar changes everything, and they keep driving.'],
@@ -218,9 +218,10 @@
   };
   function forumUrl() { return (FORUM.url || '').trim(); }
   /* the join button is worth showing from an hour before to the end of the call */
+  var DOOR = 5 * 60000;          /* how long before the call the room link lights */
   function forumLive(c) {
     var t = meetAt(c).getTime(), now = Date.now();
-    return now > t - 60 * 60000 && now < t + FORUM.minutes * 60000;
+    return now > t - DOOR && now < t + FORUM.minutes * 60000;
   }
   function zoneOffset(d, tz) {
     try {
@@ -268,7 +269,8 @@
 
   /* A chapter page should also be able to get somebody into the room: the
      calendar invitation whenever the forum is still ahead, and a join button
-     from an hour before the call. */
+     from five minutes before the call. Five and not sixty, so the button is
+     never a live link to a room nobody is in yet: when it lights, it is time. */
   function forumRow(c) {
     if (!c || beat(c) === 'done') return '';
     var url = forumUrl(), live = forumLive(c);
@@ -283,6 +285,9 @@
   /* the chapter we are on is the first whose discussion has not passed */
   var cur = CHAPTERS.length - 1;
   for (var i = 0; i < CHAPTERS.length; i++) { if (daysFromToday(CHAPTERS[i].date) >= 0) { cur = i; break; } }
+
+  /* the moment a ballot opens, for anything that wants to count down to it */
+  function ballotAt(c) { return c.ballot ? new Date(c.ballot.opens).getTime() : 0; }
 
   function ballotPhase(c) {
     if (!c.ballot || c.voted) return null;
@@ -728,7 +733,7 @@
     PARTS: PARTS, CHAPTERS: CHAPTERS, cur: cur, state: state, href: href, done: bookDone,
     getVote: getVote, setVote: setVote, clearVote: clearVote, sendVote: sendVote, drawChip: drawChip,
     short: short, withDay: withDay, longDate: longDate, weekday: weekday, pad: pad, esc: esc,
-    beat: beat, meetAt: meetAt, meetLocal: meetLocal,
+    beat: beat, meetAt: meetAt, meetLocal: meetLocal, ballotAt: ballotAt, DOOR: DOOR,
     FORUM: FORUM, forumUrl: forumUrl, forumLive: forumLive, name: getName, saveName: saveName,
     isRead: isRead, markRead: markRead, readCount: readCount
   };

@@ -222,6 +222,91 @@ h1{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-sp
 .go:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
 .note{font-size:13.5px;color:var(--faint);font-style:italic}
 
+/* ---------- the two clocks -------------------------------------------------
+   A week waiting to meet counts down the last day in its own pill, and five
+   minutes before the call a strip arrives under the row carrying the way in. A
+   week waiting to open counts down the last half hour, and then unlocks where
+   it stands. The second clock never changes colour: the row above it is the one
+   allowed to shout, and two clocks climbing towards the same moment would make
+   the page a scoreboard. */
+.status .pill b{font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:.05em}
+.ch .status .pill.close{background:var(--sb);border-color:var(--sb);color:var(--ink);font-weight:600}
+.ch .status .pill.imminent,.ch .status .pill.livenow{background:var(--ok);border-color:var(--ok);
+  color:var(--ink);font-weight:600}
+.status .pill .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;
+  margin-right:7px;vertical-align:1px;animation:beat 1.4s ease-in-out infinite}
+@keyframes beat{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* the lock that sits in the pill while the ballot is still shut */
+.lk{display:inline-block;width:10px;height:12px;vertical-align:-2px;margin-right:7px;transform-origin:80% 80%}
+.lk .sh{transform-origin:78% 92%;transition:transform .42s cubic-bezier(.3,1.5,.5,1)}
+.ch.unlocking .lk .sh{transform:rotate(-38deg) translateY(-1px)}
+.ch.unlocking .lk{animation:lkgo .62s cubic-bezier(.4,0,.5,1) .14s both}
+@keyframes lkgo{0%{transform:none;opacity:1}
+  34%{transform:translateY(-6px) rotate(-8deg);opacity:1}
+  62%{transform:translateY(-3px) rotate(-5deg);opacity:1}
+  100%{transform:translateY(11px) rotate(8deg);opacity:0}}
+
+/* the row carries the change itself rather than being swapped for another one,
+   so the dashed outline can fill in and the number can warm up on a transition */
+.ch.lockrow{transition:opacity .5s ease,border-color .5s ease,background-color .5s ease;position:relative}
+.ch.lockrow .num{transition:color .5s ease}
+.ch.lockrow .status .pill{transition:background-color .45s ease .16s,border-color .45s ease .16s,
+  color .45s ease .16s,box-shadow .5s ease .16s}
+.ch.unlocking .status .pill{border-style:solid !important;box-shadow:0 0 26px -8px rgba(255,157,46,.95)}
+
+/* the beam that crosses the row as it opens — the same light as the front door */
+.swipe{position:absolute;inset:0;pointer-events:none;border-radius:14px;overflow:hidden;opacity:0}
+.ch.unlocking .swipe{opacity:1}
+.swipe i{position:absolute;top:-40%;bottom:-40%;width:34%;left:-40%;
+  background:linear-gradient(90deg,rgba(255,92,122,0),rgba(255,214,225,.5) 42%,rgba(255,157,46,.42) 62%,rgba(255,157,46,0));
+  filter:blur(13px);transform:skewX(-14deg)}
+.ch.unlocking .swipe i{animation:swipe .95s cubic-bezier(.4,0,.2,1) .08s both}
+@keyframes swipe{to{left:118%}}
+.ch.unlocking{animation:wake .95s cubic-bezier(.4,0,.2,1) both}
+@keyframes wake{0%{box-shadow:0 0 0 0 rgba(255,157,46,0)}
+  40%{box-shadow:0 22px 60px -34px rgba(255,157,46,.95)}
+  100%{box-shadow:0 0 0 0 rgba(255,157,46,0)}}
+
+/* the pill hands one line to the other instead of going blank in between */
+.pillswap{position:relative;display:inline-block;white-space:nowrap}
+.pillswap>span{display:inline-block}
+.pillswap .was{transition:opacity .22s ease .16s,transform .34s ease .16s}
+.pillswap .now{position:absolute;left:0;top:0;opacity:0;transform:translateY(7px);
+  transition:opacity .28s ease .3s,transform .38s cubic-bezier(.2,.8,.3,1) .3s}
+.ch.unlocking .pillswap .was{opacity:0;transform:translateY(-7px)}
+.ch.unlocking .pillswap .now{opacity:1;transform:none}
+.ch .status .chev.arrived{animation:chevin .45s cubic-bezier(.2,.8,.3,1) .1s both}
+@keyframes chevin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* the last five minutes, and the way into the room */
+.lastday{grid-column:1/-1;margin-top:14px;border:1px solid rgba(143,217,168,.55);border-radius:14px;
+  padding:15px 18px 16px;display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;
+  background:linear-gradient(120deg,rgba(143,217,168,.12),rgba(255,157,46,.05) 70%,transparent)}
+.lastday[hidden]{display:none}
+.ld-k{font-family:var(--display);font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--faint);width:100%;margin:0}
+.ld-time{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,42px);line-height:1;
+  color:var(--ok);font-variant-numeric:tabular-nums;letter-spacing:.02em;margin:0;
+  display:flex;align-items:baseline;gap:2px}
+.ld-time .u{font-size:.42em;font-weight:500;color:var(--faint);letter-spacing:.14em;text-transform:uppercase;
+  margin:0 9px 0 3px}
+.ld-time .dot{width:9px;height:9px;border-radius:50%;background:currentColor;display:inline-block;
+  margin-right:12px;animation:beat 1.4s ease-in-out infinite}
+.lastday.livenow .ld-time{font-size:clamp(24px,4.2vw,34px)}
+.ld-right{margin-left:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.ld-when{font-size:13px;color:var(--faint);white-space:nowrap}
+.ld-join{font-family:var(--display);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:999px;padding:10px 18px;white-space:nowrap;
+  color:var(--ink);background:var(--ok);font-weight:600;border:1px solid var(--ok)}
+.ld-join:hover{background:#a8e6bd;border-color:#a8e6bd}
+.ld-join.off{background:none;color:var(--faint);border:1px dashed var(--line-2);font-weight:400}
+/* the last twenty-four hours, draining */
+.ld-track{width:100%;height:3px;border-radius:2px;background:rgba(255,255,255,.09);overflow:hidden;margin-top:2px}
+.ld-track i{display:block;height:100%;border-radius:2px;background:var(--ok);transition:width .9s linear}
+@media (max-width:640px){.ld-right{margin-left:0;width:100%}}
+@media print{.lastday,.swipe{display:none !important}}
+
 /* ---------- getting to the forum ---------- */
 .forumrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:20px}
 .forumrow .join,.forumrow .ical{font-family:var(--display);font-size:12px;letter-spacing:.18em;text-transform:uppercase;
@@ -1132,10 +1217,17 @@ footer a:hover{border-bottom-color:var(--hb)}
     /* a chapter that has already run needs no date: nobody arriving at the site
        is looking for it, and it only crowds the rows that still need something */
     if (b === 'done') return '';
-    if (b === 'soon') return '<span class="pill">Votes open ' + F.withDay(c.ballot.opens) + '</span>';
+    /* A chapter waiting to open carries a lock and, in the last half hour, a
+       clock. Both of them are filled in by the ticker below rather than written
+       here, because they change every second and the row must not be rebuilt
+       every second underneath somebody reading it. */
+    if (b === 'soon')
+      return '<span class="pill lockpill" data-open="' + c.n + '">' + LOCK +
+             '<span class="pillswap"><span class="was"><span class="ulab"></span><b class="ut"></b></span>' +
+             '<span class="now">Vote by ' + F.withDay(c.ballot.closes) + '</span></span></span>';
     if (b === 'vote') return '<span class="pill">Vote by ' + F.withDay(c.ballot.closes) + '</span>';
     var m = F.meetLocal(c);
-    return '<span class="pill forum">Forum ' + m.day + ' · ' + m.time + '</span>';
+    return '<span class="pill forum" data-forum="' + c.n + '">Forum ' + m.day + ' · ' + m.time + '</span>';
   }
 
   /* the dates that still matter for this chapter, written out in full */
@@ -1145,6 +1237,166 @@ footer a:hover{border-bottom-color:var(--hb)}
     if (b === 'vote') out += '<span class="w"><b>Vote by</b> the end of ' + F.longDate(c.ballot.closes) + '</span>';
     if (b !== 'done') out += '<span class="w"><b>Forum</b> ' + m.day + ' · ' + m.time + '</span>';
     return out ? '<p class="when">' + out + '</p>' : '';
+  }
+
+
+  /* ---------- the two clocks ------------------------------------------------
+     One counts the last day down to the forum and opens the door for the last
+     five minutes of it. The other counts the last half hour down to a ballot
+     opening and then unlocks the row where it stands, without opening it: the
+     two films stay something a member goes and looks at.
+
+     Neither of them re-renders the page. A row is built once and the ticker
+     writes into it, so a chapter somebody has opened does not close itself
+     every second, and a half-typed name on a ballot survives the minute. */
+  var LOCK = '<svg class="lk" viewBox="0 0 10 12" aria-hidden="true" fill="none" stroke="currentColor" ' +
+    'stroke-width="1.3"><path class="sh" d="M3 5V3.2a2 2 0 0 1 4 0V5"/>' +
+    '<rect x="1" y="5" width="8" height="6.2" rx="1.4" fill="currentColor" stroke="none" opacity=".85"/></svg>';
+  var DAY_MS = 86400000, HALF = 1800000, DOOR = F.DOOR || 300000;
+  var unlocking = {};          /* chapters whose unlock is playing or played */
+  var pretendLocked = null;    /* a chapter held shut for a moment so it can open in front of you */
+
+  function two(n) { return (n < 10 ? '0' : '') + n; }
+  function clockText(ms) {
+    var s = Math.max(0, Math.round(ms / 1000));
+    var h = Math.floor(s / 3600), m = Math.floor(s % 3600 / 60), x = s % 60;
+    return h ? h + ':' + two(m) + ':' + two(x) : m + ':' + two(x);
+  }
+
+  /* the strip that arrives with the room link, five minutes before the call */
+  function lastDay(c) {
+    return '<div class="lastday" data-last="' + c.n + '" hidden>' +
+      '<p class="ld-k">Starting in</p><p class="ld-time"></p>' +
+      '<span class="ld-right"><span class="ld-when">The room is open</span>' +
+      (F.forumUrl()
+        ? '<a class="ld-join" href="' + esc(F.forumUrl()) + '" target="_blank" rel="noopener">Join the forum &rarr;</a>'
+        : '<span class="ld-join off">The room link goes out by email</span>') +
+      '</span><span class="ld-track"><i></i></span></div>';
+  }
+
+  function paintForum(el, c) {
+    var t = F.meetAt(c).getTime(), now = Date.now(), ms = t - now;
+    var live = ms <= 0 && now < t + F.FORUM.minutes * 60000;
+    var over = now >= t + F.FORUM.minutes * 60000;
+    var inside = ms > 0 && ms <= DAY_MS, near = ms > 0 && ms <= DOOR;
+    var m = F.meetLocal(c);
+    el.className = 'pill forum';
+    if (live) {
+      el.className = 'pill forum livenow';
+      el.innerHTML = '<span class="dot"></span>Live now';
+    } else if (over) {
+      /* a week that has run needs no date on it: nobody arriving is looking for
+         it, and it only crowds the rows that still need something */
+      el.className = 'pill forum spent';
+      el.hidden = true;
+      var row = el.closest('.ch');
+      /* the highlight goes with it, once, the moment the two hours are up */
+      if (row && row.classList.contains('now')) setTimeout(function () { render(openRow()); }, 0);
+    } else if (!inside) {
+      el.hidden = false;
+      el.textContent = 'Forum ' + m.day + ' · ' + m.time;
+    } else {
+      el.hidden = false;
+      el.className = 'pill forum ' + (near ? 'imminent' : ms < 3600000 ? 'close' : '');
+      el.innerHTML = (near ? 'Starts in ' : 'Forum in ') + '<b>' + clockText(ms) + '</b>';
+    }
+
+    var ld = document.querySelector('.lastday[data-last="' + c.n + '"]');
+    if (!ld) return;
+    ld.hidden = !(near || live);
+    ld.className = 'lastday' + (live ? ' livenow' : '');
+    if (ld.hidden) return;
+    var k = ld.querySelector('.ld-k'), tm = ld.querySelector('.ld-time'), wh = ld.querySelector('.ld-when');
+    if (live) {
+      k.textContent = 'The room is in';
+      tm.innerHTML = '<span class="dot"></span>Live now';
+      wh.textContent = 'Started ' + Math.max(1, Math.round((now - t) / 60000)) + ' min ago';
+    } else {
+      var s = Math.round(ms / 1000);
+      k.textContent = 'Starting in';
+      tm.innerHTML = Math.floor(s / 60) + '<span class="u">min</span>' + two(s % 60) + '<span class="u">sec</span>';
+      wh.textContent = 'The room is open';
+    }
+    ld.querySelector('.ld-track i').style.width =
+      (live ? 100 : Math.min(100, Math.max(0, (1 - ms / DAY_MS) * 100))).toFixed(2) + '%';
+  }
+
+  function paintOpen(el, c) {
+    var ms = F.ballotAt(c) - Date.now();
+    var lab = el.querySelector('.ulab'), t = el.querySelector('.ut');
+    if (!lab || !t) return;
+    if (ms <= HALF) {
+      /* the same colour the whole way down: the week that is meeting tonight is
+         the one allowed to shout, and two clocks climbing at once is a scoreboard */
+      lab.textContent = 'Votes open in ';
+      t.textContent = clockText(ms);
+    } else {
+      var d = new Date(F.ballotAt(c)), n = new Date();
+      var tonight = d.toDateString() === n.toDateString();
+      lab.textContent = 'Votes open ' + (tonight ? 'tonight · ' : F.withDay(c.ballot.opens));
+      t.textContent = tonight ? shortTime(d) : '';
+    }
+  }
+
+  function shortTime(d) {
+    try {
+      return new Intl.DateTimeFormat(undefined, { hour: 'numeric', minute: '2-digit' }).format(d);
+    } catch (e) { return '6:30 PM'; }
+  }
+
+  /* The ballot opening, seen happening. The row changes into the ballot row in
+     place — same element, new class, so the dashed outline fills in and the
+     number warms up on a transition — and then stops. It does not open itself. */
+  function unlockRow(c) {
+    var el = document.getElementById('ch-' + c.n);
+    if (!el || unlocking[c.n] === 'done') return;
+    unlocking[c.n] = 'done';
+    el.classList.add('lockrow', 'unlocking');
+    setTimeout(function () {
+      el.className = 'ch ballot lockrow unlocking';
+      var st = el.querySelector('.status');
+      if (st && !st.querySelector('.chev'))
+        st.insertAdjacentHTML('beforeend', '<span class="chev arrived" aria-hidden="true">▾</span>');
+      F.drawChip();
+    }, 300);
+    /* once the light has gone by, hand the row over to the real one, which looks
+       the same and opens when it is clicked */
+    setTimeout(function () { pretendLocked = null; render(openRow()); F.drawChip(); }, 1250);
+  }
+
+  function tick() {
+    document.querySelectorAll('.pill[data-forum]').forEach(function (el) {
+      var c = byNumber(+el.getAttribute('data-forum'));
+      if (c) paintForum(el, c);
+    });
+    document.querySelectorAll('.pill[data-open]').forEach(function (el) {
+      var c = byNumber(+el.getAttribute('data-open'));
+      if (!c) return;
+      paintOpen(el, c);
+      if (F.ballotAt(c) - Date.now() <= 0 && unlocking[c.n] !== 'done') unlockRow(c);
+    });
+  }
+
+  function byNumber(n) {
+    for (var i = 0; i < CH.length; i++) if (CH[i].n === n) return CH[i];
+    return null;
+  }
+
+  /* Arriving after it opened, but not long after: hold the row shut for a beat
+     so the member watches it open rather than finding it open. Once per browser,
+     so it is a moment and not a nuisance. */
+  function armArrival() {
+    for (var i = 0; i < CH.length; i++) {
+      var c = CH[i];
+      if (!c.ballot || c.voted || F.state(i) !== 'ballot') continue;
+      var since = Date.now() - F.ballotAt(c);
+      if (since < 0 || since > 45 * 60000) continue;
+      var key = 'ff-unlock-' + c.n;
+      try { if (localStorage.getItem(key)) continue; localStorage.setItem(key, '1'); } catch (e) {}
+      pretendLocked = c.n;
+      setTimeout(function () { unlockRow(c); }, 900);
+      return;
+    }
   }
 
   function render(keepOpen) {
@@ -1179,6 +1431,11 @@ footer a:hover{border-bottom-color:var(--hb)}
       CH.forEach(function (c, i) {
         if (c.part !== p) return;
         var st = F.state(i);
+        /* A week that has run is a week that has run. Two hours after the call it
+           gives up the highlight and looks like the weeks before it, so the row
+           still waiting on something is the only lit thing on the page. */
+        if (st === 'now' && F.beat(c) === 'done') st = 'past';
+        if (pretendLocked === c.n) st = 'next';
         var full = (st === 'past' || st === 'now') && c.voted;
         var open = full || st === 'ballot' || st === 'closed';
         var subj = full
@@ -1188,7 +1445,9 @@ footer a:hover{border-bottom-color:var(--hb)}
           '<span class="num">' + pad(c.n) + '</span>' +
           '<span class="ttl"><span class="name"><h3>' + esc(c.title) + '</h3><span class="leader" aria-hidden="true"></span></span>' + subj + '</span>' +
           '<span class="rend">' + (MARKS[c.n] || '') +
-          '<span class="status">' + statusText(c, st, i) + (open ? '<span class="chev" aria-hidden="true">▾</span>' : '') + '</span></span>';
+          '<span class="status">' + statusText(c, st, i) + (open ? '<span class="chev" aria-hidden="true">▾</span>' : '') + '</span></span>' +
+          (F.beat(c) === 'forum' ? lastDay(c) : '') +
+          (st === 'next' && c.ballot ? '<span class="swipe" aria-hidden="true"><i></i></span>' : '');
         var body = !open ? '' : st === 'ballot' ? whenLine(c) + ballotBody(c) : st === 'closed' ? whenLine(c) + closedBody(c) :
           (c.rule ? '<div class="rule"><span class="k">Where the rule came from</span><p>' + esc(c.rule) + '</p></div>' : '') +
           '<div class="roads">' + road('hb', c) + road('sb', c) + '</div>' +
@@ -1213,6 +1472,7 @@ footer a:hover{border-bottom-color:var(--hb)}
         '</section>';
     }
     document.getElementById('toc').innerHTML = html;
+    setTimeout(tick, 0);
     armMarks();
     armOscars();
     drawBar();
@@ -1379,7 +1639,10 @@ footer a:hover{border-bottom-color:var(--hb)}
     });
   });
 
+  armArrival();
   render();
+  tick();
+  setInterval(tick, 1000);
 
   /* arriving from a ballot link or the old /vote address */
   var q = new URLSearchParams(location.search).get('ballot');
