@@ -1674,11 +1674,17 @@ footer a:hover{border-bottom-color:var(--hb)}
     var name = document.getElementById('ffname'), door = document.getElementById('doorway');
     if (!name || !door) return;
 
-    function open() {
-      if (door.classList.contains('open')) return;
-      door.classList.add('open');
+    /* The name is a switch, not a one-way door: hold it again and the way to the
+       room folds back up and is forgotten, so the footer can be left the way a
+       member would find it. */
+    function toggle() {
+      var opening = !door.classList.contains('open');
+      door.classList.toggle('open', opening);
       name.classList.remove('knocking');
-      try { sessionStorage.setItem('ff.door', '1'); } catch (e) {}
+      try {
+        if (opening) sessionStorage.setItem('ff.door', '1');
+        else sessionStorage.removeItem('ff.door');
+      } catch (e) {}
     }
     try { if (sessionStorage.getItem('ff.door') === '1') door.classList.add('open'); } catch (e) {}
 
@@ -1692,14 +1698,13 @@ footer a:hover{border-bottom-color:var(--hb)}
 
     var held = null;
     function press() {
-      if (door.classList.contains('open')) return;
       name.classList.add('knocking');
-      held = setTimeout(open, 750);
+      held = setTimeout(toggle, 750);
     }
     function release() {
       clearTimeout(held);
       held = null;
-      if (!door.classList.contains('open')) name.classList.remove('knocking');
+      name.classList.remove('knocking');
     }
     name.addEventListener('mousedown', function (e) { e.preventDefault(); press(); });
     name.addEventListener('touchstart', press, { passive: true });
@@ -1709,14 +1714,13 @@ footer a:hover{border-bottom-color:var(--hb)}
 
     var knocks = 0, timer = null;
     name.addEventListener('click', function () {
-      if (door.classList.contains('open')) return;
       knocks++;
       clearTimeout(timer);
       timer = setTimeout(function () {
         knocks = 0;
         if (!held) name.classList.remove('knocking');
       }, 1500);
-      if (knocks >= 3) { knocks = 0; open(); }
+      if (knocks >= 3) { knocks = 0; toggle(); }
     });
   })();
 
