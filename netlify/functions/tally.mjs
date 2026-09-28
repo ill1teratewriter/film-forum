@@ -11,39 +11,115 @@ export function normalise(name) {
   return String(name || '').trim().toLowerCase().replace(/\s+/g, ' ');
 }
 
+/* the same, with punctuation gone, so "R. Julian" and "R Julian" are one thing */
+function plain(name) {
+  return normalise(name).replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function words(name) {
+  return plain(name).split(' ').filter(Boolean);
+}
+
+/* Damerau–Levenshtein, capped: it only has to answer "is this within n edits",
+   and the words being compared are people's names, not paragraphs. A swap of two
+   neighbouring letters counts as one edit, because that is the typo people
+   actually make — Tuttel for Tuttle. */
+function within(a, b, n) {
+  if (a === b) return true;
+  if (Math.abs(a.length - b.length) > n) return false;
+  const d = [];
+  for (let i = 0; i <= a.length; i++) d[i] = [i];
+  for (let j = 0; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + cost);
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) {
+        d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+      }
+    }
+  }
+  return d[a.length][b.length] <= n;
+}
+
+/* Who counts as the chair.
+ *
+ * FF_ME is a list of every name he might type, in any order and any number:
+ *   FF_ME="R. Julian Tuttle, Julian, Robert, Tuttle, RJT"
+ *
+ * A name is his if it matches one of those outright, or if any word of it is one
+ * of the distinctive words in that list — Julian, Robert, Tuttle — spelled right
+ * or spelled nearly right. Short scraps like initials have to be exact, because
+ * a two-letter fuzzy match would catch half the room. */
+export function me(raw, never) {
+  const full = new Set();
+  const distinct = new Set();
+  for (const piece of String(raw || '').split(',')) {
+    const p = plain(piece);
+    if (!p) continue;
+    full.add(p);
+    full.add(p.replace(/ /g, ''));      /* so R.J.T and RJT are one thing */
+    for (const w of p.split(' ')) if (w.length >= 4) distinct.add(w);
+  }
+  if (!full.size) return null;
+
+  /* Spelled nearly right is right, which means a name that is nearly his gets
+     caught too — Julia is one letter from Julian, Turtle one from Tuttle. There
+     is no rule that can tell a typo from a different person, so FF_NOT_ME is the
+     place to name anyone who joins and keeps being mistaken for him:
+       FF_NOT_ME="Julia Reyes, Julia"                                        */
+  const no = new Set();
+  for (const piece of String(never || '').split(',')) {
+    const p = plain(piece);
+    if (p) { no.add(p); no.add(p.replace(/ /g, '')); }
+  }
+
+  return function isMe(name) {
+    const p = plain(name);
+    if (!p) return false;
+    if (no.has(p) || no.has(p.replace(/ /g, ''))) return false;
+    if (full.has(p) || full.has(p.replace(/ /g, ''))) return true;
+    for (const w of words(name)) {
+      if (no.has(w)) continue;
+      for (const d of distinct) {
+        /* one slip in a short name, two in a long one */
+        const slack = w.length >= 8 && d.length >= 8 ? 2 : 1;
+        if (w.length >= 4 && within(w, d, slack)) return true;
+      }
+    }
+    return false;
+  };
+}
+
 /* `votes` is { normalisedName: 'hb' | 'sb' }.
-   `star` is the road Julian picked, which is withdrawn on a tie so the room
-   never ends up deadlocked and he never breaks a tie in his own favour. */
-export function tally(votes, star) {
+   `isMe` is the matcher above, or null. The chair votes like everybody else and
+   his vote sits in the split like everybody else's — it is only on an exact tie
+   that it is withdrawn, so that he never breaks a deadlock in his own favour. */
+export function tally(votes, isMe) {
   let hb = 0, sb = 0;
   for (const road of Object.values(votes || {})) {
     if (road === 'hb') hb++;
     else if (road === 'sb') sb++;
   }
   const cast = hb + sb;
-  if (!cast) return { cast: 0, winner: null, split: null };
+  if (!cast) return { cast: 0, winner: null, split: null, broke: null };
 
-  let winner;
+  let winner, broke = null;
   if (hb !== sb) {
     winner = hb > sb ? 'hb' : 'sb';
-  } else if (star === 'hb' || star === 'sb') {
-    winner = star === 'hb' ? 'sb' : 'hb';        /* his vote is withdrawn */
   } else {
-    winner = 'hb';                               /* nothing to break it with */
+    /* a dead heat: find his vote in the room and take it out again */
+    let his = null;
+    if (isMe) {
+      for (const [name, road] of Object.entries(votes)) {
+        if (isMe(name)) { his = road; break; }
+      }
+    }
+    if (his) { winner = his === 'hb' ? 'sb' : 'hb'; broke = 'chair withdrew'; }
+    else { winner = 'hb'; broke = 'no vote to withdraw'; }   /* the canon road takes it */
   }
 
   /* percentages of the votes cast, never a headcount, and always summing to 100 */
   const pct = Math.round((hb / cast) * 100);
-  return { cast, winner, split: { hb: pct, sb: 100 - pct } };
-}
-
-/* Julian's picks live in an environment variable, never in the repository:
-   FF_STARS="3:hb,4:sb,5:sb,6:sb,7:sb,8:hb,9:sb" */
-export function stars(raw) {
-  const out = {};
-  for (const pair of String(raw || '').split(',')) {
-    const [n, road] = pair.split(':').map((x) => (x || '').trim());
-    if (n && (road === 'hb' || road === 'sb')) out[n] = road;
-  }
-  return out;
+  return { cast, winner, split: { hb: pct, sb: 100 - pct }, broke };
 }

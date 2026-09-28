@@ -319,7 +319,31 @@
   function voteKey(c) { return 'ff-vote-' + c.n; }
   function getVote(c) { try { var v = localStorage.getItem(voteKey(c)); return v ? JSON.parse(v) : null; } catch (e) { return null; } }
   function setVote(c, v) { try { localStorage.setItem(voteKey(c), JSON.stringify(v)); } catch (e) {} }
-  function clearVote(c) { try { localStorage.removeItem(voteKey(c)); } catch (e) {} }
+  /* Clearing a vote used to happen only in this browser, which left the member's
+     old pick sitting in the count if they cleared it and then walked away. It
+     now tells the server too, and the server is allowed to be unreachable — the
+     member's own copy goes either way. */
+  function clearVote(c) {
+    var v = getVote(c);
+    try { localStorage.removeItem(voteKey(c)); } catch (e) {}
+    if (!v || !v.name) return;
+    try {
+      fetch('/api/ballot', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chapter: c.n, clear: true, name: v.name })
+      }).catch(function () {});
+      /* and a line in the readable record, so the log tells the whole story
+         rather than a vote that appears to stand and quietly does not */
+      fetch('/', {
+        method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'form-name': 'ballot', 'bot-field': '',
+          chapter: 'Chapter ' + pad(c.n) + ' \u00b7 ' + c.title,
+          road: 'Cleared', film: '\u2014', name: v.name
+        }).toString()
+      }).catch(function () {});
+    } catch (e) {}
+  }
   /* A member types their name on the first ballot and never again: it is kept in
      their own browser only, and clearing a vote does not forget it. */
   function getName() { try { return localStorage.getItem('ff-name') || ''; } catch (e) { return ''; } }

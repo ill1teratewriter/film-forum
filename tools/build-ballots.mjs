@@ -22,9 +22,14 @@ while ((m = re.exec(js))) {
   const opens = body.match(/opens:\s*'([^']+)'/);
   const closes = body.match(/closes:\s*'([^']+)'/);
   if (!opens || !closes) continue;
+  /* Look for the titles inside the ballot only. A chapter now also carries a
+     `ty:` table whose hb and sb are arrays starting with a CSS class, and it sits
+     above the ballot — so an unanchored search finds "c-rear" where it wants
+     "Rear Window". Everything the server needs lives at or after `opens:`. */
+  const scope = body.slice(Math.max(0, body.indexOf('opens:')));
   const films = {};
   for (const road of ['hb', 'sb']) {
-    const f = body.match(new RegExp(road + ": \\['((?:[^'\\\\]|\\\\.)*)'"));
+    const f = scope.match(new RegExp(road + ": \\['((?:[^'\\\\]|\\\\.)*)'"));
     if (f) films[road] = f[1].replace(/\\u2019/g, '’').replace(/\\'/g, "'");
   }
   ballots[n] = { opens: opens[1], closes: closes[1], films };
