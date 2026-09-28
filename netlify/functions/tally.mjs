@@ -91,35 +91,73 @@ export function me(raw, never) {
   };
 }
 
-/* `votes` is { normalisedName: 'hb' | 'sb' }.
+/* A vote is stored as { road, at } so the newest one can be told from the oldest.
+   Older ballots hold a bare road string; both shapes read the same way here. */
+export function roadOf(v) { return typeof v === 'string' ? v : (v && v.road) || null; }
+export function atOf(v) {
+  if (!v || typeof v !== 'object' || !v.at) return 0;
+  var t = Date.parse(v.at);
+  return isNaN(t) ? 0 : t;
+}
+
+/* One row per person.
+ *
+ * The chair answers to several names, which means he can end up in the room
+ * twice — once as "Julian" on a laptop, once as "Julian Tuttle" on a phone. Two
+ * rows for one man is not a tie-break problem, it is a miscount: it invents a
+ * vote. So his rows collapse to the most recent one before anything is counted.
+ *
+ * This is done for him and nobody else, deliberately. He is the only person
+ * whose several names are declared; folding two members together because their
+ * names look alike would be a far worse bug than the one it fixed. */
+export function collapse(votes, isMe) {
+  const out = {};
+  const superseded = [];
+  let chair = null, chairAt = -1, chairRoad = null;
+  for (const [name, v] of Object.entries(votes || {})) {
+    const road = roadOf(v);
+    if (!road) continue;
+    if (isMe && isMe(name)) {
+      const at = atOf(v);
+      if (chair === null || at > chairAt) {
+        if (chair !== null) superseded.push(chair);
+        chair = name; chairAt = at; chairRoad = road;
+      } else {
+        superseded.push(name);
+      }
+      continue;
+    }
+    out[name] = road;
+  }
+  if (chair !== null) out[chair] = chairRoad;
+  return { votes: out, chair, superseded };
+}
+
+/* `votes` is { normalisedName: 'hb' | 'sb' | {road, at} }.
    `isMe` is the matcher above, or null. The chair votes like everybody else and
    his vote sits in the split like everybody else's — it is only on an exact tie
    that it is withdrawn, so that he never breaks a deadlock in his own favour. */
 export function tally(votes, isMe) {
+  const one = collapse(votes, isMe);
   let hb = 0, sb = 0;
-  for (const road of Object.values(votes || {})) {
+  for (const road of Object.values(one.votes)) {
     if (road === 'hb') hb++;
     else if (road === 'sb') sb++;
   }
   const cast = hb + sb;
-  if (!cast) return { cast: 0, winner: null, split: null, broke: null };
+  if (!cast) return { cast: 0, winner: null, split: null, broke: null, superseded: one.superseded };
 
   let winner, broke = null;
   if (hb !== sb) {
     winner = hb > sb ? 'hb' : 'sb';
   } else {
-    /* a dead heat: find his vote in the room and take it out again */
-    let his = null;
-    if (isMe) {
-      for (const [name, road] of Object.entries(votes)) {
-        if (isMe(name)) { his = road; break; }
-      }
-    }
+    /* a dead heat: take his one vote back out again */
+    const his = one.chair ? one.votes[one.chair] : null;
     if (his) { winner = his === 'hb' ? 'sb' : 'hb'; broke = 'chair withdrew'; }
     else { winner = 'hb'; broke = 'no vote to withdraw'; }   /* the canon road takes it */
   }
 
   /* percentages of the votes cast, never a headcount, and always summing to 100 */
   const pct = Math.round((hb / cast) * 100);
-  return { cast, winner, split: { hb: pct, sb: 100 - pct }, broke };
+  return { cast, winner, split: { hb: pct, sb: 100 - pct }, broke, superseded: one.superseded };
 }

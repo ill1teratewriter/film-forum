@@ -78,6 +78,12 @@ button.quiet:hover{color:var(--text);border-color:var(--text)}
   color:var(--dim);white-space:nowrap}
 .count b{color:var(--text);font-weight:600}
 .broke{font-size:13.5px;color:var(--sb);margin-top:10px;font-style:italic;font-family:var(--serif)}
+/* a row the count has already set aside */
+tr.gone td{opacity:.42}
+tr.gone .road{border-style:dashed}
+.gonetag{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);border:1px dashed var(--line-2);border-radius:999px;padding:2px 8px;
+  margin-left:9px;vertical-align:1px}
 
 table{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
 th{text-align:left;font-family:var(--display);font-size:9.5px;letter-spacing:.22em;
@@ -177,11 +183,16 @@ td.r{text-align:right}
          ' &middot; ' + pct(d.split.hb) + ' ' + esc(hb) + ' &middot; ' +
          pct(d.split.sb) + ' ' + esc(sb) + '</span></div>';
     if (d.broke) h += '<p class="broke">A dead heat &mdash; ' + esc(d.broke) + '.</p>';
+    var gone = d.roster.filter(function (r) { return r.superseded; }).length;
+    if (gone) h += '<p class="broke">You are in the room ' + (gone + 1) + ' times, under ' +
+      (gone + 1) + ' spellings. Only the most recent counts &mdash; the older ' +
+      (gone === 1 ? 'one is' : 'ones are') + ' set aside below.</p>';
 
     h += '<table><thead><tr><th>Member</th><th style="text-align:right">Their pick</th></tr></thead><tbody>';
     d.roster.forEach(function (r) {
-      h += '<tr><td class="nm">' + esc(r.name) +
+      h += '<tr' + (r.superseded ? ' class="gone"' : '') + '><td class="nm">' + esc(r.name) +
            (r.chair ? '<span class="chairtag">Chair</span>' : '') +
+           (r.superseded ? '<span class="gonetag">Superseded</span>' : '') +
            '</td><td class="r"><span class="road ' + r.road + '">' +
            esc(r.road === 'hb' ? hb : sb) + '</span></td></tr>';
     });

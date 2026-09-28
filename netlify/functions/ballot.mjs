@@ -19,7 +19,7 @@
  */
 import { getStore } from '@netlify/blobs';
 import { BALLOTS } from './ballots.mjs';
-import { tally, me, normalise } from './tally.mjs';
+import { tally, me, normalise, roadOf, atOf } from './tally.mjs';
 
 const json = (body, status = 200) =>
   new Response(JSON.stringify(body), {
@@ -57,7 +57,8 @@ export default async (req) => {
     }
 
     if (sent.road !== 'hb' && sent.road !== 'sb') return json({ error: 'no such road' }, 400);
-    votes[name] = sent.road;
+    /* the hour it was cast, so the newest of the chair's several names can win */
+    votes[name] = { road: sent.road, at: new Date().toISOString() };
     await store.setJSON(`ch${n}`, votes);
     return json({ ok: true });
   }
@@ -78,12 +79,18 @@ export default async (req) => {
       if (!want || key !== want) return json({ error: 'no' }, 403);
       const votes = (await store.get(`ch${n}`, { type: 'json' })) || {};
       const result = tally(votes, isMe);
+      const dropped = new Set(result.superseded || []);
       return json({
         state: Date.now() > Date.parse(b.closes) ? 'closed'
              : Date.now() < Date.parse(b.opens) ? 'soon' : 'open',
         opens: b.opens, closes: b.closes, films: b.films,
         roster: Object.entries(votes)
-          .map(([name, road]) => ({ name, road, chair: isMe ? !!isMe(name) : false }))
+          .map(([name, v]) => ({
+            name, road: roadOf(v), at: atOf(v) || null,
+            chair: isMe ? !!isMe(name) : false,
+            superseded: dropped.has(name),
+          }))
+          .filter((r) => r.road)
           .sort((x, y) => x.name.localeCompare(y.name)),
         cast: result.cast, winner: result.winner, split: result.split, broke: result.broke,
       });
