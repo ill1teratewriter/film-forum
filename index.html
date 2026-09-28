@@ -787,7 +787,20 @@ button.brand:focus-visible{color:var(--text);outline:1px solid var(--line-2);out
 /* ---------- footer ---------- */
 footer{text-align:center;border-top:1px solid var(--line);margin-top:56px;padding-block:36px 120px;color:var(--faint);font-size:13.5px}
 footer .cr{margin-top:20px;font-size:12px;color:var(--faint);letter-spacing:.01em}
-footer .n{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--dim)}
+footer .n{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--dim);
+  cursor:default;-webkit-user-select:none;user-select:none}
+/* The way to the room. There is no link to it until the chair asks for one:
+   three taps on his own name in the footer. The secrecy is a courtesy, not a
+   lock — the roster itself is behind a key, and this only keeps a door out of
+   the members' way. */
+.doorway{margin-top:12px;height:0;overflow:hidden;opacity:0;
+  transition:height .4s cubic-bezier(.2,.8,.3,1),opacity .4s ease}
+.doorway.open{height:34px;opacity:1}
+.doorway a{font-family:var(--display);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--sb);border:1px solid rgba(255,157,46,.5);border-bottom-color:rgba(255,157,46,.5);
+  border-radius:999px;padding:8px 16px;display:inline-block;transition:.2s}
+.doorway a:hover{color:var(--ink);background:var(--sb);border-color:var(--sb)}
+footer .n.knocking{color:var(--sb)}
 footer .row{margin-top:10px}
 footer a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--line-2)}
 footer a:hover{border-bottom-color:var(--hb)}
@@ -898,7 +911,8 @@ footer a:hover{border-bottom-color:var(--hb)}
 
   <div class="actionbar" id="abar" hidden></div>
   <footer>
-    <div class="n">R. Julian Tuttle</div>
+    <div class="n" id="ffname">R. Julian Tuttle</div>
+    <div class="doorway" id="doorway"><a href="/roster/">The room &rarr;</a></div>
     <div class="row"><a href="https://illiteratewriter.substack.com">Become a Film Forum member &rarr;</a></div>
     <div class="row"><a href="/calendar/film-forum-season.ics" download>Put all nine forums in your calendar &rarr;</a></div>
     <div class="row">Questions, arguments, films you want on the ballot: <a href="mailto:heyilliteratewriter@gmail.com">heyilliteratewriter@gmail.com</a></div>
@@ -1650,6 +1664,32 @@ footer a:hover{border-bottom-color:var(--hb)}
       err.hidden = false;
     });
   });
+
+  /* Three taps on the name in the footer, inside a second and a half, and the
+     way to the roster appears. It stays for the rest of the browsing session, so
+     it is one tap to get back to it, and no member ever sees it. */
+  (function () {
+    var name = document.getElementById('ffname'), door = document.getElementById('doorway');
+    if (!name || !door) return;
+    function open() {
+      door.classList.add('open');
+      try { sessionStorage.setItem('ff.door', '1'); } catch (e) {}
+    }
+    try { if (sessionStorage.getItem('ff.door') === '1') door.classList.add('open'); } catch (e) {}
+    var knocks = 0, timer = null;
+    name.addEventListener('click', function () {
+      if (door.classList.contains('open')) return;
+      knocks++;
+      name.classList.add('knocking');
+      clearTimeout(timer);
+      timer = setTimeout(function () { knocks = 0; name.classList.remove('knocking'); }, 1500);
+      if (knocks >= 3) {
+        knocks = 0;
+        name.classList.remove('knocking');
+        open();
+      }
+    });
+  })();
 
   armArrival();
   render();
