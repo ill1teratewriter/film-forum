@@ -1254,6 +1254,7 @@ footer a:hover{border-bottom-color:var(--hb)}
     '<rect x="1" y="5" width="8" height="6.2" rx="1.4" fill="currentColor" stroke="none" opacity=".85"/></svg>';
   var DAY_MS = 86400000, HALF = 1800000, DOOR = F.DOOR || 300000;
   var unlocking = {};          /* chapters whose unlock is playing or played */
+  var stoodDown = {};          /* weeks that have already given up the highlight */
   var pretendLocked = null;    /* a chapter held shut for a moment so it can open in front of you */
 
   function two(n) { return (n < 10 ? '0' : '') + n; }
@@ -1276,22 +1277,33 @@ footer a:hover{border-bottom-color:var(--hb)}
 
   function paintForum(el, c) {
     var t = F.meetAt(c).getTime(), now = Date.now(), ms = t - now;
-    var live = ms <= 0 && now < t + F.FORUM.minutes * 60000;
-    var over = now >= t + F.FORUM.minutes * 60000;
+    /* Three different things, and they used to be two. The call is over when its
+       hour is up; the week is spent when the site lets go of it, which is two
+       hours after the start. Between those the row simply shows its date again.
+       Conflating them put the page in a loop: paintForum called the hour over,
+       render rebuilt the row as the current week because beat() disagreed, and
+       the two of them traded the page back and forth a hundred times a second. */
+    var ended = now >= t + F.FORUM.minutes * 60000;
+    var spent = F.beat(c) === 'done';
+    var live = ms <= 0 && !ended;
     var inside = ms > 0 && ms <= DAY_MS, near = ms > 0 && ms <= DOOR;
     var m = F.meetLocal(c);
     el.className = 'pill forum';
     if (live) {
       el.className = 'pill forum livenow';
       el.innerHTML = '<span class="dot"></span>Live now';
-    } else if (over) {
+    } else if (spent) {
       /* a week that has run needs no date on it: nobody arriving is looking for
          it, and it only crowds the rows that still need something */
       el.className = 'pill forum spent';
       el.hidden = true;
       var row = el.closest('.ch');
-      /* the highlight goes with it, once, the moment the two hours are up */
-      if (row && row.classList.contains('now')) setTimeout(function () { render(openRow()); }, 0);
+      /* the highlight goes with it, once and once only — a re-render that does not
+         settle the row must never be asked for twice */
+      if (row && row.classList.contains('now') && !stoodDown[c.n]) {
+        stoodDown[c.n] = 1;
+        setTimeout(function () { render(openRow()); }, 0);
+      }
     } else if (!inside) {
       el.hidden = false;
       el.textContent = 'Forum ' + m.day + ' · ' + m.time;
@@ -1303,7 +1315,7 @@ footer a:hover{border-bottom-color:var(--hb)}
 
     var ld = document.querySelector('.lastday[data-last="' + c.n + '"]');
     if (!ld) return;
-    ld.hidden = !(near || live);
+    ld.hidden = !(near || live);      /* the way in, only while there is one */
     ld.className = 'lastday' + (live ? ' livenow' : '');
     if (ld.hidden) return;
     var k = ld.querySelector('.ld-k'), tm = ld.querySelector('.ld-time'), wh = ld.querySelector('.ld-when');
