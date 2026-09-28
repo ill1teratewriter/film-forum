@@ -788,7 +788,8 @@ button.brand:focus-visible{color:var(--text);outline:1px solid var(--line-2);out
 footer{text-align:center;border-top:1px solid var(--line);margin-top:56px;padding-block:36px 120px;color:var(--faint);font-size:13.5px}
 footer .cr{margin-top:20px;font-size:12px;color:var(--faint);letter-spacing:.01em}
 footer .n{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--dim);
-  cursor:default;-webkit-user-select:none;user-select:none}
+  cursor:default;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;
+  display:inline-block;transition:color .3s ease,text-shadow .3s ease}
 /* The way to the room. There is no link to it until the chair asks for one:
    three taps on his own name in the footer. The secrecy is a courtesy, not a
    lock — the roster itself is behind a key, and this only keeps a door out of
@@ -800,7 +801,8 @@ footer .n{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--
   color:var(--sb);border:1px solid rgba(255,157,46,.5);border-bottom-color:rgba(255,157,46,.5);
   border-radius:999px;padding:8px 16px;display:inline-block;transition:.2s}
 .doorway a:hover{color:var(--ink);background:var(--sb);border-color:var(--sb)}
-footer .n.knocking{color:var(--sb)}
+/* held down: the name warms up while the door is being opened */
+footer .n.knocking{color:var(--sb);text-shadow:0 0 18px rgba(255,157,46,.5)}
 footer .row{margin-top:10px}
 footer a{color:var(--text);text-decoration:none;border-bottom:1px solid var(--line-2)}
 footer a:hover{border-bottom-color:var(--hb)}
@@ -1671,23 +1673,50 @@ footer a:hover{border-bottom-color:var(--hb)}
   (function () {
     var name = document.getElementById('ffname'), door = document.getElementById('doorway');
     if (!name || !door) return;
+
     function open() {
+      if (door.classList.contains('open')) return;
       door.classList.add('open');
+      name.classList.remove('knocking');
       try { sessionStorage.setItem('ff.door', '1'); } catch (e) {}
     }
     try { if (sessionStorage.getItem('ff.door') === '1') door.classList.add('open'); } catch (e) {}
+
+    /* Three fast clicks on a line of text is the browser's own "select this
+       paragraph", so the knock cannot rely on clicks alone. Holding is the
+       gesture that collides with nothing: press the name for three quarters of
+       a second, on a mouse or a thumb, and the door opens. Three taps still
+       work for anyone who tries that first. */
+    name.addEventListener('selectstart', function (e) { e.preventDefault(); });
+    name.addEventListener('contextmenu', function (e) { e.preventDefault(); });
+
+    var held = null;
+    function press() {
+      if (door.classList.contains('open')) return;
+      name.classList.add('knocking');
+      held = setTimeout(open, 750);
+    }
+    function release() {
+      clearTimeout(held);
+      held = null;
+      if (!door.classList.contains('open')) name.classList.remove('knocking');
+    }
+    name.addEventListener('mousedown', function (e) { e.preventDefault(); press(); });
+    name.addEventListener('touchstart', press, { passive: true });
+    ['mouseup', 'mouseleave', 'touchend', 'touchcancel'].forEach(function (ev) {
+      name.addEventListener(ev, release);
+    });
+
     var knocks = 0, timer = null;
     name.addEventListener('click', function () {
       if (door.classList.contains('open')) return;
       knocks++;
-      name.classList.add('knocking');
       clearTimeout(timer);
-      timer = setTimeout(function () { knocks = 0; name.classList.remove('knocking'); }, 1500);
-      if (knocks >= 3) {
+      timer = setTimeout(function () {
         knocks = 0;
-        name.classList.remove('knocking');
-        open();
-      }
+        if (!held) name.classList.remove('knocking');
+      }, 1500);
+      if (knocks >= 3) { knocks = 0; open(); }
     });
   })();
 
