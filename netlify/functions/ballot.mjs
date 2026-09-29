@@ -43,6 +43,56 @@ const opens = (key) => {
    a vote arriving at the same moment, and a vote can never wipe a silence */
 const hushKey = (n) => `ch${n}-silenced`;
 
+/* Everything the roster page says about how the room works lives here rather
+ * than in the page, and is sent only with a key that checks out.
+ *
+ * The page itself is public — anybody who guesses the address gets it, and can
+ * read its source. It gives up no votes either way, because the votes are behind
+ * the key. But the explanation of how the counting works is worth keeping back
+ * too: that the chair has a key at all, that names are matched loosely, that a
+ * tie withdraws his vote, that a vote can be silenced. None of that is secret in
+ * the sense that it would matter if it got out, and all of it is the sort of
+ * thing a member does not need to be thinking about while they vote. So the
+ * locked page says nothing, and this arrives with the room. */
+const NOTES = {
+  heading: 'The room',
+  badge: 'Chair only',
+  title: 'The room · Film Forum',
+  intro:
+    'Who has voted, what they picked, and when — newest vote at the top. A member ' +
+    'who changed their mind under the same name appears once, with the pick that counts. ' +
+    'A vote that shouldn’t count can be silenced by hand, and silencing never deletes ' +
+    'anything.',
+  notes: [
+    '<b>This is the only place the standings exist before Sunday night.</b> The site ' +
+    'itself shows no numbers at all while a ballot is open — not to members, not to ' +
+    'you — so that nobody votes for the side that is winning. Keep the key to yourself ' +
+    'and this stays true.',
+
+    '<b>The key is <code>FF_KEY</code></b> in the Netlify environment variables, and it is ' +
+    'remembered in this browser once you have typed it. <b>Chair</b> beside a name means the ' +
+    'counter recognises that person as you, from <code>FF_ME</code> — that is the vote ' +
+    'that gets withdrawn if the room ties exactly.',
+
+    '<b>Silence</b> takes one vote out of the count and leaves everything else alone. Use it ' +
+    'when the same member has voted twice under two spellings — phone and desktop — ' +
+    'and the count has no way of knowing they are one person. <b>Nothing is deleted.</b> The ' +
+    'vote stays in the store, stays on this page greyed out, and <b>Count it</b> puts it back. ' +
+    'Your own older spellings say <b>Superseded</b> instead and need no help; the counter ' +
+    'already folds those together.',
+
+    '<b>Rows run newest first, with the hour under each name.</b> So when one person appears ' +
+    'twice, the two rows sit near each other and <b>the lower of the two is the older vote</b> ' +
+    '— that is the one to silence. If they changed their mind rather than voted twice, ' +
+    'the same rule holds: silence the older, keep the one on top.',
+
+    'A silence sets aside a <b>vote</b>, not a person. If a name you silenced votes again ' +
+    'afterwards, that newer vote counts and the row is marked <b>Voted again</b> — ' +
+    'because a member quietly losing their latest vote to a silence nobody remembers setting ' +
+    'would be the worse mistake of the two. Silence it again if it is still one person twice.',
+  ],
+};
+
 export default async (req) => {
   const url = new URL(req.url);
   const store = getStore('ff-ballots');
@@ -139,6 +189,10 @@ export default async (req) => {
              recorded have nothing to sort on and go to the bottom. */
           .sort((x, y) => (y.at || 0) - (x.at || 0) || x.name.localeCompare(y.name)),
         cast: result.cast, winner: result.winner, split: result.split, broke: result.broke,
+        /* the page has no words of its own until the key checks out — even the
+           heading and the tab title come down with the room */
+        heading: NOTES.heading, badge: NOTES.badge, title: NOTES.title,
+        intro: NOTES.intro, notes: NOTES.notes,
       });
     }
 
