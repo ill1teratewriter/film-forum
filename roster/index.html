@@ -84,6 +84,23 @@ tr.gone .road{border-style:dashed}
 .gonetag{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--faint);border:1px dashed var(--line-2);border-radius:999px;padding:2px 8px;
   margin-left:9px;vertical-align:1px}
+/* a row silenced by hand — dimmed, never hidden, one tap from counting again */
+tr.hush td{opacity:.42}
+tr.hush .road{border-style:dashed}
+tr.hush td.act{opacity:1}
+.hushtag{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--faint);border:1px dashed var(--line-2);border-radius:999px;padding:2px 8px;
+  margin-left:9px;vertical-align:1px}
+.againtag{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink);background:var(--sb);border:1px solid var(--sb);border-radius:999px;
+  padding:2px 8px;margin-left:9px;vertical-align:1px;font-weight:600}
+button.hushbtn{font-size:9.5px;letter-spacing:.16em;padding:6px 13px;background:none;
+  color:var(--faint);border:1px solid var(--line);font-weight:400}
+button.hushbtn:hover{color:var(--hb);border-color:rgba(255,92,122,.55);background:none}
+button.hushbtn.back{color:var(--ok);border-color:rgba(143,217,168,.45)}
+button.hushbtn.back:hover{color:var(--ok);border-color:var(--ok)}
+button.hushbtn[disabled]{opacity:.4;cursor:default}
+td.act{text-align:right;white-space:nowrap;padding-left:14px;width:1%}
 
 table{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
 th{text-align:left;font-family:var(--display);font-size:9.5px;letter-spacing:.22em;
@@ -91,6 +108,11 @@ th{text-align:left;font-family:var(--display);font-size:9.5px;letter-spacing:.22
   border-bottom:1px solid var(--line)}
 td{padding:11px 0;border-bottom:1px solid var(--line);vertical-align:middle}
 td.nm{text-transform:capitalize}
+/* the hour the vote was cast, under the name. The rows are newest-first, so when
+   one person shows up twice the older of the two is always the lower row — which
+   is the whole instruction: silence the lower one. */
+.when{display:block;text-transform:none;font-family:var(--display);font-size:10px;
+  letter-spacing:.14em;color:var(--faint);margin-top:3px;font-weight:300}
 .chairtag{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--sb);border:1px solid rgba(255,157,46,.5);border-radius:999px;padding:2px 8px;
   margin-left:9px;vertical-align:1px}
@@ -114,9 +136,10 @@ td.r{text-align:right}
   </header>
 
   <h1>The room</h1>
-  <p class="stand">Who has voted, and what they picked. One line per person, their
-  current choice only &mdash; a member who changed their mind appears once, with the
-  pick that counts.</p>
+  <p class="stand">Who has voted, what they picked, and when &mdash; newest vote at the
+  top. A member who changed their mind under the same name appears once, with the pick
+  that counts. A vote that shouldn&rsquo;t count can be silenced by hand, and silencing
+  never deletes anything.</p>
 
   <div class="keybox" id="keybox">
     <label for="key">Your key</label>
@@ -139,6 +162,23 @@ td.r{text-align:right}
     remembered in this browser once you have typed it. <b>Chair</b> beside a name means the
     counter recognises that person as you, from <code>FF_ME</code> &mdash; that is the vote
     that gets withdrawn if the room ties exactly.
+    <br><br>
+    <b>Silence</b> takes one vote out of the count and leaves everything else alone. Use it
+    when the same member has voted twice under two spellings &mdash; phone and desktop &mdash;
+    and the count has no way of knowing they are one person. <b>Nothing is deleted.</b> The
+    vote stays in the store, stays on this page greyed out, and <b>Count it</b> puts it back.
+    Your own older spellings say <b>Superseded</b> instead and need no help; the counter
+    already folds those together.
+    <br><br>
+    <b>Rows run newest first, with the hour under each name.</b> So when one person appears
+    twice, the two rows sit near each other and <b>the lower of the two is the older vote</b>
+    &mdash; that is the one to silence. If they changed their mind rather than voted twice,
+    the same rule holds: silence the older, keep the one on top.
+    <br><br>
+    A silence sets aside a <b>vote</b>, not a person. If a name you silenced votes again
+    afterwards, that newer vote counts and the row is marked <b>Voted again</b> &mdash;
+    because a member quietly losing their latest vote to a silence nobody remembers setting
+    would be the worse mistake of the two. Silence it again if it is still one person twice.
   </p>
 </div>
 
@@ -154,6 +194,18 @@ td.r{text-align:right}
   function forget() { try { localStorage.removeItem('ff-key'); } catch (e) {} }
 
   function pct(n) { return Math.round(n) + '%'; }
+
+  /* When a vote was cast, in forum time, so the order on screen is the order it
+     happened in. Votes stored before the hour was recorded have nothing to show. */
+  function when(at) {
+    if (!at) return 'before votes were timed';
+    try {
+      return new Date(at).toLocaleString('en-US', {
+        timeZone: 'America/Los_Angeles', weekday: 'short', month: 'short',
+        day: 'numeric', hour: 'numeric', minute: '2-digit',
+      }).replace(/,/g, '').replace(' AM', 'am').replace(' PM', 'pm');
+    } catch (e) { return ''; }
+  }
 
   function chapterOf(n) {
     if (!F) return null;
@@ -188,20 +240,81 @@ td.r{text-align:right}
       (gone + 1) + ' spellings. Only the most recent counts &mdash; the older ' +
       (gone === 1 ? 'one is' : 'ones are') + ' set aside below.</p>';
 
-    h += '<table><thead><tr><th>Member</th><th style="text-align:right">Their pick</th></tr></thead><tbody>';
+    var hush = d.roster.filter(function (r) { return r.silenced; }).length;
+    if (hush) h += '<p class="broke">' + hush + (hush === 1 ? ' vote is' : ' votes are') +
+      ' silenced by hand and ' + (hush === 1 ? 'is' : 'are') +
+      ' not in the count above. Nothing has been deleted.</p>';
+
+    var again = d.roster.filter(function (r) { return r.revoted; }).length;
+    if (again) h += '<p class="broke">' + (again === 1 ? 'A name you silenced has' :
+      again + ' names you silenced have') + ' voted again since. The newer vote counts &mdash;' +
+      ' silence it again if it is still the same person twice.</p>';
+
+    h += '<table><thead><tr><th>Member &middot; newest vote first</th>' +
+         '<th style="text-align:right">Their pick</th><th></th></tr></thead><tbody>';
     d.roster.forEach(function (r) {
-      h += '<tr' + (r.superseded ? ' class="gone"' : '') + '><td class="nm">' + esc(r.name) +
+      var cls = r.superseded ? ' class="gone"' : r.silenced ? ' class="hush"' : '';
+      h += '<tr' + cls + '><td class="nm">' + esc(r.name) +
            (r.chair ? '<span class="chairtag">Chair</span>' : '') +
            (r.superseded ? '<span class="gonetag">Superseded</span>' : '') +
+           (r.silenced ? '<span class="hushtag">Silenced</span>' : '') +
+           (r.revoted ? '<span class="againtag">Voted again</span>' : '') +
+           '<span class="when">' + when(r.at) + '</span>' +
            '</td><td class="r"><span class="road ' + r.road + '">' +
-           esc(r.road === 'hb' ? hb : sb) + '</span></td></tr>';
+           esc(r.road === 'hb' ? hb : sb) + '</span></td><td class="act">' +
+           (r.superseded
+             ? '<button type="button" class="hushbtn" disabled ' +
+               'title="Already out of the count \u2014 an older spelling of your own name">' +
+               'Out already</button>'
+             : '<button type="button" class="hushbtn' + (r.silenced ? ' back' : '') +
+               '" data-ch="' + n + '" data-name="' + esc(r.name) + '" data-on="' +
+               (r.silenced ? '0' : '1') + '">' +
+               (r.silenced ? 'Count it' : 'Silence') + '</button>') +
+           '</td></tr>';
     });
     h += '</tbody></table></section>';
     return h;
   }
 
+  /* the key in use, so a Silence tap does not have to be handed it again */
+  var theKey = '';
+
+  /* One listener, set up once: the rows are rewritten on every refresh, so
+     nothing is bound to a button that is about to be thrown away. */
+  out.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button.hushbtn') : null;
+    if (!b || b.disabled || !b.getAttribute('data-name')) return;
+    var on = b.getAttribute('data-on') === '1';
+    b.disabled = true;
+    b.textContent = on ? 'Silencing\u2026' : 'Counting\u2026';
+    fetch('/api/ballot', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        chapter: b.getAttribute('data-ch'),
+        silence: b.getAttribute('data-name'),
+        on: on,
+        key: theKey,
+      }),
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      if (d && d.error) throw new Error(d.error);
+      load(theKey);                 /* recount from the server, never from here */
+    }).catch(function (x) {
+      b.disabled = false;
+      b.textContent = on ? 'Silence' : 'Count it';
+      var why = (x && x.message) || '';
+      /* the error line lives in the key box, so the box comes back with it */
+      err.textContent = why === 'no'
+        ? 'The key has stopped working \u2014 type it again.'
+        : 'That did not save: ' + (why || 'no answer from the counter') + '. The vote is unchanged.';
+      err.hidden = false;
+      box.hidden = false;
+    });
+  });
+
   function load(key) {
     if (!F) { err.textContent = 'The book file did not load.'; err.hidden = false; return; }
+    theKey = key;
     err.hidden = true;
     out.innerHTML = '<p class="none">Counting&hellip;</p>';
     var jobs = F.CHAPTERS.filter(function (c) { return !!c.ballot; }).map(function (c) {

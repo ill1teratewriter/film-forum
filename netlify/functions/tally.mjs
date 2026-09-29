@@ -100,6 +100,29 @@ export function atOf(v) {
   return isNaN(t) ? 0 : t;
 }
 
+/* Silencing a vote by hand.
+ *
+ * The chair's own double is caught by name. Anybody else's is not, and cannot
+ * be: two rows that look like one person might be one person on two devices or
+ * two people with similar names, and no rule can tell. So the chair silences one
+ * by hand from the roster, and the silence is recorded as
+ *
+ *   silenced[name] = { since: <when he silenced it>, at: <the vote it silenced> }
+ *
+ * `at` is the moment that vote was cast. It is there so a silence sets aside a
+ * *vote*, not a person: if that name votes again afterwards, the newer vote is a
+ * new statement and it counts, and the roster says so in plain sight. A member
+ * losing their latest vote to a silence nobody remembers setting would be the
+ * worse failure of the two.
+ *
+ * Nothing is ever deleted. A silenced vote is still in the store and still on
+ * the roster, greyed, one tap from counting again. */
+export function hushOf(rec, v) {
+  if (!rec) return null;
+  const mark = (rec && typeof rec === 'object' && Number(rec.at)) || 0;
+  return atOf(v) > mark ? 'revoted' : 'hushed';
+}
+
 /* One row per person.
  *
  * The chair answers to several names, which means he can end up in the room
@@ -109,14 +132,19 @@ export function atOf(v) {
  *
  * This is done for him and nobody else, deliberately. He is the only person
  * whose several names are declared; folding two members together because their
- * names look alike would be a far worse bug than the one it fixed. */
-export function collapse(votes, isMe) {
+ * names look alike would be a far worse bug than the one it fixed. Everybody
+ * else's double is handled by hand, above. */
+export function collapse(votes, isMe, silenced) {
   const out = {};
   const superseded = [];
+  const hushed = [];
   let chair = null, chairAt = -1, chairRoad = null;
   for (const [name, v] of Object.entries(votes || {})) {
     const road = roadOf(v);
     if (!road) continue;
+    /* silenced by hand: out of the count entirely, before anything else looks at
+       it, so silencing one of the chair's own rows works the same way */
+    if (silenced && hushOf(silenced[name], v) === 'hushed') { hushed.push(name); continue; }
     if (isMe && isMe(name)) {
       const at = atOf(v);
       if (chair === null || at > chairAt) {
@@ -130,22 +158,23 @@ export function collapse(votes, isMe) {
     out[name] = road;
   }
   if (chair !== null) out[chair] = chairRoad;
-  return { votes: out, chair, superseded };
+  return { votes: out, chair, superseded, hushed };
 }
 
 /* `votes` is { normalisedName: 'hb' | 'sb' | {road, at} }.
    `isMe` is the matcher above, or null. The chair votes like everybody else and
    his vote sits in the split like everybody else's — it is only on an exact tie
    that it is withdrawn, so that he never breaks a deadlock in his own favour. */
-export function tally(votes, isMe) {
-  const one = collapse(votes, isMe);
+export function tally(votes, isMe, silenced) {
+  const one = collapse(votes, isMe, silenced);
   let hb = 0, sb = 0;
   for (const road of Object.values(one.votes)) {
     if (road === 'hb') hb++;
     else if (road === 'sb') sb++;
   }
   const cast = hb + sb;
-  if (!cast) return { cast: 0, winner: null, split: null, broke: null, superseded: one.superseded };
+  if (!cast) return { cast: 0, winner: null, split: null, broke: null,
+                      superseded: one.superseded, hushed: one.hushed };
 
   let winner, broke = null;
   if (hb !== sb) {
@@ -159,5 +188,6 @@ export function tally(votes, isMe) {
 
   /* percentages of the votes cast, never a headcount, and always summing to 100 */
   const pct = Math.round((hb / cast) * 100);
-  return { cast, winner, split: { hb: pct, sb: 100 - pct }, broke, superseded: one.superseded };
+  return { cast, winner, split: { hb: pct, sb: 100 - pct }, broke,
+           superseded: one.superseded, hushed: one.hushed };
 }
