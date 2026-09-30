@@ -102,6 +102,32 @@ button.hushbtn.back:hover{color:var(--ok);border-color:var(--ok)}
 button.hushbtn[disabled]{opacity:.4;cursor:default}
 td.act{text-align:right;white-space:nowrap;padding-left:14px;width:1%}
 
+/* ---------- ending a ballot early -----------------------------------------
+   Deliberately the loudest thing in the room, and deliberately two taps. */
+.call{margin-top:20px;border:1px solid rgba(255,92,122,.3);border-radius:13px;padding:15px 17px;
+  background:rgba(255,92,122,.05)}
+.call.done{border-color:rgba(143,217,168,.32);background:rgba(143,217,168,.05)}
+.callnote{margin:0 0 12px;font-size:14px;color:var(--dim);line-height:1.65}
+.callnote b{color:var(--text);font-weight:600}
+.callnote .big{display:block;font-family:var(--serif);font-style:italic;font-size:17px;
+  color:var(--text);margin-bottom:8px}
+button.callbtn{font-size:10px;letter-spacing:.2em;padding:10px 18px;background:none;
+  color:var(--hb);border:1px solid rgba(255,92,122,.55);font-weight:600}
+button.callbtn:hover{background:rgba(255,92,122,.13);color:#fff;border-color:var(--hb)}
+button.callbtn.yes{background:var(--hb);border-color:var(--hb);color:#12060a}
+button.callbtn.yes:hover{background:#ff7590;color:#12060a}
+button.callbtn.no{color:var(--dim);border-color:var(--line-2)}
+button.callbtn.no:hover{background:none;color:var(--text);border-color:var(--text)}
+button.callbtn.back{color:var(--ok);border-color:rgba(143,217,168,.45)}
+button.callbtn.back:hover{background:rgba(143,217,168,.12);color:var(--ok);border-color:var(--ok)}
+button.callbtn[disabled]{opacity:.38;cursor:default;background:none;color:var(--faint);
+  border-color:var(--line)}
+.ask[hidden],.offer[hidden]{display:none}
+.ask{border-top:1px solid rgba(255,92,122,.22);margin-top:14px;padding-top:14px}
+.warn{font-family:var(--display);font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--hb);display:block;margin-bottom:9px}
+.btns{display:flex;gap:9px;flex-wrap:wrap}
+
 table{width:100%;border-collapse:collapse;margin-top:16px;font-size:15px}
 th{text-align:left;font-family:var(--display);font-size:9.5px;letter-spacing:.22em;
   text-transform:uppercase;color:var(--faint);font-weight:600;padding:0 0 8px;
@@ -335,8 +361,10 @@ body.shut{overflow:hidden}
       '<span class="state ' + d.state + '">' + (d.state === 'open' ? 'Voting open'
         : d.state === 'closed' ? 'Closed' : 'Not open yet') + '</span></div>';
 
+    /* the panel belongs to the week, not to the votes: it shows on an open
+       ballot even before anybody has voted, with nothing to agree to yet */
     if (!d.cast) {
-      h += '<p class="none">Nobody has voted yet.</p></section>';
+      h += '<p class="none">Nobody has voted yet.</p>' + callBox(n, d, hb, sb) + '</section>';
       return h;
     }
 
@@ -384,8 +412,69 @@ body.shut{overflow:hidden}
                (r.silenced ? 'Count it' : 'Silence') + '</button>') +
            '</td></tr>';
     });
-    h += '</tbody></table></section>';
+    h += '</tbody></table>' + callBox(n, d, hb, sb) + '</section>';
     return h;
+  }
+
+  /* How the room stands this second, said in one sentence, so the warning he is
+     asked to agree to contains the actual result rather than an abstraction. */
+  function standing(d, hb, sb) {
+    if (!d.cast) return 'Nobody has voted yet.';
+    var w = d.winner === 'hb' ? hb : sb;
+    var share = d.winner === 'hb' ? d.split.hb : d.split.sb;
+    return '<b>' + esc(w) + '</b> takes it, ' + share + '&ndash;' + (100 - share) +
+           ', on ' + d.cast + (d.cast === 1 ? ' vote' : ' votes') +
+           (d.broke ? ' &mdash; a dead heat, ' + esc(d.broke) : '') + '.';
+  }
+
+  /* Ending a ballot before its Sunday.
+   *
+   * Two taps, never one, and the second tap is asked for underneath a sentence
+   * naming the film that is about to win. The result shown here is the result
+   * that gets posted — it is the same count, from the same server, a second
+   * earlier — so there is no gap between what he agrees to and what the room
+   * sees. Nothing is frozen: silencing a vote afterwards still moves it. */
+  function callBox(n, d, hb, sb) {
+    var early = d.called && d.called.at;
+
+    if (early) {
+      return '<div class="call done" id="call' + n + '">' +
+        '<p class="callnote">Called early on <b>' + when(Date.parse(d.called.at)) + '</b>. ' +
+        'Voting is shut and the result is on the site. ' + standing(d, hb, sb) + '</p>' +
+        '<div class="offer"><button type="button" class="callbtn back" data-call="' + n +
+          '" data-act="ask">Reopen voting</button></div>' +
+        '<div class="ask" hidden><span class="warn">Are you sure?</span>' +
+        '<p class="callnote">Reopening takes the result back off the site and lets the room ' +
+        'vote again until Sunday. Anyone who already saw the winner will have seen it.</p>' +
+        '<div class="btns">' +
+          '<button type="button" class="callbtn yes" data-call="' + n + '" data-on="0">' +
+            'Yes &mdash; reopen it</button>' +
+          '<button type="button" class="callbtn no" data-call="' + n + '" data-act="never">' +
+            'Leave it called</button>' +
+        '</div></div></div>';
+    }
+
+    if (d.state !== 'open') return '';       /* the calendar has it; nothing to skip */
+
+    return '<div class="call" id="call' + n + '">' +
+      '<p class="callnote">This ballot runs until Sunday. You can end it now instead.</p>' +
+      '<div class="offer"><button type="button" class="callbtn" data-call="' + n +
+        '" data-act="ask">Call it now</button></div>' +
+      '<div class="ask" hidden><span class="warn">Are you sure?</span>' +
+      '<p class="callnote"><span class="big">' + standing(d, hb, sb) + '</span>' +
+      (d.cast
+        ? 'Calling it now ends the vote for everyone and puts that result on the site ' +
+          'immediately. Anybody who has not voted yet loses their chance. You can reopen ' +
+          'it afterwards, but not unsee it.'
+        : 'There is nothing to call yet. A ballot with no votes in it has no result to ' +
+          'post, so this waits until somebody has voted.') + '</p>' +
+      '<div class="btns">' +
+        '<button type="button" class="callbtn yes" data-call="' + n + '" data-on="1"' +
+          (d.cast ? '' : ' disabled title="Nobody has voted"') + '>' +
+          'Yes &mdash; call it and post</button>' +
+        '<button type="button" class="callbtn no" data-call="' + n + '" data-act="never">' +
+          'Keep it open</button>' +
+      '</div></div></div>';
   }
 
   /* the key in use, so a Silence tap does not have to be handed it again */
@@ -394,7 +483,41 @@ body.shut{overflow:hidden}
   /* One listener, set up once: the rows are rewritten on every refresh, so
      nothing is bound to a button that is about to be thrown away. */
   out.addEventListener('click', function (e) {
-    var b = e.target.closest ? e.target.closest('button.hushbtn') : null;
+    if (!e.target.closest) return;
+
+    /* the two taps of calling a ballot early */
+    var c = e.target.closest('button.callbtn');
+    if (c && !c.disabled) {
+      var n = c.getAttribute('data-call');
+      var host = document.getElementById('call' + n);
+      var act = c.getAttribute('data-act');
+      if (act === 'ask' || act === 'never') {
+        var asking = act === 'ask';
+        host.querySelector('.ask').hidden = !asking;
+        host.querySelector('.offer').hidden = asking;
+        return;
+      }
+      var on = c.getAttribute('data-on') === '1';
+      Array.prototype.forEach.call(host.querySelectorAll('button'), function (x) { x.disabled = true; });
+      c.textContent = on ? 'Calling it…' : 'Reopening…';
+      fetch('/api/ballot', {
+        method: 'POST', headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ chapter: n, call: on, key: theKey }),
+      }).then(function (r) { return r.json(); }).then(function (d) {
+        if (d && d.error) throw new Error(d.error);
+        load(theKey);
+      }).catch(function (x) {
+        Array.prototype.forEach.call(host.querySelectorAll('button'), function (y) { y.disabled = false; });
+        c.textContent = on ? 'Yes — call it and post' : 'Yes — reopen it';
+        err.textContent = 'That did not save: ' + ((x && x.message) || 'no answer from the counter') +
+          '. The ballot is unchanged.';
+        err.hidden = false;
+        box.hidden = false;
+      });
+      return;
+    }
+
+    var b = e.target.closest('button.hushbtn');
     if (!b || b.disabled || !b.getAttribute('data-name')) return;
     var on = b.getAttribute('data-on') === '1';
     b.disabled = true;

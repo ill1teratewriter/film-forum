@@ -43,6 +43,23 @@ const opens = (key) => {
    a vote arriving at the same moment, and a vote can never wipe a silence */
 const hushKey = (n) => `ch${n}-silenced`;
 
+/* Calling a ballot before Sunday.
+ *
+ * The calendar closes every ballot at 23:59 on the Sunday. Sometimes the room
+ * has plainly decided long before that — everyone who is going to vote has
+ * voted — and the chair wants to call it in the meeting and move on. This is
+ * that: one record saying the ballot is over early, written by the chair alone.
+ *
+ * It stores WHEN, not WHO WON. The winner is still worked out from the votes
+ * every time anybody asks, so a vote silenced afterwards still corrects the
+ * published result. Freezing the answer here would quietly undo that. */
+const calledKey = (n) => `ch${n}-called`;
+const calledAt = (rec) => {
+  if (!rec || typeof rec !== 'object' || !rec.at) return 0;
+  const t = Date.parse(rec.at);
+  return isNaN(t) ? 0 : t;
+};
+
 /* Everything the roster page says about how the room works lives here rather
  * than in the page, and is sent only with a key that checks out.
  *
@@ -126,12 +143,29 @@ export default async (req) => {
       return json({ ok: true, silenced: sent.on !== false });
     }
 
+    /* the chair ending it early, or putting it back */
+    if (sent.call !== undefined) {
+      if (!opens(sent.key)) return json({ error: 'no' }, 403);
+      if (Date.now() < Date.parse(b.opens)) return json({ error: 'not open yet' }, 409);
+      if (sent.call === false) {
+        await store.setJSON(calledKey(n), null);
+        return json({ ok: true, called: null });
+      }
+      const rec = { at: new Date().toISOString() };
+      await store.setJSON(calledKey(n), rec);
+      return json({ ok: true, called: rec });
+    }
+
     const name = normalise(sent.name);
     if (!name || name.length > 60) return json({ error: 'name needed' }, 400);
 
     const now = Date.now();
     if (now < Date.parse(b.opens)) return json({ error: 'not open yet' }, 409);
     if (now > Date.parse(b.closes)) return json({ error: 'voting has closed' }, 409);
+    /* called early: shut to voting exactly as if Sunday had come */
+    if (calledAt(await store.get(calledKey(n), { type: 'json' }))) {
+      return json({ error: 'voting has closed' }, 409);
+    }
 
     const votes = (await store.get(`ch${n}`, { type: 'json' })) || {};
 
@@ -163,10 +197,13 @@ export default async (req) => {
       if (!opens(key)) return json({ error: 'no' }, 403);
       const votes = (await store.get(`ch${n}`, { type: 'json' })) || {};
       const silenced = (await store.get(hushKey(n), { type: 'json' })) || {};
+      const called = await store.get(calledKey(n), { type: 'json' });
+      const early = calledAt(called);
       const result = tally(votes, isMe, silenced);
       const dropped = new Set(result.superseded || []);
       return json({
-        state: Date.now() > Date.parse(b.closes) ? 'closed'
+        called: early ? { at: called.at } : null,
+        state: early || Date.now() > Date.parse(b.closes) ? 'closed'
              : Date.now() < Date.parse(b.opens) ? 'soon' : 'open',
         opens: b.opens, closes: b.closes, films: b.films,
         roster: Object.entries(votes)
@@ -197,18 +234,23 @@ export default async (req) => {
     }
 
     const now = Date.now();
-    if (now < Date.parse(b.opens)) return json({ state: 'soon' });
-    if (now <= Date.parse(b.closes)) return json({ state: 'open' });   /* deliberately no numbers */
+    /* called early counts as Sunday having come: voting shut, result out */
+    const early = calledAt(await store.get(calledKey(n), { type: 'json' }));
+    if (!early) {
+      if (now < Date.parse(b.opens)) return json({ state: 'soon' });
+      if (now <= Date.parse(b.closes)) return json({ state: 'open' });  /* deliberately no numbers */
+    }
 
     const votes = (await store.get(`ch${n}`, { type: 'json' })) || {};
     const silenced = (await store.get(hushKey(n), { type: 'json' })) || {};
     const result = tally(votes, isMe, silenced);
-    if (!result.winner) return json({ state: 'closed', winner: null });
+    if (!result.winner) return json({ state: 'closed', winner: null, early: !!early });
     return json({
       state: 'closed',
       winner: result.winner,
       film: b.films[result.winner],
       split: result.split,
+      early: !!early,          /* the room called it rather than the calendar */
     });
   }
 

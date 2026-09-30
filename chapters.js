@@ -397,7 +397,11 @@
     var now = Date.now(), waiting = [];
     CHAPTERS.forEach(function (c) {
       if (!c.ballot || c.voted) return;
-      if (now <= new Date(c.ballot.closes).getTime()) return;
+      /* A ballot whose Sunday has not come is asked about too, because the chair
+         can call one early from the roster. While it is genuinely still running
+         the server answers 'open' and gives no numbers, and nothing here changes
+         — the reply is only ever acted on when it says the room has decided. */
+      if (now < new Date(c.ballot.opens).getTime()) return;
       waiting.push(fetch('/api/ballot?chapter=' + c.n, { headers: { accept: 'application/json' } })
         .then(function (r) { return r.ok ? r.json() : null; })
         .then(function (d) {
