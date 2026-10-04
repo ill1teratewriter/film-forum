@@ -1100,14 +1100,15 @@ footer a:hover{border-bottom-color:var(--hb)}
 
   function ballotBody(c) {
     var mine = F.getVote(c);
+    var cl = F.closeLocal(c);
     var intro = '<p class="ballot-intro"><b>Pick the road for chapter ' + pad(c.n) + '.</b> Voting closes ' +
-                F.weekday(c.ballot.closes) + ' night, and the field guide for the winner lands the day after.</p>';
+                cl.day + ' at ' + cl.time + ', and the field guide for the winner lands the day after.</p>';
     if (mine) {
       return intro +
         '<div class="roads">' + ballotRoad('hb', c, mine) + ballotRoad('sb', c, mine) + '</div>' +
         forumRow(c) +
         '<div class="donemsg">✓ Your vote is in, ' + esc(mine.name) + '. You picked ' + roadName(mine.road) + ', ' + esc(c.ballot[mine.road][0]) + '.' +
-          '<span class="small">Voting closes ' + F.weekday(c.ballot.closes) + ' night. You can change it until then.</span>' +
+          '<span class="small">Voting closes ' + cl.day + ' at ' + cl.time + '. You can change it until then.</span>' +
           '<button type="button" class="undo" data-clear="' + c.n + '">Clear my vote and pick again</button></div>';
     }
     return intro +
@@ -1240,8 +1241,8 @@ footer a:hover{border-bottom-color:var(--hb)}
     if (b === 'soon')
       return '<span class="pill lockpill" data-open="' + c.n + '">' + LOCK +
              '<span class="pillswap"><span class="was"><span class="ulab"></span><b class="ut"></b></span>' +
-             '<span class="now">Vote by ' + F.withDay(c.ballot.closes) + '</span></span></span>';
-    if (b === 'vote') return '<span class="pill">Vote by ' + F.withDay(c.ballot.closes) + '</span>';
+             '<span class="now">Vote by ' + F.closeLocal(c).short + '</span></span></span>';
+    if (b === 'vote') return '<span class="pill">Vote by ' + F.closeLocal(c).short + '</span>';
     var m = F.meetLocal(c);
     return '<span class="pill forum" data-forum="' + c.n + '">Forum ' + m.day + ' · ' + m.time + '</span>';
   }
@@ -1250,7 +1251,8 @@ footer a:hover{border-bottom-color:var(--hb)}
   function whenLine(c) {
     var b = F.beat(c), m = F.meetLocal(c, true), out = '';
     if (b === 'soon') out += '<span class="w"><b>Votes open</b> ' + F.longDate(c.ballot.opens) + '</span>';
-    if (b === 'vote') out += '<span class="w"><b>Vote by</b> the end of ' + F.longDate(c.ballot.closes) + '</span>';
+    if (b === 'vote') out += '<span class="w"><b>Vote by</b> ' + F.closeLocal(c, true).day +
+      ' at ' + F.closeLocal(c).time + '</span>';
     if (b !== 'done') out += '<span class="w"><b>Forum</b> ' + m.day + ' · ' + m.time + '</span>';
     return out ? '<p class="when">' + out + '</p>' : '';
   }

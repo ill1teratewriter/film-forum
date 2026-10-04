@@ -19,9 +19,10 @@
    THE RHYTHM · everything lands on a Sunday, two weeks to a chapter:
      Sunday 1, 6:00 PM PT   we meet and talk about the chapter
      Sunday 1, that evening the next chapter's two films go on the ballot
-     Sunday 2, 11:59 PM PT  voting closes, the winner is announced
+     Sunday 2, 12:00 AM PT  voting closes as that Sunday begins, winner announced
      Sunday 3, 6:00 PM PT   we meet about the next chapter
-   So a member gets a week to vote and then a week to watch whatever won.
+   So a member gets just under a week to vote, and then a full week plus the whole
+   of that Sunday to watch whatever won.
    =========================================================================== */
 (function () {
   var PARTS = {
@@ -64,7 +65,7 @@
       col: { hb: '#ff5c7a', sb: '#79b7e8' },
       ballot: {
         opens:  '2026-09-27T18:30:00-07:00',
-        closes: '2026-10-04T23:59:00-07:00',
+        closes: '2026-10-04T00:00:00-07:00',
         hb: ['Rear Window', '1954 \u00b7 112 min \u00b7 dir. Alfred Hitchcock',
              'A photographer stuck at home with a broken leg starts watching his neighbours across the courtyard, and becomes sure one of them has committed murder.'],
         sb: ['The Truman Show', '1998 \u00b7 103 min \u00b7 dir. Peter Weir',
@@ -81,7 +82,7 @@
       col: { hb: '#e88fb0', sb: '#cf3b4a' },
       ballot: {
         opens:  '2026-10-11T18:30:00-07:00',
-        closes: '2026-10-18T23:59:00-07:00',
+        closes: '2026-10-18T00:00:00-07:00',
         hb: ['The Grand Budapest Hotel', '2014 · 99 min · dir. Wes Anderson',
              'A legendary hotel concierge and his teenage lobby boy are framed for murder in a made-up European country, just as war arrives.'],
         sb: ['In the Mood for Love', '2000 · 98 min · dir. Wong Kar-wai',
@@ -98,7 +99,7 @@
       col: { hb: '#93a08c', sb: '#b9a06a' },
       ballot: {
         opens:  '2026-10-25T18:30:00-07:00',
-        closes: '2026-11-01T23:59:00-08:00',
+        closes: '2026-11-01T00:00:00-07:00',
         hb: ['The Blair Witch Project', '1999 \u00b7 81 min \u00b7 dir. Daniel Myrick & Eduardo S\u00e1nchez',
              'Three film students head into the Maryland woods to make a documentary about a local legend, and their footage is all that\u2019s left.'],
         sb: ['The Witch', '2015 \u00b7 92 min \u00b7 dir. Robert Eggers',
@@ -115,7 +116,7 @@
       col: { hb: '#c8a870', sb: '#ee5566' },
       ballot: {
         opens:  '2026-11-08T18:30:00-08:00',
-        closes: '2026-11-15T23:59:00-08:00',
+        closes: '2026-11-15T00:00:00-08:00',
         hb: ['No Country for Old Men', '2007 · 122 min · dir. Joel & Ethan Coen',
              'A Texas hunter stumbles on a drug deal gone wrong and walks off with two million dollars, and a killer with a cattle gun comes after him.'],
         sb: ['Baby Driver', '2017 · 113 min · dir. Edgar Wright',
@@ -132,7 +133,7 @@
       col: { hb: '#c9a227', sb: '#f28ab2' },
       ballot: {
         opens:  '2026-11-22T18:30:00-08:00',
-        closes: '2026-11-29T23:59:00-08:00',
+        closes: '2026-11-29T00:00:00-08:00',
         hb: ['The Godfather', '1972 · 175 min · dir. Francis Ford Coppola',
              'The youngest son of a New York crime family wants nothing to do with the business. Then someone tries to kill his father.'],
         sb: ['Lost in Translation', '2003 · 102 min · dir. Sofia Coppola',
@@ -149,7 +150,7 @@
       col: { hb: '#7ab648', sb: '#f0a23c' },
       ballot: {
         opens:  '2026-12-06T18:30:00-08:00',
-        closes: '2026-12-13T23:59:00-08:00',
+        closes: '2026-12-13T00:00:00-08:00',
         hb: ['Joker', '2019 · 122 min · dir. Todd Phillips',
              'Gotham, 1981. A failed comedian with a condition that makes him laugh uncontrollably is beaten down by the city, until he stops trying to be ignored.'],
         sb: ['City of God', '2002 · 130 min · dir. Fernando Meirelles & Kátia Lund',
@@ -166,7 +167,7 @@
       col: { hb: '#4f9fd1', sb: '#e23b3b' },
       ballot: {
         opens:  '2026-12-20T18:30:00-08:00',
-        closes: '2026-12-27T23:59:00-08:00',
+        closes: '2026-12-27T00:00:00-08:00',
         hb: ['Thelma & Louise', '1991 · 130 min · dir. Ridley Scott',
              'Two friends leave for a weekend away from their small lives in Arkansas. One night at a roadside bar changes everything, and they keep driving.'],
         sb: ['From Dusk Till Dawn', '1996 · 108 min · dir. Robert Rodriguez',
@@ -239,6 +240,33 @@
     if (off === null || isNaN(off)) off = -480;
     return new Date(base - off * 60000);
   }
+  /* ---------- the vote deadline, in the reader's own clock ----------
+     A ballot closes at midnight as the Sunday begins — Pacific midnight, because
+     that is the Forum's own clock and a vote has one count and so one moment.
+     That moment is not midnight anywhere else: it is 8 AM Sunday in London and
+     Sunday evening in Sydney. "The end of Sunday" used to be vague enough to
+     need no zone; midnight is not, so the deadline is now printed as the day and
+     hour it actually falls on wherever the reader is sitting.
+
+     { day: 'Sun, Oct 4', time: '12 AM PDT', short: 'Sun, Oct 4, 12 AM' }      */
+  function closeLocal(c, long) {
+    var iso = (c && c.ballot ? c.ballot.closes : c);
+    var d = new Date(iso), dd, tt;
+    if (isNaN(d.getTime())) return { day: longDate(iso), time: '', short: longDate(iso) };
+    try {
+      dd = new Intl.DateTimeFormat(undefined, long
+        ? { weekday: 'long', month: 'long', day: 'numeric' }
+        : { weekday: 'short', month: 'short', day: 'numeric' }).format(d);
+      tt = new Intl.DateTimeFormat(undefined,
+        { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(d);
+    } catch (e) {
+      dd = long ? longDate(iso) : withDay(iso);
+      tt = '12 AM PT';
+    }
+    tt = tt.replace(':00 ', ' ');
+    return { at: d, day: dd, time: tt, short: dd + ', ' + tt };
+  }
+
   /* { day: 'Sun, Oct 11', time: '6 PM PDT' } in the reader's own zone */
   function meetLocal(c, long) {
     var d = meetAt(c), dd, tt;
@@ -575,7 +603,8 @@
         '<div class="nlab">' + lab + '</div>' +
         '<div class="nid">Chapter ' + pad(nc.n) + '</div>' +
         '<div class="ntitle">' + esc(nc.title) + '</div>' +
-        (nst === 'ballot' ? '<div class="ndate">Vote by the end of ' + longDate(nc.ballot.closes) + '</div>' : '') +
+        (nst === 'ballot' ? '<div class="ndate">Vote by ' + closeLocal(nc, true).day +
+          ', ' + closeLocal(nc).time + '</div>' : '') +
         (beat(nc) === 'soon' ? '<div class="ndate">Votes open ' + longDate(nc.ballot.opens) + '</div>' : '') +
         (nc.hook ? '<div class="nhook">' + esc(nc.hook) + '</div>' : '') +
         '<div class="ndate">Forum ' + meetLocal(nc, true).day + ' · ' + meetLocal(nc).time + '</div>' + go;
@@ -761,6 +790,7 @@
     PARTS: PARTS, CHAPTERS: CHAPTERS, cur: cur, state: state, href: href, done: bookDone,
     getVote: getVote, setVote: setVote, clearVote: clearVote, sendVote: sendVote, drawChip: drawChip,
     short: short, withDay: withDay, longDate: longDate, weekday: weekday, pad: pad, esc: esc,
+    closeLocal: closeLocal,
     beat: beat, meetAt: meetAt, meetLocal: meetLocal, ballotAt: ballotAt, DOOR: DOOR,
     FORUM: FORUM, forumUrl: forumUrl, forumLive: forumLive, name: getName, saveName: saveName,
     isRead: isRead, markRead: markRead, readCount: readCount
