@@ -222,6 +222,112 @@ h1{font-family:var(--display);font-weight:700;text-transform:uppercase;letter-sp
 .go:hover{background:var(--text);color:var(--ink);border-color:var(--text)}
 .note{font-size:13.5px;color:var(--faint);font-style:italic}
 
+/* ---------- the field guide, inside the film that won -----------------------
+   A member told Julian they had not realised the guide was there. It had been an
+   outlined pill below a brighter Add to calendar — easy to read as a footnote.
+   It now sits inside the winning film's own card, under its share of the vote,
+   because that card is where the eye already is: this is the film, and this is
+   the way into it. Green, which on this site has only ever meant go — the join
+   button turns green when the room opens. */
+.gbtn{display:flex;align-items:center;gap:10px;width:100%;margin-top:15px;
+  padding:11px 14px;border-radius:11px;text-decoration:none;position:relative;
+  color:#07140d;background:linear-gradient(135deg,#a8e6bd,var(--ok) 58%,#6cc78c);
+  border:1px solid rgba(143,217,168,.9);
+  box-shadow:0 0 0 0 rgba(143,217,168,.45), 0 8px 26px -14px rgba(143,217,168,.9);
+  animation:gshine 3.6s ease-in-out infinite;
+  transition:transform .18s ease,box-shadow .25s ease,filter .2s ease}
+@keyframes gshine{
+  0%,100%{box-shadow:0 0 0 0 rgba(143,217,168,0), 0 8px 26px -14px rgba(143,217,168,.9)}
+  50%    {box-shadow:0 0 22px 2px rgba(143,217,168,.34), 0 8px 26px -14px rgba(143,217,168,.9)}
+}
+.gbtn:hover,.gbtn:focus-visible{transform:translateY(-1px);filter:brightness(1.06);
+  box-shadow:0 0 26px 3px rgba(143,217,168,.42), 0 12px 30px -14px rgba(143,217,168,1)}
+.gbtn:focus-visible{outline:2px solid var(--ok);outline-offset:3px}
+.gbtn .gi{flex:0 0 auto;width:24px;height:24px;display:grid;place-items:center}
+.gbtn .gi svg{width:18px;height:18px;display:block}
+.gbtn .gl{min-width:0;flex:1 1 auto;font-family:var(--display);font-size:12.5px;font-weight:600;
+  letter-spacing:.09em;text-transform:uppercase;line-height:1.25}
+.gbtn .arr{flex:0 0 auto;font-family:var(--display);font-size:16px;line-height:1;
+  transition:transform .18s ease}
+.gbtn:hover .arr{transform:translateX(3px)}
+/* already read: the door stays, the shine stops */
+.gbtn.done{background:none;color:var(--ok);border-color:rgba(143,217,168,.45);
+  animation:none;box-shadow:none}
+.gbtn.done:hover{filter:none;background:rgba(143,217,168,.1);border-color:var(--ok);
+  box-shadow:none;transform:none}
+@media (max-width:560px){
+  .gbtn{gap:9px;padding:10px 12px}
+  .gbtn .gl{font-size:11.5px}
+}
+@media (prefers-reduced-motion:reduce){
+  .gbtn{animation:none;transition:none}
+  .gbtn:hover{transform:none}
+}
+@media print{ .gbtn{background:none;color:#111;border:1px solid #999;box-shadow:none;animation:none} }
+
+/* ---------- the field guide, when no film won it ---------------------------
+   Chapters the room never voted on still have a guide, and it still needs a
+   door. Same plate as before, below the two films rather than inside one. */
+.guide{display:flex;align-items:center;gap:16px;width:100%;margin-top:20px;
+  padding:17px 20px;border-radius:15px;text-decoration:none;position:relative;
+  --gc:var(--hb);
+  color:var(--text);border:1px solid color-mix(in srgb,var(--gc) 55%,transparent);
+  background:linear-gradient(135deg,color-mix(in srgb,var(--gc) 17%,transparent),
+                                     color-mix(in srgb,var(--gc) 6%,transparent) 62%,transparent);
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--gc) 42%,transparent);
+  transition:transform .18s ease,box-shadow .28s ease,border-color .18s ease,background .25s ease}
+@supports not (color: color-mix(in srgb,red,blue)){
+  .guide{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.06)}
+}
+.guide:hover,.guide:focus-visible{transform:translateY(-1px);
+  border-color:var(--gc);box-shadow:0 10px 34px -12px var(--gc)}
+.guide:focus-visible{outline:2px solid var(--gc);outline-offset:3px}
+.guide .gi{position:relative;flex:0 0 auto;width:40px;height:40px;border-radius:11px;
+  display:grid;place-items:center;
+  background:color-mix(in srgb,var(--gc) 22%,transparent);
+  border:1px solid color-mix(in srgb,var(--gc) 45%,transparent)}
+.guide .gi svg{width:21px;height:21px;display:block}
+.guide .gt{min-width:0;flex:1 1 auto}
+.guide .gl{display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  font-family:var(--display);font-size:15px;font-weight:600;letter-spacing:.055em;
+  text-transform:uppercase;line-height:1.15;color:#fff}
+.guide .gsub{display:block;margin-top:4px;font-size:13.5px;line-height:1.5;color:var(--dim)}
+.guide .arr{flex:0 0 auto;font-family:var(--display);font-size:19px;color:var(--gc);
+  transition:transform .18s ease}
+.guide:hover .arr{transform:translateX(4px)}
+/* never opened on this device */
+.guide .gnew{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:600;border-radius:999px;padding:3px 9px;white-space:nowrap;
+  color:#160a0f;background:var(--gc)}
+.guide .gdot{position:absolute;top:-5px;right:-5px;width:11px;height:11px;border-radius:50%;
+  background:var(--gc);box-shadow:0 0 0 3px var(--ink)}
+.guide .gdot::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--gc);
+  animation:gpulse 2.4s ease-out infinite}
+@keyframes gpulse{0%{transform:scale(1);opacity:.75}70%,100%{transform:scale(2.6);opacity:0}}
+/* already read: still the main door, just no longer waving */
+.guide.done{--gc:var(--ok)}
+.guide.done .gl{color:var(--dim)}
+.guide.done .gsub{color:var(--faint)}
+.guide .gread{font-family:var(--display);font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ok);border:1px solid rgba(143,217,168,.45);border-radius:999px;padding:3px 9px;
+  white-space:nowrap}
+@media (max-width:560px){
+  /* the subline wraps to three or four lines here, so the icon and the arrow
+     line up with the title rather than floating halfway down the block */
+  .guide{gap:13px;padding:15px 16px;align-items:flex-start}
+  .guide .gi{width:34px;height:34px;border-radius:10px;margin-top:1px}
+  .guide .gi svg{width:18px;height:18px}
+  .guide .gl{font-size:13.5px}
+  .guide .gsub{font-size:12.5px}
+  .guide .arr{margin-top:7px}
+}
+@media (prefers-reduced-motion:reduce){
+  .guide,.guide .arr{transition:none}
+  .guide:hover{transform:none}
+  .guide .gdot::after{animation:none}
+}
+@media print{ .guide{background:none;border:1px solid #999;box-shadow:none} .guide .gdot{display:none} }
+
 /* ---------- the two clocks -------------------------------------------------
    A week waiting to meet counts down the last day in its own pill, and five
    minutes before the call a strip arrives under the row carrying the way in. A
@@ -1049,7 +1155,28 @@ footer a:hover{border-bottom-color:var(--hb)}
              '<div class="tagrow"><span class="rt ' + side + '">' + roadName(side) + '</span>' + (won ? '<span class="voted">Voted</span>' : '') + '</div>' +
              filmTitle(f[0], c.ty && c.ty[side]) + '<div class="m">' + esc(f[1]) + '</div>' + awards(c, side) +
              share(c, side) +
+             (won && c.page ? guideBtn(c) : '') +
            '</div>';
+  }
+
+  /* The way into the film the room chose, sitting in that film's own card.
+     Short, because the card has already said which film this is. */
+  function guideBtn(c) {
+    var read = F.isRead(c.n);
+    return '<a class="gbtn' + (read ? ' done' : '') + '" href="' + F.href(c.slug) + '">' +
+      '<span class="gi">' +
+        (read
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M20 6 9 17l-5-5"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H9a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H3Z"/>' +
+            '<path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H15a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H21Z"/>' +
+            '</svg>') +
+      '</span>' +
+      '<span class="gl">' + (read ? 'Field guide · read' : 'Open the field guide') + '</span>' +
+      '<span class="arr" aria-hidden="true">&rarr;</span></a>';
   }
 
   /* Every film wears its own lettering: on the ballot, after the vote, and
@@ -1078,6 +1205,46 @@ footer a:hover{border-bottom-color:var(--hb)}
      that has not run yet offers its calendar invitation — a real .ics file, so a
      phone hands it straight to the calendar app with a reminder already set — and
      from an hour before the call a join button appears beside it. */
+  /* The way in to the chapter.
+   *
+   * "Open the field guide" names the thing without saying what it is, which is
+   * fine once you know and useless before. So the label keeps the name and the
+   * line underneath says what is behind the door, in the words of this chapter:
+   * the film that won, and what the guide does with it. */
+  function guideCta(c, st) {
+    var read = F.isRead(c.n);
+    var film = c.voted && c.ballot ? c.ballot[c.voted][0] : null;
+    var what = read
+      ? (film ? 'Everything on ' + film + ' — open any time.' : 'Open it again any time.')
+      : film
+        ? 'Everything for ' + film + ': where it came from, what to watch for, and the ' +
+          'questions we open with.'
+        : 'Where the rule came from, what to watch for, and the questions we open with.';
+    /* the film's colour is written inline, which beats any stylesheet rule — so
+       a guide already read must not carry it, or `.guide.done` can never repaint
+       it green. The same trap the title treatments hit. */
+    return '<a class="guide' + (read ? ' done' : '') + '" href="' + F.href(c.slug) + '"' +
+      (c.color && !read ? ' style="--gc:' + esc(c.color) + '"' : '') + '>' +
+      '<span class="gi">' +
+        (read
+          ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M20 6 9 17l-5-5"/></svg>'
+          : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" ' +
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M3 5.5A1.5 1.5 0 0 1 4.5 4H9a3 3 0 0 1 3 3v12a2.5 2.5 0 0 0-2.5-2.5H3Z"/>' +
+            '<path d="M21 5.5A1.5 1.5 0 0 0 19.5 4H15a3 3 0 0 0-3 3v12a2.5 2.5 0 0 1 2.5-2.5H21Z"/>' +
+            '</svg>') +
+        (read ? '' : '<span class="gdot" aria-hidden="true"></span>') +
+      '</span>' +
+      '<span class="gt"><span class="gl">Open the field guide' +
+        (read ? '<span class="gread">Read</span>' : '<span class="gnew">Not opened yet</span>') +
+      '</span><span class="gsub">' + esc(what) +
+        (st === 'past' ? ' Both films kept in full, with a paper edition for each.' : '') +
+      '</span></span>' +
+      '<span class="arr" aria-hidden="true">&rarr;</span></a>';
+  }
+
   function forumRow(c) {
     if (F.beat(c) === 'done') return '';
     var url = F.forumUrl(), live = F.forumLive(c), m = F.meetLocal(c);
@@ -1482,8 +1649,14 @@ footer a:hover{border-bottom-color:var(--hb)}
           (c.rule ? '<div class="rule"><span class="k">Where the rule came from</span><p>' + esc(c.rule) + '</p></div>' : '') +
           '<div class="roads">' + road('hb', c) + road('sb', c) + '</div>' +
           forumRow(c) +
-          (c.page ? '<div class="cta"><a class="go" href="' + F.href(c.slug) + '">Open the field guide →</a>' +
-            (st === 'past' ? '<span class="note">Both films kept in full, with a paper edition for each.</span>' : '') + '</div>' : '<div class="cta"><span class="note">Field guide coming soon.</span></div>');
+          /* the guide rides inside the winning film's card; only a chapter with
+             no winner needs a door of its own below the two */
+          (!c.page ? '<div class="cta"><span class="note">Field guide coming soon.</span></div>'
+            : c.voted
+              ? (st === 'past'
+                  ? '<div class="cta"><span class="note">Both films kept in full, with a paper ' +
+                    'edition for each.</span></div>' : '')
+              : guideCta(c, st));
         var cls = 'ch ' + (st === 'closed' ? 'next' : st) + (st === 'ballot' && F.getVote(c) ? ' hasvote' : '') + (c.spooky ? ' spooky' : '');
         html += open
           ? '<details class="' + cls + '" name="ch" id="ch-' + c.n + '"' + (keepOpen === c.n ? ' open' : '') + '>' +

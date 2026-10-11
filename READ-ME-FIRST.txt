@@ -1,0 +1,55 @@
+FILM FORUM — everything that changed since the site was last updated
+====================================================================
+
+SIX FILES. Replace each one with the copy in this folder, keeping the
+same paths. Nothing else in your repo needs touching.
+
+  index.html                      <- top level
+  chapters.js                     <- top level
+  roster/index.html
+  netlify/functions/ballot.mjs
+  netlify/functions/tally.mjs
+  netlify/functions/ballots.mjs
+
+In GitHub: open each file, click the pencil, select all, paste, commit.
+Commit all six before Netlify finishes if you can, so they deploy together.
+
+
+WHAT IS IN HERE
+---------------
+
+1. Silence a vote            A Silence / Count it switch on every row in the
+                             room. Takes a duplicate vote out of the count and
+                             deletes nothing.
+
+2. Newest vote first         The room is ordered by when people voted, with the
+                             hour under each name. The older of two rows is
+                             always the lower one.
+
+3. The curtain               /roster/ is a green velvet curtain until the key
+                             is accepted. The page source gives nothing away
+                             either -- the heading, the badge and all the notes
+                             now come down from the server with the key.
+
+4. Call it now               A button on every open ballot that ends the vote
+                             early and puts the result on the site. Two taps,
+                             and the warning names the film that is about to
+                             win. Reopen is also two taps.
+
+5. Midnight deadlines        Every ballot now closes at 12:00 AM Pacific as its
+                             Sunday begins, instead of 11:59 PM that night. The
+                             deadline is printed in each member's own timezone.
+
+6. The field guide button    Moved inside the winning film's card, green, one
+                             line. It knows whether you have opened it.
+
+
+ONE THING TO KNOW
+-----------------
+
+ballots.mjs is GENERATED from chapters.js by tools/build-calendar.mjs.
+It is in here already built, so you do not need to run anything -- but if
+you ever change a date in chapters.js by hand, run that build or the server
+will still be using the old dates.
+
+Nothing here needs a new environment variable.
