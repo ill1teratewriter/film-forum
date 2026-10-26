@@ -75,7 +75,7 @@
       /* the question the next chapter opens with, used to end the one before */
       hook: 'Where does a film put things, and what is it keeping out of the frame?',
       aw: { hb: { t: 'Won 4 Academy Awards in 2015: Production Design, Costume Design, Makeup and Hairstyling, Original Score' } },
-      rule: 'The rule of thirds began as a tentative note in an engraver’s 1797 book on landscape painting.',       date: '2026-10-25',
+      rule: 'The rule of thirds began as a tentative note in an engraver’s 1797 book on landscape painting.',       date: '2026-10-26',
       /* each film's own lettering: class, markup, colour */
       ty: { hb: ['c-gbh', '<span class="sm">THE</span> <span>GRAND</span> <span>BUDAPEST</span> <span class="lo">Hotel</span>', '--tc:#f7cfe0'], sb: ['c-mood', 'In the Mood for Love', '--tc:#f5455a'] },
       /* the poster colours the winning card takes on the contents page */
